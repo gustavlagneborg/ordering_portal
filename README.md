@@ -5,3 +5,5 @@ A ordering platform for ordering radiology images for research purposes. This we
 `pip install -r requirements.txt`
 
 ## Run the application
+`cd orderingplatform`
+`flask run`
