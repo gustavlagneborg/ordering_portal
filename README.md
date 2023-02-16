@@ -6,4 +6,5 @@ A ordering platform for ordering radiology images for research purposes. This we
 
 ## Run the application
 `cd orderingplatform`
+
 `flask run`
