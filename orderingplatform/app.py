@@ -1,8 +1,8 @@
-"""Setting up the flask application """
+"""Setting up the flask application"""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from api import api
+from api.api import api
 
 
 app = Flask(__name__)
