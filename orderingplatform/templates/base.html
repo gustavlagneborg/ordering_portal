@@ -4,12 +4,19 @@
     <title>Beställningsprotalen</title>
 </head>
 <body>
+    <div>
+        <a href="/order_project">Order a project</a>
+        | 
+        <a href="/about">About</a>
+      </div>
+
     <style>
         body {
         background-image: url({{ url_for("static", filename="images/background.jpg") }})
         }
     </style>
-    
-    <h1>Welcome!</h1>
+    {% block content %}
+    <h1>Welcome to the orderingportal</h1>
+    {% endblock %}
 </body>
 </html>

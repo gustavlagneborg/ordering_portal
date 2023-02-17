@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Order a project</h1>
+<from action="/order_project" method="POST">
+    {{ project_form.hidden_tag() }}
+    <p>{{ project_form.order_name.label }} {{ project_form.order_name() }}</p>
+
+    <p>Pseudonymisation model:</p>
+    <tr>
+        {% for btn in project_form.pseudonymisation_type %}
+            <td>{{ btn }}</td>
+            <td>{{ btn.label }}</td>
+        {% endfor %}
+    </tr>
+
+</from>
+{% endblock %}
