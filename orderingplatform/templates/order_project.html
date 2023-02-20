@@ -18,6 +18,18 @@
             <td>{{ btn.label }}</td>
         {% endfor %}
     </tr>
+    <p>{{ project_form.multiselect.label }}</p>
+    {{ project_form.multiselect(**{"multiple": "multiple"}) }}
     <p>{{ project_form.submit() }}</p>  
 </from>
+
+<script>
+    $(function () {
+        $('select').multipleSelect({
+            multiple: true,
+            multipleWidth: 60
+        })
+    })
+</script>
+
 {% endblock %}
