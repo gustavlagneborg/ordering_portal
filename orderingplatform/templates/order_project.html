@@ -22,7 +22,6 @@
     {{ project_form.multiselect(**{"multiple": "multiple"}) }}
     <p>{{ project_form.submit() }}</p>  
 </from>
-
 <script>
     $(function () {
         $('select').multipleSelect({
@@ -31,5 +30,4 @@
         })
     })
 </script>
-
 {% endblock %}
