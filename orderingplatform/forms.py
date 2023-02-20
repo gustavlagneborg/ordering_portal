@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, RadioField, SelectMultipleField, w
 from wtforms.validators import DataRequired, InputRequired
 from constants import FormConstants
 
+
 class ProjectForm(FlaskForm):
     """Form for ordering a project."""
 
@@ -18,7 +19,7 @@ class ProjectForm(FlaskForm):
         validators=[InputRequired()],
     )
 
-    multiselect = SelectMultipleField("Body parts",
-        choices=FormConstants.BODY_PART_OPTIONS
+    multiselect = SelectMultipleField(
+        "Body parts", choices=FormConstants.BODY_PART_OPTIONS
     )
     submit = SubmitField("Order projet")
