@@ -4,12 +4,20 @@
 <from action="/order_project" method="POST">
     {{ project_form.hidden_tag() }}
     <p>{{ project_form.order_name.label }} {{ project_form.order_name() }}</p>
-    <p>Pseudonymisation model:</p>
+    <p>Modality options</p>
     <tr>
-        {% for btn in project_form.pseudonymisation_type %}
+        {% for btn in project_form.modality_type %}
             <td>{{ btn }}</td>
             <td>{{ btn.label }}</td>
         {% endfor %}
     </tr>
+    <p>Pseudonymisation model:</p>
+    <tr>
+        {% for btn in project_form.pseudo_type %}
+            <td>{{ btn }}</td>
+            <td>{{ btn.label }}</td>
+        {% endfor %}
+    </tr>
+    <p>{{ project_form.submit() }}</p>  
 </from>
 {% endblock %}

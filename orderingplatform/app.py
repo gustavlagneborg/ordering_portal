@@ -12,8 +12,8 @@ app.config["SECRET_KEY"] = "orderingplatform"
 # db = SQLAlchemy(app)
 app.register_blueprint(api, url_prefix="/api/v1")
 
-#login_manager = LoginManager()
-#login_manager.init_app(app)
+# login_manager = LoginManager()
+# login_manager.init_app(app)
 
 # import models and routes after app is initialized
 import routes, models
