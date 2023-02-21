@@ -15,6 +15,8 @@ def index():
 def order_project():
     """Route for ordering a project."""
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
+    
+    print(request.form)
 
     return render_template("order_project.html", project_form=project_form)
 

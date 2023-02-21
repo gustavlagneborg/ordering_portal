@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Order a project</h1>
-<from action="/order_project" method="POST">
+<form action="/order_project" method="POST">
     {{ project_form.hidden_tag() }}
+
     <p>{{ project_form.order_name.label }} {{ project_form.order_name() }}</p>
+
     <p>Modality options</p>
     <tr>
         {% for btn in project_form.modality_type %}
@@ -11,6 +13,7 @@
             <td>{{ btn.label }}</td>
         {% endfor %}
     </tr>
+
     <p>Pseudonymisation model:</p>
     <tr>
         {% for btn in project_form.pseudo_type %}
@@ -18,16 +21,13 @@
             <td>{{ btn.label }}</td>
         {% endfor %}
     </tr>
-    <p>{{ project_form.multiselect.label }}</p>
-    {{ project_form.multiselect(**{"multiple": "multiple"}) }}
-    <p>{{ project_form.submit() }}</p>  
-</from>
-<script>
-    $(function () {
-        $('select').multipleSelect({
-            multiple: true,
-            multipleWidth: 60
-        })
-    })
-</script>
+
+    <p>Select necessary body parts:</p>
+    <select name="body_part" id="body_part" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+        {% for type in project_form.body_part %}
+            <option value="{{ type }}">{{ type }}</option>
+        {% endfor %}
+    </select>
+    <p>{{ project_form.submit() }}</p>
+</form>
 {% endblock %}

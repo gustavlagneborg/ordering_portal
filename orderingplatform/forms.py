@@ -18,8 +18,9 @@ class ProjectForm(FlaskForm):
         choices=FormConstants.PSEUDO_OPTIONS,
         validators=[InputRequired()],
     )
-
-    multiselect = SelectMultipleField(
-        "Body parts", choices=FormConstants.BODY_PART_OPTIONS
+    body_part = SelectMultipleField(
+        "Body parts",
+        choices=FormConstants.BODY_PART_OPTIONS,
+        validators=[InputRequired()],
     )
     submit = SubmitField("Order projet")
