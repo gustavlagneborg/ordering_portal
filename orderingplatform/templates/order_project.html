@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Order a project</h1>
+
 <form action="/order_project" method="POST">
     {{ project_form.hidden_tag() }}
 
@@ -22,12 +23,20 @@
         {% endfor %}
     </tr>
 
-    <p>Select necessary body parts:</p>
-    <select name="body_part" id="body_part" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-        {% for type in project_form.body_part %}
-            <option value="{{ type }}">{{ type }}</option>
+    <p>Select necessary examination:</p>
+    <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+        {% for type in project_form.examination %}
+            <td>{{ type }}</td>
         {% endfor %}
     </select>
     <p>{{ project_form.submit() }}</p>
 </form>
+
+<div class="error">'
+    {% for message in get_flashed_messages() %}
+    <h2>{{ message }}</h2>
+    {% endfor %}
+</div>
+
+
 {% endblock %}

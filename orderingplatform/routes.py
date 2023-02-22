@@ -1,7 +1,7 @@
 """Website routes"""
 
 from app import app
-from flask import request, render_template
+from flask import request, render_template, flash, url_for, redirect
 from forms import ProjectForm
 
 
@@ -15,8 +15,13 @@ def index():
 def order_project():
     """Route for ordering a project."""
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
-    
-    print(request.form)
+
+    if request.method == "POST":
+        if not ProjectForm.validate_examination(
+            examination=project_form.examination.data
+        ):
+            flash("Examination is requiered!")
+            return redirect(url_for("order_project"))
 
     return render_template("order_project.html", project_form=project_form)
 
