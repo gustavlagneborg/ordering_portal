@@ -17,11 +17,11 @@ def order_project():
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
 
     if request.method == "POST":
-        if not ProjectForm.validate_examination(
+        ProjectForm.validate_examination(
             examination=project_form.examination.data
-        ):
-            flash("Examination is requiered!")
-            return redirect(url_for("order_project"))
+        )
+        
+            
 
     return render_template("order_project.html", project_form=project_form)
 

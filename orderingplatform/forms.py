@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, RadioField, SelectMultipleField, w
 from wtforms.validators import DataRequired, InputRequired, ValidationError
 from constants import FormConstants
 from typing import List
+from flask import flash, url_for, redirect
 
 
 class ProjectForm(FlaskForm):
@@ -27,8 +28,8 @@ class ProjectForm(FlaskForm):
     submit = SubmitField("Order projet")
 
     @staticmethod
-    def validate_examination(examination: List) -> bool:
+    def validate_examination(examination: List):
         """Validates that examination data is passed in the ProjectForm"""
         if len(examination) == 0:
-            return False
-        return True
+            flash("Examination is requiered!")
+            return redirect(url_for("order_project"))
