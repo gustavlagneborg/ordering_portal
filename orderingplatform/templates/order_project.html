@@ -7,9 +7,6 @@
     <!-- Project name -->
     <div class="project_name">
         <p>{{ project_form.project_name.label }} {{ project_form.project_name() }}</p>
-        {% if project_form.errors.project_name %}
-        <p class="error">{{ project_form.errors.project_name[0] }}</p>
-        {% endif %}
     </div>
 
     <!-- Pseudonymisation options -->
@@ -21,9 +18,6 @@
                     <td>{{ btn.label }}</td>
                 {% endfor %}
             </tr>
-        {% if project_form.errors.pseudo_type %}
-        <p class="error">{{ project_form.errors.pseudo_type[0] }}</p>
-        {% endif %}
     </div>
 
     <!-- Modality options -->

@@ -18,9 +18,9 @@ def order_project():
 
     if project_form.validate_on_submit():
         print("Success!")
-        #Log something
-        #add_project()
-        #return redirect(url_for("user/projects"))
+        # Log something
+        # add_project()
+        # return redirect(url_for("user/projects"))
 
     return render_template("order_project.html", project_form=project_form)
 
@@ -29,9 +29,17 @@ def order_project():
 def about():
     return render_template("about.html")
 
-app.route("/login")
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     return render_template("login.html")
 
 
-    
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    return render_template("login.html")
+
+
+@app.route("/user")
+def user():
+    return render_template("user.html")
