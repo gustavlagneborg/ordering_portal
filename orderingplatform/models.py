@@ -1,7 +1,6 @@
 """Declaring database models and relationsships."""
 from app import db
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
-from datetime import datetime
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 

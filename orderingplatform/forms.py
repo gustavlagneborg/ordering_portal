@@ -5,7 +5,7 @@ from wtforms import (
     RadioField,
     SelectMultipleField,
     PasswordField,
-    BooleanField
+    BooleanField,
 )
 from wtforms.validators import DataRequired, InputRequired, Email
 from constants import FormConstants
@@ -37,11 +37,11 @@ class ProjectForm(FlaskForm):
     )
     submit = SubmitField("Order projet")
 
-    class LoginForm(FlaskForm):
-        """Form for loging in a user."""
-        
-        email = StringField('Email',
-                            validators=[DataRequired(), Email()])
-        password = PasswordField('Password', validators=[DataRequired()])
-        remember = BooleanField('Remember Me')
-        submit = SubmitField('Login')
+
+class LoginForm(FlaskForm):
+    """Form for loging in a user."""
+
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    remember = BooleanField("Remember Me")
+    submit = SubmitField("Login")

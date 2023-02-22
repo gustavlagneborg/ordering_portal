@@ -2,7 +2,8 @@
 
 from app import app
 from flask import request, render_template
-from forms import ProjectForm
+from forms import ProjectForm, LoginForm
+from flask_login import LoginManager, login_required, login_user, logout_user
 
 
 @app.route("/")
@@ -12,6 +13,7 @@ def index():
 
 
 @app.route("/order_project", methods=["GET", "POST"])
+# @login_required
 def order_project():
     """Route for ordering a project."""
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
@@ -32,7 +34,8 @@ def about():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    login_form = LoginForm(csrf_enabled=False)
+    return render_template("login.html", form=login_form)
 
 
 @app.route("/logout", methods=["GET", "POST"])
