@@ -4,39 +4,60 @@
 
 <form action="/order_project" method="POST">
     {{ project_form.hidden_tag() }}
+    <!-- Project name -->
+    <div class="project_name">
+        <p>{{ project_form.project_name.label }} {{ project_form.project_name() }}</p>
+        {% if project_form.errors.project_name %}
+        <p class="error">{{ project_form.errors.project_name[0] }}</p>
+        {% endif %}
+    </div>
 
-    <p>{{ project_form.order_name.label }} {{ project_form.order_name() }}</p>
+    <!-- Pseudonymisation options -->
+    <div class="pseudo_options">
+        <p>Pseudonymisation model:</p>
+            <tr>
+                {% for btn in project_form.pseudo_type %}
+                    <td>{{ btn }}</td>
+                    <td>{{ btn.label }}</td>
+                {% endfor %}
+            </tr>
+        {% if project_form.errors.pseudo_type %}
+        <p class="error">{{ project_form.errors.pseudo_type[0] }}</p>
+        {% endif %}
+    </div>
 
-    <p>Modality options</p>
-    <tr>
-        {% for btn in project_form.modality_type %}
-            <td>{{ btn }}</td>
-            <td>{{ btn.label }}</td>
-        {% endfor %}
-    </tr>
+    <!-- Modality options -->
+    <div class="modalities">
+        <p>Modality options</p>
+        <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+            <tr>
+                {% for btn in project_form.modalities %}
+                    <td>{{ btn }}</td>
+                {% endfor %}
+            </tr>
+        </select>
+        {% if project_form.errors.modalities %}
+        <p class="error">{{ project_form.errors.modalities[0] }}</p>
+        {% endif %}
+    </div>
 
-    <p>Pseudonymisation model:</p>
-    <tr>
-        {% for btn in project_form.pseudo_type %}
-            <td>{{ btn }}</td>
-            <td>{{ btn.label }}</td>
-        {% endfor %}
-    </tr>
+    <!-- Examination options -->
+    <div class="examination_options">
+        <p>Select necessary examination:</p>
+        <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+            {% for type in project_form.examination %}
+                <td>{{ type }}</td>
+            {% endfor %}
+        </select>
+        {% if project_form.errors.examination %}
+        <p class="error">{{ project_form.errors.examination[0] }}</p>
+        {% endif %}
+    </div>
 
-    <p>Select necessary examination:</p>
-    <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-        {% for type in project_form.examination %}
-            <td>{{ type }}</td>
-        {% endfor %}
-    </select>
-    <p>{{ project_form.submit() }}</p>
+    <!-- Submit button -->
+    <div class="project_form_submit">
+        <p>{{ project_form.submit() }}</p>
+    </div>
+
 </form>
-
-<div class="error">'
-    {% for message in get_flashed_messages() %}
-    <h2>{{ message }}</h2>
-    {% endfor %}
-</div>
-
-
 {% endblock %}

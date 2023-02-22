@@ -1,7 +1,7 @@
 """Website routes"""
 
 from app import app
-from flask import request, render_template, flash, url_for, redirect
+from flask import request, render_template
 from forms import ProjectForm
 
 
@@ -16,12 +16,11 @@ def order_project():
     """Route for ordering a project."""
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
 
-    if request.method == "POST":
-        ProjectForm.validate_examination(
-            examination=project_form.examination.data
-        )
-        
-            
+    if project_form.validate_on_submit():
+        print("Success!")
+        #Log something
+        #add_project()
+        #return redirect(url_for("user/projects"))
 
     return render_template("order_project.html", project_form=project_form)
 
@@ -29,3 +28,10 @@ def order_project():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+    
