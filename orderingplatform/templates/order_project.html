@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Order a project</h1>
+<head>
+    <h1>Order a new project</h1>
+</head>
 
 <form action="/order_project" method="POST">
     {{ project_form.hidden_tag() }}
@@ -46,7 +48,7 @@
         {% if project_form.errors.examination %}
         <p class="error">{{ project_form.errors.examination[0] }}</p>
         {% endif %}
-    </div>
+    </div><br>
 
     <!-- Submit button -->
     <p class="button">{{ project_form.submit() }}</p>

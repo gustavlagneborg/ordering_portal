@@ -15,3 +15,10 @@
     background-color: white;
     text-align: center;
   }
+
+.nav_bar {
+  left: 0;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+}

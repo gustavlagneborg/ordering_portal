@@ -27,11 +27,6 @@ def order_project():
     return render_template("order_project.html", project_form=project_form)
 
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     register_form = RegistrationForm(csrf_enabled=False)
@@ -54,9 +49,14 @@ def login():
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
-    return render_template("login.html")
+    return render_template("logout.html")
 
 
 @app.route("/user")
 def user():
     return render_template("user.html")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
