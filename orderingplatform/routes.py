@@ -32,9 +32,12 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     register_form = RegistrationForm(csrf_enabled=False)
+
+    if register_form.validate_on_submit():
+        print("Success!")
 
     return render_template("register.html", form=register_form)
 
@@ -45,6 +48,7 @@ def login():
 
     if login_form.validate_on_submit():
         print("success!")
+
     return render_template("login.html", form=login_form)
 
 

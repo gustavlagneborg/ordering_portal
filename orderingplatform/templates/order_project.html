@@ -22,7 +22,7 @@
 
     <!-- Modality options -->
     <div class="modalities">
-        <p>Modality options</p>
+        <p>Select modalities</p>
         <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
             <tr>
                 {% for btn in project_form.modalities %}
@@ -37,7 +37,7 @@
 
     <!-- Examination options -->
     <div class="examination_options">
-        <p>Select necessary examination:</p>
+        <p>Select examinations:</p>
         <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
             {% for type in project_form.examination %}
                 <td>{{ type }}</td>
@@ -50,7 +50,6 @@
 
     <!-- Submit button -->
     <p class="button">{{ project_form.submit() }}</p>
-
 
 </form>
 {% endblock %}

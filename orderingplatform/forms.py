@@ -41,12 +41,8 @@ class RegistrationForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    external = RadioField(
-        "External user", choices=FormConstants.YES_NO, validators=[DataRequired()]
-    )
-    admin = RadioField(
-        "Admin user", choices=FormConstants.YES_NO, validators=[DataRequired()]
-    )
+    external = BooleanField("External user")
+    admin = BooleanField("Admin user")
     password = PasswordField("Password", validators=[DataRequired()])
     password2 = PasswordField(
         "Repeat Password", validators=[DataRequired(), EqualTo("password")]

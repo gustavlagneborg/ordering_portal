@@ -3,38 +3,58 @@
 
 <head>
     <h1>Register new user</h1>
-  </head>
-  <br>
-  <body>
-      <br>
-      <form action="" method="post">
-          {{ form.hidden_tag() }}
-          <p>
-              {{ form.username(size=32,placeholder="username") }}<br>
-              {% for error in form.username.errors %}
-              <span class="error">{{ error }}</span>
-              {% endfor %}
-          </p>
-          <p>
-              {{ form.email(size=32,placeholder="email@gmail.com") }}<br>
-              {% for error in form.email.errors %}
-              <span class="error">{{ error }}</span>
-              {% endfor %}
-          </p>
-          <p>
-              {{ form.password(size=32,placeholder="password*$%!@") }}<br>
-              {% for error in form.password.errors %}
-              <span class="error"></span>{{ error }}</span>
-              {% endfor %}
-          </p>
-          <p>
-              {{ form.password2(size=32,placeholder="password*$%!@") }}<br>
-              {% for error in form.password2.errors %}
-              <span class="error">{{ error }}</span>
-              {% endfor %}
-          </p>
-          <p class="button">{{ form.submit() }}</p>
-      </form>
-  </body>
+</head>
+<br>
+<body>
+    <br>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <!-- Username -->
+        <div class=""register_username>
+            <p>{{ form.username.label }}</p>
+            <p>
+                {{ form.username(size=32,placeholder="username") }}<br>
+                {% for error in form.username.errors %}
+                <span class="error">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
+
+        <!-- Email -->
+        <div class="register_email">
+            <p>{{ form.email.label }}</p>
+            <p>
+                {{ form.email(size=32,placeholder="email@gmail.com") }}<br>
+                {% for error in form.email.errors %}
+                <span class="error">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
+
+        <!-- Password -->
+        <div class="register_password">
+            <p>{{ form.password.label }}</p>
+            <p>
+                {{ form.password(size=32,placeholder="password*$%!@") }}<br>
+                {% for error in form.password.errors %}
+                <span class="error"></span>{{ error }}</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password2(size=32,placeholder="password*$%!@") }}<br>
+                {% for error in form.password2.errors %}
+                <span class="error">Passwords does not match</span>
+                {% endfor %}
+            </p>
+        </div>
+
+        <!-- Extranal and Admin user -->
+        <p class="external">{{ form.external() }} {{ form.external.label }}</p>
+        <p class="external">{{ form.admin() }} {{ form.admin.label }}</p>
+        
+        <!-- Submit button -->
+        <p class="button">{{ form.submit() }}</p>
+    </form>
+</body>
 
 {% endblock %}
