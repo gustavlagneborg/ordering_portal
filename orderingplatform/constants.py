@@ -18,3 +18,5 @@ class FormConstants:
         ("Chest", "Chest"),
         ("Scul", "Scul"),
     ]
+
+    YES_NO = [("Yes", "Yes"), ("No", "No")]

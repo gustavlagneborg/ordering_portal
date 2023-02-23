@@ -2,7 +2,7 @@
 
 from app import app
 from flask import request, render_template
-from forms import ProjectForm, LoginForm
+from forms import ProjectForm, LoginForm, RegistrationForm
 from flask_login import LoginManager, login_required, login_user, logout_user
 
 
@@ -30,6 +30,13 @@ def order_project():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+
+@app.route("/register")
+def register():
+    register_form = RegistrationForm(csrf_enabled=False)
+
+    return render_template("register.html", form=register_form)
 
 
 @app.route("/login", methods=["GET", "POST"])

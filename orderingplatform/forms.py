@@ -7,10 +7,8 @@ from wtforms import (
     PasswordField,
     BooleanField,
 )
-from wtforms.validators import DataRequired, InputRequired, Email
+from wtforms.validators import DataRequired, InputRequired, Email, EqualTo
 from constants import FormConstants
-from typing import List
-from flask import flash, url_for, redirect
 
 
 class ProjectForm(FlaskForm):
@@ -36,6 +34,24 @@ class ProjectForm(FlaskForm):
         validators=[InputRequired(message="Examinations are required!")],
     )
     submit = SubmitField("Order projet")
+
+
+class RegistrationForm(FlaskForm):
+    """Form for registring a user"""
+
+    username = StringField("Username", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    external = RadioField(
+        "External user", choices=FormConstants.YES_NO, validators=[DataRequired()]
+    )
+    admin = RadioField(
+        "Admin user", choices=FormConstants.YES_NO, validators=[DataRequired()]
+    )
+    password = PasswordField("Password", validators=[DataRequired()])
+    password2 = PasswordField(
+        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
+    )
+    submit = SubmitField("Register")
 
 
 class LoginForm(FlaskForm):

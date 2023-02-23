@@ -2,21 +2,33 @@
 {% block content %}
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.email.label }}<br>
-        {{ form.email(size=32) }}<br>
-        {% for error in form.email.errors %}
-        <span>{{ error }}</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}<br>
-        {% for error in form.password.errors %}
-        <span>[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.remember() }} {{ form.remember.label }}</p>
-    <p>{{ form.submit() }}</p>
+
+    <!-- Email -->
+    <div class="email_login">
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}<br>
+            {% for error in form.email.errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+        </p>
+    </div>
+   
+    <!-- Password -->
+    <div class="password_login">
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+        </p>
+    </div>
+    
+    <!-- Remeber me -->
+    <p class="remember_me">{{ form.remember() }} {{ form.remember.label }}</p>
+
+    <!-- Login -->
+    <p class="button">{{ form.submit() }}</p>
 </form>
 {% endblock %}
