@@ -35,6 +35,9 @@ def about():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     login_form = LoginForm(csrf_enabled=False)
+
+    if login_form.validate_on_submit():
+        print("success!")
     return render_template("login.html", form=login_form)
 
 
