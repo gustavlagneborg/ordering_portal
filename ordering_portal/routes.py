@@ -1,9 +1,12 @@
 """Website routes"""
 
-from app import app
-from flask import request, render_template
+from app import app, db
+from flask import render_template, flash, redirect, url_for
 from forms import ProjectForm, LoginForm, RegistrationForm
+from store import Store
 from flask_login import LoginManager, login_required, login_user, logout_user
+
+store = Store(db=db)
 
 
 @app.route("/")
@@ -34,7 +37,9 @@ def register():
     register_form = RegistrationForm(csrf_enabled=False)
 
     if register_form.validate_on_submit():
-        print("Success!")
+        store.add_user(form=register_form)
+        flash("User successfully added!")
+        return redirect(url_for("register"))
 
     return render_template("register.html", form=register_form)
 
