@@ -10,26 +10,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <nav class="nav_bar">
+    <header class="nav_header">
         <a class="logo" href="/">Ordering Portal</a>
-        <a href="/order_project">Order a project</a>
-        | 
-        <a href="/about">About</a>
-        |
-        <a href="/login">Login</a>
-    </nav>
-
-    <style>
-        body {
-        background-image: url({{ url_for("static", filename="images/background.jpg") }})
-        }
-    </style>
-    {% block content %}
-    <h1>Welcome to the Ordering Portal</h1>
-    {% endblock %}
+        <nav class="nav_bar">
+            <ul class="nav_links">
+                <li><a href="/order_project">Order a project</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a class="login" href="/login"><button>Login</button></a>
+    </header>
+    
+    <div class="main_content">
+        {% block content %}
+        <h1>Welcome to the Ordering Portal</h1>
+        {% endblock %}
+    </div>
 
     <footer class="footer">
-        <p>Contact ...</p>
+        <p>This is the footer</p>
     </footer>
 </body>
 </html>
