@@ -7,6 +7,7 @@ from wtforms import (
     SelectMultipleField,
     PasswordField,
     BooleanField,
+    DateField,
 )
 from wtforms.validators import DataRequired, InputRequired, Email, EqualTo
 from constants import FormConstants
@@ -19,6 +20,8 @@ class ProjectForm(FlaskForm):
         "Project name",
         validators=[InputRequired()],
     )
+    startdate = DateField("Start Date", format="%Y-%m-%d", validators=(DataRequired(),))
+    enddate = DateField("End Date", format="%Y-%m-%d", validators=(DataRequired(),))
     pseudo_type = RadioField(
         "Pseudonymisation",
         choices=FormConstants.PSEUDO_OPTIONS,

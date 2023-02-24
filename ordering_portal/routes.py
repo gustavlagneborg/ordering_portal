@@ -20,11 +20,13 @@ def order_project():
 
     if project_form.validate_on_submit():
         print("Success!")
+        print(project_form.startdate.data)
+        print(project_form.enddate.data)
         # Log something
         # add_project()
         # return redirect(url_for("user/projects"))
 
-    return render_template("order_project.html", project_form=project_form)
+    return render_template("order_project.html", form=project_form)
 
 
 @app.route("/register", methods=["GET", "POST"])

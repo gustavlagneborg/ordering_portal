@@ -5,17 +5,23 @@
 </head>
 
 <form action="/order_project" method="POST">
-    {{ project_form.hidden_tag() }}
+    {{ form.hidden_tag() }}
     <!-- Project name -->
     <div class="project_name">
-        <p>{{ project_form.project_name.label }} {{ project_form.project_name() }}</p>
+        <p>{{ form.project_name.label }} {{ form.project_name() }}</p>
+    </div>
+
+    <!-- Date selection -->
+    <div class="date_selection">
+        <p>{{ form.startdate.label }} {{form.startdate(class='datepicker')}}</p>
+        <p>{{ form.enddate.label }} {{form.enddate(class='datepicker')}}</p> 
     </div>
 
     <!-- Pseudonymisation options -->
     <div class="pseudo_options">
         <p>Pseudonymisation model:</p>
             <tr>
-                {% for btn in project_form.pseudo_type %}
+                {% for btn in form.pseudo_type %}
                     <td>{{ btn }}</td>
                     <td>{{ btn.label }}</td>
                 {% endfor %}
@@ -27,13 +33,13 @@
         <p>Select modalities</p>
         <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
             <tr>
-                {% for btn in project_form.modalities %}
+                {% for btn in form.modalities %}
                     <td>{{ btn }}</td>
                 {% endfor %}
             </tr>
         </select>
-        {% if project_form.errors.modalities %}
-        <p class="error">{{ project_form.errors.modalities[0] }}</p>
+        {% if form.errors.modalities %}
+        <p class="error">{{ form.errors.modalities[0] }}</p>
         {% endif %}
     </div>
 
@@ -41,17 +47,17 @@
     <div class="examination_options">
         <p>Select examinations:</p>
         <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-            {% for type in project_form.examination %}
+            {% for type in form.examination %}
                 <td>{{ type }}</td>
             {% endfor %}
         </select>
-        {% if project_form.errors.examination %}
-        <p class="error">{{ project_form.errors.examination[0] }}</p>
+        {% if form.errors.examination %}
+        <p class="error">{{ form.errors.examination[0] }}</p>
         {% endif %}
     </div><br>
 
     <!-- Submit button -->
-    <p class="button">{{ project_form.submit() }}</p>
+    <p class="button">{{ form.submit() }}</p>
 
 </form>
 {% endblock %}
