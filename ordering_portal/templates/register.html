@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-</div>
+
 <h1>Register new user</h1>
 
 <form action="" method="post">
@@ -42,7 +42,6 @@
             <span class="error">Passwords does not match</span>
             {% endfor %}
         </p>
-    </div>
 
     <!-- Extranal and Admin user -->
     <p class="external">{{ form.external() }} {{ form.external.label }}</p>
@@ -51,13 +50,5 @@
     <!-- Submit button -->
     <p class="button" ><button>Register user</button></p>
 </form>
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <p class="message">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 
 {% endblock %}

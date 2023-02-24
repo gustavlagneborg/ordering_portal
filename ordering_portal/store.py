@@ -1,9 +1,11 @@
 """Store backend in the Ordering Portal"""
 
-from datetime import datetime
 import logging
+
+from datetime import datetime
 from models import User
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm
+from flask_login import login_user, logout_user
 
 
 LOG = logging.getLogger(__name__)
@@ -13,7 +15,7 @@ class Store:
     def __init__(self, db) -> None:
         self.db = db
 
-    def add_user(self, form: RegistrationForm):
+    def add_user(self, form: RegistrationForm) -> User:
         """Add a new user to the database."""
         user = User(
             username=form.username.data,
@@ -27,3 +29,15 @@ class Store:
         self.db.session.add(user)
         self.db.session.commit()
         LOG.info(f"User {user} successfully added!")
+        return user
+
+    def login_user(self, form: LoginForm) -> bool:
+        """Login in a user."""
+
+        user: User = User.query.filter_by(email=form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            LOG.info(f"User {user} logged in")
+            return True
+        
+        return False
