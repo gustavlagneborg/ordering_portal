@@ -9,6 +9,7 @@ from flask_login import login_required
 
 store = Store(db=db)
 
+
 @app.route("/")
 @app.route("/home")
 def index():
@@ -39,14 +40,14 @@ def register():
     if register_form.validate_on_submit():
         user = store.add_user(form=register_form)
         flash(f"{user} successfully added!")
-        #return redirect(url_for("register"))
+        # return redirect(url_for("register"))
 
     return render_template("register.html", form=register_form)
 
 
 @login_manager.user_loader
 def load_user(user_id):
-  return User.query.get(int(user_id))
+    return User.query.get(int(user_id))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -55,7 +56,6 @@ def login():
     user: User = User.query.filter_by(email=login_form.email.data).first()
 
     if login_form.validate_on_submit():
-
         if store.login_user(form=login_form):
             return redirect(url_for(".user", username=user.username))
         else:
@@ -80,6 +80,7 @@ def user(username):
 @app.route("/about")
 def about():
     return render_template("about.html")
+
 
 @app.route("/contact")
 def contact():

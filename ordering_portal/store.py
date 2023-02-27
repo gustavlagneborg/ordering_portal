@@ -39,5 +39,5 @@ class Store:
             login_user(user, remember=form.remember.data)
             LOG.info(f"User {user} logged in")
             return True
-        
+
         return False

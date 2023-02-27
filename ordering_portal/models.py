@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         """Representaion function."""
-        #return f"User: {self.username}"
+        # return f"User: {self.username}"
         return "Hi"
 
     def set_password(self, password):
