@@ -25,20 +25,20 @@
     <div class="main_content">
         {% block content %}
         <h1>Welcome to the Ordering Portal</h1>
+
         {% endblock %}
-    </div>
-
-    <footer class="footer">
-        <p>This is the footer</p>
-    </footer>
-
-    {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
                 <p class="message">{{ message }}</p>
             {% endfor %}
         {% endif %}
-    {% endwith %}
+        {% endwith %}
+    </div>
+
+    <footer class="footer">
+        <p>This is the footer</p>
+    </footer>
 
 </body>
 </html>
