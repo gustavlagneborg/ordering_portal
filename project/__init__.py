@@ -55,7 +55,7 @@ def initialize_extensions(app):
     login.init_app(app)
 
     # Flask-Login configuration
-    from ordering_portal.models import User
+    from project.models import User
 
     @login.user_loader
     def load_user(user_id):
@@ -65,9 +65,11 @@ def initialize_extensions(app):
 def register_blueprints(app):
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)
-    from ordering_portal.api import api
+    from project.api import api_blueprint
+    from project.ordering_portal import ordering_portal_blueprint
 
-    app.register_blueprint(api)
+    app.register_blueprint(ordering_portal_blueprint)
+    app.register_blueprint(api_blueprint)
 
 
 def register_cli_commands(app):

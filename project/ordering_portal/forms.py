@@ -10,7 +10,7 @@ from wtforms import (
     DateField,
 )
 from wtforms.validators import DataRequired, InputRequired, Email, EqualTo
-from constants import FormConstants
+from project.ordering_portal.constants import FormConstants
 
 
 class ProjectForm(FlaskForm):

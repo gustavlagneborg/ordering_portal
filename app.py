@@ -1,4 +1,4 @@
-from ordering_portal import create_app
+from project import create_app
 
 
 # Call the application factory function to construct a Flask application

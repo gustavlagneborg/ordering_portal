@@ -3,8 +3,8 @@
 import logging
 
 from datetime import datetime
-from models import User
-from forms import RegistrationForm, LoginForm
+from project.models import User
+from project.ordering_portal.forms import RegistrationForm, LoginForm
 from flask_login import login_user, logout_user
 
 

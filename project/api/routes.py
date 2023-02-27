@@ -1,9 +1,6 @@
 """Ordering Portal REST API"""
-from flask import Blueprint
+from . import api_blueprint
 
-api = Blueprint("api", __name__)
-
-
-@api.route("/")
+@api_blueprint.route("/")
 def index():
     return "Welcome to Ordering Portal REST API"

@@ -1,8 +1,7 @@
 """Declaring database models and relationsships."""
-from app import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from project import db
 
 class User(UserMixin, db.Model):
     """User model for the database"""
@@ -17,8 +16,7 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         """Representaion function."""
-        # return f"User: {self.username}"
-        return "Hi"
+        return f"User: {self.username}"
 
     def set_password(self, password):
         """Function for hashing passowrds."""
