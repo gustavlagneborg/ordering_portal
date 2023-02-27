@@ -65,8 +65,10 @@ def login():
 
 
 @ordering_portal_blueprint.route("/logout", methods=["GET", "POST"])
+@login_required
 def logout():
-    return render_template("logout.html")
+    logout_user()
+    return redirect(url_for(".login"))
 
 
 @ordering_portal_blueprint.route("/user")
