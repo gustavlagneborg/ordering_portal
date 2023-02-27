@@ -5,7 +5,7 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    FLASK_ENV = "development"
+    ENV = "development"
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.getenv("SECRET_KEY", default="BAD_SECRET_KEY")
@@ -15,7 +15,7 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    FLASK_ENV = "production"
+    ENV = "production"
 
 
 class DevelopmentConfig(Config):
@@ -24,6 +24,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    ENV = "testing"
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "TEST_DATABASE_URI",
         default=f"sqlite:///{os.path.join(BASEDIR, 'instance', 'test.db')}",

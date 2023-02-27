@@ -10,6 +10,7 @@ from project import db
 
 store = Store(db=db)
 
+
 @ordering_portal_blueprint.route("/")
 @ordering_portal_blueprint.route("/home")
 def index():
@@ -47,13 +48,15 @@ def register():
 
 @ordering_portal_blueprint.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        flash("Already logged in!  Redirecting to your User Profile page...")
+        return redirect(url_for(".user"))
 
     login_form = LoginForm(csrf_enabled=False)
-    user: User = User.query.filter_by(email=login_form.email.data).first()
 
     if login_form.validate_on_submit():
         if store.login_user(form=login_form):
-            return redirect(url_for(".user", username=user.username))
+            return redirect(url_for(".user"))
         else:
             flash("Mail or password is incorrect")
             redirect(url_for(".login"))
@@ -66,11 +69,10 @@ def logout():
     return render_template("logout.html")
 
 
-@ordering_portal_blueprint.route("/user/<username>")
+@ordering_portal_blueprint.route("/user")
 @login_required
-def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    return render_template("user.html", user=user)
+def user():
+    return render_template("user.html", user=current_user)
 
 
 @ordering_portal_blueprint.route("/about")
