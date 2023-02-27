@@ -1,15 +1,11 @@
 import wtforms_json
 import pytest
-import os
 
 from project import create_app, db
-from project.models import User
-from project import models
 from project.ordering_portal.forms import RegistrationForm
 from project.ordering_portal.store import Store
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from flask_sqlalchemy import SQLAlchemy
+
 
 
 
