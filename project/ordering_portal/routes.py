@@ -54,8 +54,10 @@ def login():
 
     login_form = LoginForm(csrf_enabled=False)
 
+    print(login_form.data)
+
     if login_form.validate_on_submit():
-        if store.login_user(form=login_form):
+        if store.login(form=login_form):
             return redirect(url_for(".user"))
         else:
             flash("Mail or password is incorrect")

@@ -4,6 +4,7 @@ import logging
 
 from datetime import datetime
 from project.models import User
+from project import models
 from project.ordering_portal.forms import RegistrationForm, LoginForm
 from flask_login import login_user, logout_user
 
@@ -12,12 +13,15 @@ LOG = logging.getLogger(__name__)
 
 
 class Store:
+    User = models.User
+    # Project = modesl.Project etc ...
+
     def __init__(self, db) -> None:
         self.db = db
 
     def add_user(self, form: RegistrationForm) -> User:
         """Add a new user to the database."""
-        user = User(
+        user = self.User(
             username=form.username.data,
             email=form.email.data,
             date_joined=datetime.now(),
@@ -31,7 +35,7 @@ class Store:
         LOG.info(f"User {user} successfully added!")
         return user
 
-    def login_user(self, form: LoginForm) -> bool:
+    def login(self, form: LoginForm) -> bool:
         """Login in a user."""
 
         user: User = User.query.filter_by(email=form.email.data).first()

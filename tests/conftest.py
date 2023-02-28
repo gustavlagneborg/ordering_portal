@@ -2,11 +2,10 @@ import wtforms_json
 import pytest
 
 from project import create_app, db
-from project.ordering_portal.forms import RegistrationForm
+from project.ordering_portal.forms import RegistrationForm, LoginForm
 from project.ordering_portal.store import Store
-from sqlalchemy import create_engine
-
-
+from project.models import User
+from ordering_portal.mocks import MockStore
 
 
 @pytest.fixture(scope="module")
@@ -29,10 +28,22 @@ def store(test_client):
 
     store: Store = Store(db=db)
 
-    yield store # this is where the testing happens!
+    # add dummy user
+    wtforms_json.init()
+    user: dict = {
+        "username": "tolvan",
+        "email": "tolvan@tolvansson.se",
+        "external": False,
+        "admin": True,
+        "password": "tolvan",
+        "password2": "tolvan",
+        "submit": False,
+    }
+    user: User = store.add_user(form=RegistrationForm.from_json(user))
+
+    yield store  # this is where the testing happens!
 
     db.drop_all()
-
 
 
 @pytest.fixture()
@@ -51,11 +62,36 @@ def add_user_form():
 
     return RegistrationForm.from_json(user)
 
-@pytest.fixture(scope='module')
-def cli_test_client():
-    flask_app = create_app()
-    flask_app.config.from_object('config.TestingConfig')
 
-    runner = flask_app.test_cli_runner()
+@pytest.fixture()
+def login_form_existing_user():
+    wtforms_json.init()
 
-    yield runner  # this is where the testing happens!
+    login: dict = {
+        "email": "tolvan@tolvansson.se",
+        "password": "tolvan",
+        "remember": True,
+        "submit": True,
+    }
+
+    return LoginForm.from_json(login)
+
+
+@pytest.fixture()
+def login_form_non_existing_user():
+    wtforms_json.init()
+
+    login: dict = {
+        "email": "tolvan@trettonsson.se",
+        "password": "tolvan",
+        "remember": True,
+        "submit": True,
+    }
+
+    return LoginForm.from_json(login)
+
+
+@pytest.fixture()
+def mock_store():
+    return MockStore
+

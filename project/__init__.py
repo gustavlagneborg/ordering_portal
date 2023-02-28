@@ -85,4 +85,3 @@ def register_cli_commands(app):
         db.drop_all()
         db.create_all()
         echo("Initialized the database!")
-

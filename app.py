@@ -6,6 +6,6 @@ LOG = logging.getLogger(__name__)
 
 # Call the application factory function to construct a Flask application
 # instance using the development configuration
-os.environ["ENVIROMENT"]="STAGE"
+os.environ["ENVIROMENT"] = "STAGE"
 LOG.info(os.environ.get("ENVIROMENT"))
 app = create_app(env=os.environ.get("ENVIROMENT"))
