@@ -23,6 +23,7 @@ def order_project():
     """Route for ordering a project."""
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
 
+
     if project_form.validate_on_submit():
         print("Success!")
         print(project_form.startdate.data)
@@ -35,15 +36,21 @@ def order_project():
 
 
 @ordering_portal_blueprint.route("/register", methods=["GET", "POST"])
+@login_required
 def register():
     register_form = RegistrationForm(csrf_enabled=False)
 
-    if register_form.validate_on_submit():
-        user = store.add_user(form=register_form)
-        flash(f"{user} successfully added!")
-        # return redirect(url_for("register"))
+    if current_user.admin:
+        if register_form.validate_on_submit():
+            user = store.add_user(form=register_form)
+            flash(f"{user} successfully added!")
+            # return redirect(url_for("register"))
 
-    return render_template("register.html", form=register_form)
+        return render_template("register.html", form=register_form)
+    else:
+        flash("To access the admin page you need to be an admin!")
+        return redirect(url_for(".user"))
+
 
 
 @ordering_portal_blueprint.route("/login", methods=["GET", "POST"])
@@ -53,8 +60,6 @@ def login():
         return redirect(url_for(".user"))
 
     login_form = LoginForm(csrf_enabled=False)
-
-    print(login_form.data)
 
     if login_form.validate_on_submit():
         if store.login(form=login_form):
@@ -79,6 +84,17 @@ def user():
     return render_template("user.html", user=current_user)
 
 
+@ordering_portal_blueprint.route("/admin")
+@login_required
+def admin():
+
+    if current_user.admin:
+        return render_template("admin.html")
+    else:
+        flash("To access the admin page you need to be an admin!")
+        redirect(url_for(".user"))
+
+
 @ordering_portal_blueprint.route("/about")
 def about():
     return render_template("about.html")
@@ -87,3 +103,4 @@ def about():
 @ordering_portal_blueprint.route("/contact")
 def contact():
     return render_template("contact.html")
+

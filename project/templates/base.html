@@ -19,7 +19,11 @@
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </nav>
-        <a class="login" href="/login"><button>Login</button></a>
+        {% if current_user.is_authenticated %}
+            <a class="login" href="/user"><button>{{ current_user.username }}</button></a>
+        {% else %}
+            <a class="login" href="/login"><button>Login</button></a>
+        {% endif %}
     </header>
     
     <div class="main_content">
