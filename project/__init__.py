@@ -22,23 +22,23 @@ login.login_view = ".login"
 # ----------------------------
 # Application Factory Function
 # ----------------------------
-def create_app(test: bool = False):
+def create_app(env: str):
     # Create the Flask application
     app = Flask(__name__)
 
     # Configure the Flask application
-    if test == True:
+    if env == "UNIT_TEST":
         config_type = os.getenv("CONFIG_TYPE", default="config.TestingConfig")
+    elif env == "STAGE":
+        config_type = os.getenv("CONFIG_TYPE", default="config.StageConfig")
     else:
-        config_type = os.getenv("CONFIG_TYPE", default="config.DevelopmentConfig")
+        config_type = os.getenv("CONFIG_TYPE", default="config.ProductionConfig")
 
     app.config.from_object(config_type)
 
     initialize_extensions(app)
     register_blueprints(app)
     register_cli_commands(app)
-
-    print(app.config["SQLALCHEMY_DATABASE_URI"])
 
     # Check if the database needs to be initialized
     engine = sa.create_engine(app.config["SQLALCHEMY_DATABASE_URI"])

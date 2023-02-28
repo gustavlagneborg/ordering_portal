@@ -10,15 +10,19 @@ class Config(object):
     TESTING = False
     SECRET_KEY = os.getenv("SECRET_KEY", default="BAD_SECRET_KEY")
 
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'app.db')}"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'stage.db')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
     ENV = "production"
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "PRODUCTION_DATABASE_URI",
+        default=f"sqlite:///{os.path.join(BASEDIR, 'instance', 'production.db')}",
+    )
 
 
-class DevelopmentConfig(Config):
+class StageConfig(Config):
     DEBUG = True
 
 
