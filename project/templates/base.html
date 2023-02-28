@@ -17,10 +17,16 @@
                 <li><a href="/order_project">Order a project</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
+                {% if current_user.admin %}
+                    <li><a class="admin" href="/admin">Admin</a></li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                    <li><a class="user" href="/user">{{ current_user.username}}</a></li>
+                {% endif %}
             </ul>
         </nav>
         {% if current_user.is_authenticated %}
-            <a class="login" href="/user"><button>{{ current_user.username }}</button></a>
+            <a class="logout" href="/logout"><button>Logout</button></a>
         {% else %}
             <a class="login" href="/login"><button>Login</button></a>
         {% endif %}
