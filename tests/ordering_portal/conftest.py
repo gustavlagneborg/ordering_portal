@@ -5,7 +5,7 @@ from project import create_app, db
 from project.ordering_portal.forms import RegistrationForm, LoginForm
 from project.ordering_portal.store import Store
 from project.models import User
-from .ordering_portal.mocks import MockStore
+from .mocks import MockStore
 
 
 @pytest.fixture(scope="module")
