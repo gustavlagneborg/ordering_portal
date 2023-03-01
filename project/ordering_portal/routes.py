@@ -43,7 +43,6 @@ def register():
         if register_form.validate_on_submit():
             user = store.add_user(form=register_form)
             flash(f"{user} successfully added!")
-            # return redirect(url_for("register"))
 
         return render_template("register.html", form=register_form)
     else:

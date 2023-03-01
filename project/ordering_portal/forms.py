@@ -96,13 +96,13 @@ class ExaminationsForm(FlaskForm):
     modalities = SelectMultipleField(
         "Modality",
         choices=FormConstants.MODALITY_OPTIONS,
-        validators=[InputRequired(message="Modalities are required!")],
+        validators=[InputRequired()],
     )
 
     examination = SelectMultipleField(
         "Examinations",
         choices=FormConstants.BODY_PART_OPTIONS,
-        validators=[InputRequired(message="Examinations are required!")],
+        validators=[InputRequired()],
     )
 
     # Optional fields
