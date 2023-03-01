@@ -24,9 +24,8 @@ def order_project():
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
     examination_form: ExaminationsForm = ExaminationsForm(csrf_enabled=False)
 
-    if project_form.validate_on_submit():
-        if examination_form.validate_on_submit():
-            print("Success!")
+    if project_form.validate_on_submit() and examination_form.validate_on_submit():
+        print("Success!")
 
     return render_template(
         "order_project.html",

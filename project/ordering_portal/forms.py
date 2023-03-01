@@ -45,7 +45,7 @@ class GreaterThan(object):
             raise ValidationError(
                 field.gettext("Invalid field name '%s'.") % self.fieldname
             )
-        if field.data is None:
+        if field.data is None or other.data is None:
             return None
         if field.data < other.data:  #  --> Change to >= from !=
             d = {

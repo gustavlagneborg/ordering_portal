@@ -40,116 +40,118 @@
             {% endif %}
         </div><br>
 
-        <button class="toggle_visablility" onclick="toggle_display()">Continue</button>
+        <button class="toggle_visablility">Continue</button>
     </div><br>
 
-    <!-- Extended examination form -->
-    <div class="examination_form">
-        <h3>Data criteria selection</h3>
-        <!-- Patient sex -->
-        <div class="patient_sex">
-            <p>Patiend sex:</p>
-                <tr>
-                    {% for btn in examination_form.patient_sex %}
-                        <td>{{ btn.label }}</td>
-                        <td>{{ btn }}</td>
+    {% if project_form.validate() %}
+        <!-- Extended examination form -->
+        <div class="examination_form">
+            <h3>Data criteria selection</h3>
+            <!-- Patient sex -->
+            <div class="patient_sex">
+                <p>Patiend sex:</p>
+                    <tr>
+                        {% for btn in examination_form.patient_sex %}
+                            <td>{{ btn.label }}</td>
+                            <td>{{ btn }}</td>
 
+                        {% endfor %}
+                    </tr>
+            </div>
+
+            <!-- Date selection -->
+            <div class="date_selection">
+                <p>{{ examination_form.startdate.label }} {{examination_form.startdate(class='datepicker')}}</p>
+                <p>{{ examination_form.enddate.label }} {{examination_form.enddate(class='datepicker')}}</p> 
+            </div>
+
+            <!-- Modality options -->
+            <div class="modalities">
+                <p>Select modality type</p>
+                <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+                    <tr>
+                        {% for btn in examination_form.modalities %}
+                            <td>{{ btn }}</td>
+                        {% endfor %}
+                    </tr>
+                </select>
+                {% if examination_form.errors.modalities %}
+                <p class="error">{{ examination_form.errors.modalities[0] }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Examination options -->
+            <div class="examination_options">
+                <p>Select examinations:</p>
+                <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+                    {% for type in examination_form.examination %}
+                        <td>{{ type }}</td>
                     {% endfor %}
-                </tr>
-        </div>
+                </select>
+                {% if examination_form.errors.examination %}
+                <p class="error">{{ examination_form.errors.examination[0] }}</p>
+                {% endif %}
+            </div><br>
 
-        <!-- Date selection -->
-        <div class="date_selection">
-            <p>{{ examination_form.startdate.label }} {{examination_form.startdate(class='datepicker')}}</p>
-            <p>{{ examination_form.enddate.label }} {{examination_form.enddate(class='datepicker')}}</p> 
-        </div>
+            <!-- Optional fields -->
+            <h4>Optional fields</h4>
 
-        <!-- Modality options -->
-        <div class="modalities">
-            <p>Select modality type</p>
-            <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-                <tr>
-                    {% for btn in examination_form.modalities %}
-                        <td>{{ btn }}</td>
+            <!-- Patient age -->
+            <div class="patient_age">
+                <p>{{ examination_form.patient_age_start.label }} {{ examination_form.patient_age_start }}</p>
+                <p>{{ examination_form.patient_age_end.label }} {{ examination_form.patient_age_end }}</p>
+                
+                {% if examination_form.errors.patient_age_end %}
+                <p class="error">{{ examination_form.errors.patient_age_end[0] }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Remittent opt -->
+            <div class="remittent_options">
+                <p>Select remittents:</p>
+                <select name="remittent" id="remittent" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+                    {% for type in examination_form.remittent %}
+                        <td>{{ type }}</td>
                     {% endfor %}
-                </tr>
-            </select>
-            {% if examination_form.errors.modalities %}
-            <p class="error">{{ examination_form.errors.modalities[0] }}</p>
-            {% endif %}
-        </div>
+                </select>
+                {% if examination_form.errors.remittent %}
+                <p class="error">{{ examination_form.errors.remittent[0] }}</p>
+                {% endif %}
+            </div>
 
-        <!-- Examination options -->
-        <div class="examination_options">
-            <p>Select examinations:</p>
-            <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-                {% for type in examination_form.examination %}
-                    <td>{{ type }}</td>
-                {% endfor %}
-            </select>
-            {% if examination_form.errors.examination %}
-            <p class="error">{{ examination_form.errors.examination[0] }}</p>
-            {% endif %}
+            <!-- Producing department -->
+            <div class="producing_department_options">
+                <p>Select producing department:</p>
+                <select name="producing_department" id="producing_department" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+                    {% for type in examination_form.producing_department %}
+                        <td>{{ type }}</td>
+                    {% endfor %}
+                </select>
+                {% if examination_form.errors.producing_department %}
+                <p class="error">{{ examination_form.errors.producing_department[0] }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Modality lab -->
+            <div class="modality_lab_options">
+                <p>Select modality laboratories:</p>
+                <select name="modality_lab" id="modality_lab" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
+                    {% for type in examination_form.modality_lab %}
+                        <td>{{ type }}</td>
+                    {% endfor %}
+                </select>
+                {% if examination_form.errors.modality_lab %}
+                <p class="error">{{ examination_form.errors.modality_lab[0] }}</p>
+                {% endif %}
+            </div>
+
+            <!-- radiology_verdict -->
+            <br><p id="radiology_verdict">{{ examination_form.radiology_verdict() }} {{ examination_form.radiology_verdict.label }}</p>
+
+            <!-- Submit button -->
+            <p class="button"><button>Order project</button></p>
         </div><br>
+    {% endif %}
 
-        <!-- Optional fields -->
-        <h4>Optional fields</h4>
-
-        <!-- Patient age -->
-        <div class="patient_age">
-            <p>{{ examination_form.patient_age_start.label }} {{ examination_form.patient_age_start }}</p>
-            <p>{{ examination_form.patient_age_end.label }} {{ examination_form.patient_age_end }}</p>
-            
-            {% if examination_form.errors.patient_age_end %}
-            <p class="error">{{ examination_form.errors.patient_age_end[0] }}</p>
-            {% endif %}
-        </div>
-
-        <!-- Remittent opt -->
-        <div class="remittent_options">
-            <p>Select remittents:</p>
-            <select name="remittent" id="remittent" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-                {% for type in examination_form.remittent %}
-                    <td>{{ type }}</td>
-                {% endfor %}
-            </select>
-            {% if examination_form.errors.remittent %}
-            <p class="error">{{ examination_form.errors.remittent[0] }}</p>
-            {% endif %}
-        </div>
-
-        <!-- Producing department -->
-        <div class="producing_department_options">
-            <p>Select producing department:</p>
-            <select name="producing_department" id="producing_department" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-                {% for type in examination_form.producing_department %}
-                    <td>{{ type }}</td>
-                {% endfor %}
-            </select>
-            {% if examination_form.errors.producing_department %}
-            <p class="error">{{ examination_form.errors.producing_department[0] }}</p>
-            {% endif %}
-        </div>
-
-        <!-- Modality lab -->
-        <div class="modality_lab_options">
-            <p>Select modality laboratories:</p>
-            <select name="modality_lab" id="modality_lab" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true">
-                {% for type in examination_form.modality_lab %}
-                    <td>{{ type }}</td>
-                {% endfor %}
-            </select>
-            {% if examination_form.errors.modality_lab %}
-            <p class="error">{{ examination_form.errors.modality_lab[0] }}</p>
-            {% endif %}
-        </div>
-
-        <!-- radiology_verdict -->
-        <br><p id="radiology_verdict">{{ examination_form.radiology_verdict() }} {{ examination_form.radiology_verdict.label }}</p>
-
-        <!-- Submit button -->
-        <p class="button"><button>Order project</button></p>
-    </div><br>
-    
 </form>
 {% endblock %}
