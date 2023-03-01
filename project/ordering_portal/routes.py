@@ -2,7 +2,7 @@
 
 from . import ordering_portal_blueprint
 from flask import render_template, flash, redirect, url_for
-from .forms import ProjectForm, LoginForm, RegistrationForm
+from .forms import ProjectForm, LoginForm, RegistrationForm, ExaminationsForm
 from .store import Store
 from project.models import User
 from flask_login import current_user, login_required, login_user, logout_user
@@ -22,17 +22,17 @@ def index():
 def order_project():
     """Route for ordering a project."""
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
-
+    examination_form: ExaminationsForm = ExaminationsForm(csrf_enabled=False)
 
     if project_form.validate_on_submit():
-        print("Success!")
-        print(project_form.startdate.data)
-        print(project_form.enddate.data)
-        # Log something
-        # add_project()
-        # return redirect(url_for("user/projects"))
+        if examination_form.validate_on_submit():
+            print("Success!")
 
-    return render_template("order_project.html", form=project_form)
+    return render_template(
+        "order_project.html",
+        project_form=project_form,
+        examination_form=examination_form,
+    )
 
 
 @ordering_portal_blueprint.route("/register", methods=["GET", "POST"])
@@ -50,7 +50,6 @@ def register():
     else:
         flash("To access the admin page you need to be an admin!")
         return redirect(url_for(".user"))
-
 
 
 @ordering_portal_blueprint.route("/login", methods=["GET", "POST"])
@@ -87,7 +86,6 @@ def user():
 @ordering_portal_blueprint.route("/admin")
 @login_required
 def admin():
-
     if current_user.admin:
         return render_template("admin.html")
     else:
@@ -103,4 +101,3 @@ def about():
 @ordering_portal_blueprint.route("/contact")
 def contact():
     return render_template("contact.html")
-

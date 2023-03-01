@@ -24,7 +24,7 @@ p {
 }
 
 body {
-  background-image: url(./images/background.jpg);
+  background-image: url(./images/background2.png);
   }
 
 
@@ -34,11 +34,12 @@ body {
   }
 
 .footer {
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     text-align: center;
+    margin-top: 100px;
+    position: fixed;
   }
 
 .logo {
@@ -52,6 +53,11 @@ body {
 .nav_links li {
   display: inline-block;
   padding: 0px 20px;
+}
+
+#login_logout li {
+  display: inline-block;
+  padding: 0px 5px;
 }
 
 .nav_links li a {
@@ -87,4 +93,9 @@ form {
   padding: 20px;
   width: 500px;
   margin: auto auto;
+}
+
+.examination_form {
+  visibility: hidden;
+  display: none;
 }

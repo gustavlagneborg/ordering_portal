@@ -16,7 +16,9 @@ def test_add_user(add_user_form: FlaskForm, store: Store):
     assert store.User.query.filter_by(email=add_user_form.email.data).first() == user
 
 
-def test_login_existing_user(login_form_existing_user: FlaskForm, mock_store: MockStore):
+def test_login_existing_user(
+    login_form_existing_user: FlaskForm, mock_store: MockStore
+):
     """Test loging in a user."""
     # GIVEN a user that exists in a the database
     # WHEN loging in
@@ -26,7 +28,9 @@ def test_login_existing_user(login_form_existing_user: FlaskForm, mock_store: Mo
     assert login
 
 
-def test_login_non_existing_user(login_form_non_existing_user: FlaskForm, mock_store: MockStore):
+def test_login_non_existing_user(
+    login_form_non_existing_user: FlaskForm, mock_store: MockStore
+):
     """Test loging that doesnt exist."""
     # GIVEN a user that does not exist in a the database
     # WHEN loging in

@@ -94,4 +94,3 @@ def login_form_non_existing_user():
 @pytest.fixture()
 def mock_store():
     return MockStore
-

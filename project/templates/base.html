@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
     <header class="nav_header">
@@ -23,7 +24,7 @@
             </ul>
         </nav>
         {% if current_user.is_authenticated %}
-            <ul class="nav_links">
+            <ul class="nav_links" id="login_logout">
                 <li><a class="user" href="/user"><button>{{ current_user.username }}</button></a></li>
                 <li><a class="logout" href="/logout"><button>Logout</button></a></li>
             </ul>
