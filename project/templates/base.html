@@ -32,22 +32,25 @@
             <a class="login" href="/login"><button>Login</button></a>
         {% endif %}
     </header>
+
+    <div id="container">
+        <div id="main_content">
+            {% block content %}
+            <h1>Welcome to the Ordering Portal</h1>
     
-    <div class="main_content">
-        {% block content %}
-        <h1>Welcome to the Ordering Portal</h1>
-
-        {% endblock %}
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p class="message">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
+            {% endblock %}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
     </div>
+    
 
-    <footer class="footer">
+    <footer id="footer">
         <p>This is the footer</p>
     </footer>
 
