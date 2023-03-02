@@ -2,7 +2,7 @@
 
 <h1>Order a new project</h1>
 
-<form action="/order_project" method="POST">
+<form method="POST">
   {{ project_form.hidden_tag() }}
 
   <!-- Basic project form -->
@@ -60,14 +60,6 @@
       {% endif %}
     </div>
     <br />
-
-    <button
-      type="button"
-      class="toggle_visablility"
-      onclick="validateProjectForm()"
-    >
-      Continue
-    </button>
   </div>
   <br />
 
@@ -76,15 +68,25 @@
     <h3>Data criteria selection</h3>
     <!-- Patient sex -->
     <div class="patient_sex">
-      <p>Patiend sex:</p>
-      <tr>
-        {% for btn in examination_form.patient_sex %}
-        <td>{{ btn.label }}</td>
-        <td>{{ btn }}</td>
-
-        {% endfor %}
-      </tr>
-    </div>
+        <p>Patiend sex:</p>
+        <select
+          name="patient_sex"
+          id="patient_sex"
+          class="form-control selectpicker"
+          data-live-search="true"
+          data-actions-box="true"
+        >
+          <tr>
+            {% for btn in project_form.patient_sex %}
+            <td>{{ btn.label }}</td>
+            <td>{{ btn }}</td>
+            {% endfor %}
+          </tr>
+        </select>
+        {% if project_form.errors.patient_sex %}
+        <p class="error">{{ project_form.errors.patient_sex[0] }}</p>
+        {% endif %}
+      </div>
 
     <!-- Date selection -->
     <div class="date_selection">
@@ -231,7 +233,7 @@
     <button
       type="button"
       class="explore_data_button"
-      onclick="validateExaminationForm(); createKibanaLink()"
+      onclick="createKibanaLink()"
     >
       Explore data
     </button>

@@ -87,7 +87,7 @@ class ProjectForm(FlaskForm):
 class ExaminationsForm(FlaskForm):
     """Extended form for ordering a project based on examinations."""
 
-    patient_sex = RadioField(
+    patient_sex = SelectMultipleField(
         "Sex", choices=FormConstants.PATIENT_SEX, validators=[InputRequired()]
     )
 
