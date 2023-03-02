@@ -115,7 +115,11 @@ form {
   padding: 20px;
   width: 500px;
   margin: auto auto;
-  text-align: left
+  text-align: left;
+}
+
+#login_form {
+  text-align: center;
 }
 
 .data_link{
