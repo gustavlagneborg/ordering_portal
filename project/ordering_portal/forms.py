@@ -11,6 +11,7 @@ from wtforms import (
     IntegerField,
     ValidationError,
     validators,
+    SelectField
 )
 from wtforms.validators import (
     DataRequired,
@@ -70,7 +71,7 @@ class ProjectForm(FlaskForm):
         "Project name",
         validators=[InputRequired()],
     )
-    pseudo_type = RadioField(
+    pseudo_type = SelectMultipleField(
         "Pseudonymisation",
         choices=FormConstants.PSEUDO_OPTIONS,
         validators=[InputRequired()],
@@ -79,7 +80,7 @@ class ProjectForm(FlaskForm):
     data_delivery = SelectMultipleField(
         "Data delivery",
         choices=FormConstants.DATA_DELIVERY,
-        validators=[InputRequired(message="Data delivery is required!")],
+        validators=[InputRequired()],
     )
 
 
@@ -90,8 +91,8 @@ class ExaminationsForm(FlaskForm):
         "Sex", choices=FormConstants.PATIENT_SEX, validators=[InputRequired()]
     )
 
-    startdate = DateField("Start Date", format="%Y-%m-%d", validators=(DataRequired(),))
-    enddate = DateField("End Date", format="%Y-%m-%d", validators=(DataRequired(),))
+    startdate = DateField("Start Date", format="%Y-%m-%d", validators=[InputRequired()])
+    enddate = DateField("End Date", format="%Y-%m-%d", validators=[InputRequired()])
 
     modalities = SelectMultipleField(
         "Modality",

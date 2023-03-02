@@ -115,5 +115,11 @@ form {
   padding: 20px;
   width: 500px;
   margin: auto auto;
+  text-align: left
+}
+
+.examination_form, .submit_button, .kibana_link{
+  visibility: hidden;
+  display: none;
 }
 

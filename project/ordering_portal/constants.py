@@ -8,10 +8,10 @@ class FormConstants:
     ]
 
     PSEUDO_OPTIONS = [
+        ("No pseudonymisation", "No pseudonymisation"),
         ("Type 1", "Type 1"),
         ("Type 2", "Type 2"),
         ("Type 3", "Type 3"),
-        ("No pseudonymisation", "No pseudonymisation"),
     ]
 
     BODY_PART_OPTIONS = [
