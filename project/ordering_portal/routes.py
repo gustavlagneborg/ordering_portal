@@ -26,6 +26,8 @@ def order_project():
 
     if project_form.validate_on_submit and examination_form.validate_on_submit():
         print("form Success!")
+        print(examination_form.start_date.data)
+        print(examination_form.end_date.data)
 
     return render_template(
         "order_project.html",

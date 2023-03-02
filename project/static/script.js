@@ -20,13 +20,20 @@ function validateProjectForm() {
 function validateExaminationForm() {
     var modality = document.getElementById("modalities").value
     var examinations = document.getElementById("examination").value
+    
     submit_button = document.querySelector(".submit_button")
-    kibana_link = document.querySelector(".kibana_link")
+    kibana_link = document.querySelector(".data_link")
+    explore_data_button = document.querySelector(".explore_data_button")
+
+    alert(start_date)
+    alert(end_date)
 
     if (examinations == "" || modality == "")
     {
         alert("Please fill the required fields!")
-    } else 
+        
+    } 
+    else 
     {
         submit_button.style.visibility = 'visible'
         submit_button.style.display = "block"
@@ -34,4 +41,9 @@ function validateExaminationForm() {
         kibana_link.style.display = "block"
     }
 
+}
+
+function createKibanaLink() {
+    var link = document.getElementById("data_link");
+    link.setAttribute("href", "kibana.se")
 }

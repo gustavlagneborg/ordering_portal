@@ -91,8 +91,8 @@ class ExaminationsForm(FlaskForm):
         "Sex", choices=FormConstants.PATIENT_SEX, validators=[InputRequired()]
     )
 
-    startdate = DateField("Start Date", format="%Y-%m-%d", validators=[InputRequired()])
-    enddate = DateField("End Date", format="%Y-%m-%d", validators=[InputRequired()])
+    start_date = DateField("Start Date", format="%Y-%m-%d", validators=[InputRequired()])
+    end_date = DateField("End Date", format="%Y-%m-%d", validators=[InputRequired()])
 
     modalities = SelectMultipleField(
         "Modality",

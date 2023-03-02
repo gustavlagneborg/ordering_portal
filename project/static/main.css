@@ -118,7 +118,7 @@ form {
   text-align: left
 }
 
-.examination_form, .submit_button, .kibana_link{
+.examination_form, .submit_button, .data_link{
   visibility: hidden;
   display: none;
 }
