@@ -118,7 +118,7 @@ form {
   text-align: left;
 }
 
-#login_form {
+#login_form, #register_form {
   text-align: center;
 }
 
