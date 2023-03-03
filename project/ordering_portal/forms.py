@@ -11,7 +11,7 @@ from wtforms import (
     IntegerField,
     ValidationError,
     validators,
-    SelectField
+    SelectField,
 )
 from wtforms.validators import (
     DataRequired,
@@ -87,11 +87,9 @@ class ProjectForm(FlaskForm):
 class ExaminationsForm(FlaskForm):
     """Extended form for ordering a project based on examinations."""
 
-    patient_sex = SelectMultipleField(
-        "Sex", choices=FormConstants.PATIENT_SEX, validators=[InputRequired()]
+    start_date = DateField(
+        "Start Date", format="%Y-%m-%d", validators=[InputRequired()]
     )
-
-    start_date = DateField("Start Date", format="%Y-%m-%d", validators=[InputRequired()])
     end_date = DateField("End Date", format="%Y-%m-%d", validators=[InputRequired()])
 
     modalities = SelectMultipleField(
@@ -107,6 +105,9 @@ class ExaminationsForm(FlaskForm):
     )
 
     # Optional fields
+    patient_sex = SelectMultipleField(
+        "Sex", choices=FormConstants.PATIENT_SEX, validators=[validators.optional()]
+    )
     patient_age_start = IntegerField(
         "Minimum patient age",
         validators=[NumberRange(min=0, max=150), validators.optional()],
@@ -120,16 +121,25 @@ class ExaminationsForm(FlaskForm):
         ],
     )
     remittent = SelectMultipleField(
-        "Remittent", choices=FormConstants.REMITTENT_OPTIONS
+        "Remittent",
+        choices=FormConstants.REMITTENT_OPTIONS,
+        validators=[validators.optional()],
     )
 
     producing_department = SelectMultipleField(
-        "Producing department", choices=FormConstants.PRODUCING_DEPARTMENT
+        "Producing department",
+        choices=FormConstants.PRODUCING_DEPARTMENT,
+        validators=[validators.optional()],
     )
     modality_lab = SelectMultipleField(
-        "Modality laboratory", choices=FormConstants.MODALITY_LABORATORY
+        "Modality laboratory",
+        choices=FormConstants.MODALITY_LABORATORY,
+        validators=[validators.optional()],
     )
-    radiology_verdict = BooleanField("Verdict from radiologist")
+    radiology_verdict = BooleanField(
+        "Verdict from radiologist",
+        validators=[validators.optional()],
+    )
 
 
 class RegistrationForm(FlaskForm):

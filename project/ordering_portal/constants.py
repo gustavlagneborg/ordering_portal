@@ -23,9 +23,9 @@ class FormConstants:
     DATA_DELIVERY = [("Kaapana", "Kaapana"), ("Raw data", "Raw data")]
 
     PATIENT_SEX = [
+        ("Both male and female", "Both male and female"),
         ("Female", "Female"),
         ("Male", "Male"),
-        ("Not relevant", "Not relevant"),
     ]
 
     REMITTENT_OPTIONS = [

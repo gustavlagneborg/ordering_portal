@@ -66,27 +66,6 @@
   <!-- Extended examination form -->
   <div class="examination_form">
     <h3>Data criteria selection</h3>
-    <!-- Patient sex -->
-    <div class="patient_sex">
-        <p>Patiend sex:</p>
-        <select
-          name="patient_sex"
-          id="patient_sex"
-          class="form-control selectpicker"
-          data-live-search="true"
-          data-actions-box="true"
-        >
-          <tr>
-            {% for btn in project_form.patient_sex %}
-            <td>{{ btn.label }}</td>
-            <td>{{ btn }}</td>
-            {% endfor %}
-          </tr>
-        </select>
-        {% if project_form.errors.patient_sex %}
-        <p class="error">{{ project_form.errors.patient_sex[0] }}</p>
-        {% endif %}
-      </div>
 
     <!-- Date selection -->
     <div class="date_selection">
@@ -145,6 +124,28 @@
 
     <!-- Optional fields -->
     <h4>Optional fields</h4>
+
+     <!-- Patient sex -->
+     <div class="patient_sex">
+        <p>Patiend sex:</p>
+        <select
+          name="patient_sex"
+          id="patient_sex"
+          class="form-control selectpicker"
+          data-live-search="true"
+          data-actions-box="true"
+        >
+          <tr>
+            {% for btn in examination_form.patient_sex %}
+            <td>{{ btn.label }}</td>
+            <td>{{ btn }}</td>
+            {% endfor %}
+          </tr>
+        </select>
+        {% if examination_form.errors.patient_sex %}
+        <p class="error">{{ examination_form.errors.patient_sex[0] }}</p>
+        {% endif %}
+      </div>
 
     <!-- Patient age -->
     <div class="patient_age">
@@ -239,7 +240,7 @@
     </button>
   </div>
   <br />
-  <a id="data_link" class="data_link" href="">Kibana</a><br />
+  <a target="_blank" id="data_link" class="data_link" href="">Kibana</a><br />
   <button class="submit_button">Submit order</button>
 </form>
 
