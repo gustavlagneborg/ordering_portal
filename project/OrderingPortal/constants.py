@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class FormConstants:
     """Choices for flask forms."""
 
@@ -36,13 +39,26 @@ class FormConstants:
     ]
 
 
-class ModelConstants:
-    """Enum constants for SQLalchemy models."""
+class ProjectStatus(Enum):
+    ETHICAL_APPROVAL="Waiting for ethical approval"
+    RETRIEVING_DATA = "Retrieving data"
+    UPLOADED = "Uploaded to data delivery"
 
-    PROJECT_STATUS = (
-        "Waiting for ethical approval",
-        "Retrieving data",
-        "Uploaded to data delivery",
-    )
-    PSEUDONYMISATION_TYPES = ("No pseudonymisation", "Type 1", "Type 2")
-    PATIENT_SEX = ("Both male and female", "Female", "Male")
+class PseudonymisaiontTypes(Enum):
+    NO_PESUDO = "No pseudonymisation"
+    TYPE1 = "Type 1"
+    TYPE2 = "Type 2"
+
+class PatientSex(Enum):
+    MALE = "Male"
+    FEMALE = "Female"
+    BOTH = "Both"
+
+
+PROJECT_STATUS = (
+    "Waiting for ethical approval",
+    "Retrieving data",
+    "Uploaded to data delivery",
+)
+PSEUDONYMISATION_TYPES = ("No pseudonymisation", "Type 1", "Type 2")
+PATIENT_SEX = ("Both male and female", "Female", "Male")

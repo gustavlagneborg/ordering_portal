@@ -2,8 +2,9 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from project import db
+from datetime import datetime
 from sqlalchemy import types
-from .constants import ModelConstants
+from .constants import PatientSex, ProjectStatus, PseudonymisaiontTypes
 
 
 class User(UserMixin, db.Model):
@@ -13,7 +14,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    date_joined = db.Column(db.DateTime, nullable=False)
+    date_joined = db.Column(db.DateTime, nullable=False, default=datetime.now())
     admin = db.Column(db.Boolean, default=False)
     external = db.Column(db.Boolean, default=False)
     projects = db.relationship("Project", backref="user")
@@ -37,16 +38,18 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String, nullable=False, index=True)
     project_status = db.Column(
-        types.Enum(ModelConstants.PROJECT_STATUS),
+        db.Enum(ProjectStatus),
         nullable=False,
-        default="Waiting for ethical approval",
+        default=ProjectStatus.ETHICAL_APPROVAL,
     )
     pseudonymisation_type = db.Column(
-        types.Enum(ModelConstants.PSEUDONYMISATION_TYPES), nullable=False
+        db.Enum(PseudonymisaiontTypes), nullable=False
     )
-    patient_sex = db.Column(types.Enum(ModelConstants.PATIENT_SEX), nullable=False)
+    patient_sex = db.Column(db.Enum(PatientSex), nullable=False)
+    ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     examinations = db.relationship("ProjectExaminations", back_populates="project")
+    
 
 
 class Examination(db.Model):
@@ -59,11 +62,12 @@ class Examination(db.Model):
     def __repr__(self):
         return self.examination
 
+
 class ProjectExaminations(db.Model):
     """Association table between Project and Examination."""
 
     id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
     examination_id = db.Column(
         db.Integer, db.ForeignKey("examination.id"), nullable=False
     )

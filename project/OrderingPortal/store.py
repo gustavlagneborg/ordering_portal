@@ -45,8 +45,7 @@ class Store:
             return True
 
         return False
-    
-    
+
     def get_examinations(self):
         """Return all examinations."""
         return self.Examination.query.all()

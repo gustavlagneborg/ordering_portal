@@ -20,11 +20,17 @@ from wtforms.validators import (
     EqualTo,
     NumberRange,
 )
-from project.OrderingPortal.constants import FormConstants, ModelConstants
+from project.OrderingPortal.constants import (
+    FormConstants,
+    PATIENT_SEX,
+    PROJECT_STATUS,
+    PSEUDONYMISATION_TYPES,
+)
 from project import db
 from .store import Store
 
 store = Store(db=db)
+
 
 class GreaterThan(object):
     """
@@ -76,7 +82,7 @@ class ProjectForm(FlaskForm):
     )
     pseudo_type = SelectMultipleField(
         "Pseudonymisation",
-        choices=ModelConstants.PSEUDONYMISATION_TYPES,
+        choices=PSEUDONYMISATION_TYPES,
         validators=[InputRequired()],
     )
 
@@ -107,7 +113,7 @@ class ExaminationsForm(FlaskForm):
         validators=[InputRequired()],
     )
     patient_sex = SelectMultipleField(
-        "Sex", choices=ModelConstants.PATIENT_SEX, validators=[validators.optional()]
+        "Sex", choices=PATIENT_SEX, validators=[validators.optional()]
     )
 
     # Optional fields
