@@ -3,9 +3,9 @@
 import logging
 
 from datetime import datetime
-from project.orderingportal.models import User
-from project.orderingportal import models
-from project.orderingportal.forms import RegistrationForm, LoginForm
+from project.OrderingPortal.models import User
+from project.OrderingPortal import models
+from project.OrderingPortal.forms import RegistrationForm, LoginForm
 from flask_login import login_user, logout_user
 
 

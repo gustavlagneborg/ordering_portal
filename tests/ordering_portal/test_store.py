@@ -1,6 +1,6 @@
 from project import create_app, db
-from project.orderingportal.store import Store
-from project.orderingportal.models import User
+from project.OrderingPortal.store import Store
+from project.OrderingPortal.models import User
 from flask_wtf import FlaskForm
 from tests.ordering_portal.mocks import MockStore
 

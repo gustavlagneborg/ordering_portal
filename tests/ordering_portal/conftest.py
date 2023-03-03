@@ -2,9 +2,9 @@ import wtforms_json
 import pytest
 
 from project import create_app, db
-from project.orderingportal.forms import RegistrationForm, LoginForm
-from project.orderingportal.store import Store
-from project.orderingportal.models import User
+from project.OrderingPortal.forms import RegistrationForm, LoginForm
+from project.OrderingPortal.store import Store
+from project.OrderingPortal.models import User
 from .mocks import MockStore
 
 

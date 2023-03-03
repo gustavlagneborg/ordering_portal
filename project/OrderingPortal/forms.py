@@ -20,7 +20,7 @@ from wtforms.validators import (
     EqualTo,
     NumberRange,
 )
-from project.orderingportal.constants import FormConstants, ModelConstants
+from project.OrderingPortal.constants import FormConstants, ModelConstants
 
 
 class GreaterThan(object):

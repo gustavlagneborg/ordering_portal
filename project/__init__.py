@@ -7,7 +7,7 @@ from flask import Flask
 from flask.logging import default_handler
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from orderingportal.models import User, Examination, ProjectExaminations, Project
+from OrderingPortal.models import User, Examination, ProjectExaminations, Project
 from datetime import datetime
 
 
@@ -63,7 +63,7 @@ def initialize_extensions(app):
     login.init_app(app)
 
     # Flask-Login configuration
-    from project.orderingportal.models import User
+    from project.OrderingPortal.models import User
 
     @login.user_loader
     def load_user(user_id):
@@ -74,7 +74,7 @@ def register_blueprints(app):
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)
     from project.api import api_blueprint
-    from project.orderingportal import ordering_portal_blueprint
+    from project.OrderingPortal import ordering_portal_blueprint
 
     app.register_blueprint(ordering_portal_blueprint)
     app.register_blueprint(api_blueprint)
