@@ -38,6 +38,18 @@ class FormConstants:
         ("Lab 3", "Lab 3"),
     ]
 
+    PSEUDONYMISATION_TYPES = [
+        ("No pseudonymisation", "No pseudonymisation"),
+        ("Type 2", "Type 2"),
+        ("Type 3", "Type 3"),
+    ]
+
+    PATIENT_SEX = [
+        ("Both", "Both"),
+        ("Male", "Male"),
+        ("Female", "Female"),
+    ]
+
 
 class ProjectStatus(Enum):
     ETHICAL_APPROVAL="Waiting for ethical approval"
@@ -54,11 +66,3 @@ class PatientSex(Enum):
     FEMALE = "Female"
     BOTH = "Both"
 
-
-PROJECT_STATUS = (
-    "Waiting for ethical approval",
-    "Retrieving data",
-    "Uploaded to data delivery",
-)
-PSEUDONYMISATION_TYPES = ("No pseudonymisation", "Type 1", "Type 2")
-PATIENT_SEX = ("Both male and female", "Female", "Male")
