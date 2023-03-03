@@ -20,7 +20,7 @@ from wtforms.validators import (
     EqualTo,
     NumberRange,
 )
-from project.ordering_portal.constants import FormConstants
+from project.ordering_portal.constants import FormConstants, ModelConstants
 
 
 class GreaterThan(object):
@@ -73,7 +73,7 @@ class ProjectForm(FlaskForm):
     )
     pseudo_type = SelectMultipleField(
         "Pseudonymisation",
-        choices=FormConstants.PSEUDO_OPTIONS,
+        choices=ModelConstants.PSEUDONYMISATION_TYPES,
         validators=[InputRequired()],
     )
 
@@ -103,11 +103,11 @@ class ExaminationsForm(FlaskForm):
         choices=FormConstants.BODY_PART_OPTIONS,
         validators=[InputRequired()],
     )
+    patient_sex = SelectMultipleField(
+        "Sex", choices=ModelConstants.PATIENT_SEX, validators=[validators.optional()]
+    )
 
     # Optional fields
-    patient_sex = SelectMultipleField(
-        "Sex", choices=FormConstants.PATIENT_SEX, validators=[validators.optional()]
-    )
     patient_age_start = IntegerField(
         "Minimum patient age",
         validators=[NumberRange(min=0, max=150), validators.optional()],

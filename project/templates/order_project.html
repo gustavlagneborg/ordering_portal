@@ -120,32 +120,31 @@
       <p class="error">{{ examination_form.errors.examination[0] }}</p>
       {% endif %}
     </div>
-    <br />
-
-    <!-- Optional fields -->
-    <h4>Optional fields</h4>
 
      <!-- Patient sex -->
      <div class="patient_sex">
-        <p>Patiend sex:</p>
-        <select
-          name="patient_sex"
-          id="patient_sex"
-          class="form-control selectpicker"
-          data-live-search="true"
-          data-actions-box="true"
-        >
-          <tr>
-            {% for btn in examination_form.patient_sex %}
-            <td>{{ btn.label }}</td>
-            <td>{{ btn }}</td>
-            {% endfor %}
-          </tr>
-        </select>
-        {% if examination_form.errors.patient_sex %}
-        <p class="error">{{ examination_form.errors.patient_sex[0] }}</p>
-        {% endif %}
-      </div>
+      <p>Patiend sex:</p>
+      <select
+        name="patient_sex"
+        id="patient_sex"
+        class="form-control selectpicker"
+        data-live-search="true"
+        data-actions-box="true"
+      >
+        <tr>
+          {% for btn in examination_form.patient_sex %}
+          <td>{{ btn.label }}</td>
+          <td>{{ btn }}</td>
+          {% endfor %}
+        </tr>
+      </select>
+      {% if examination_form.errors.patient_sex %}
+      <p class="error">{{ examination_form.errors.patient_sex[0] }}</p>
+      {% endif %}
+    </div><br>
+
+    <!-- Optional fields -->
+    <h4>Optional fields</h4>
 
     <!-- Patient age -->
     <div class="patient_age">

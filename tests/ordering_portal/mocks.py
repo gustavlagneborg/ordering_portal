@@ -1,5 +1,5 @@
 from project.ordering_portal.forms import LoginForm
-from project.models import User
+from project.ordering_portal.models import User
 
 
 class MockStore:

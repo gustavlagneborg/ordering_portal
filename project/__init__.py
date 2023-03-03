@@ -61,7 +61,7 @@ def initialize_extensions(app):
     login.init_app(app)
 
     # Flask-Login configuration
-    from project.models import User
+    from project.ordering_portal.models import User
 
     @login.user_loader
     def load_user(user_id):

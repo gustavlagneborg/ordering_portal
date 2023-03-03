@@ -4,7 +4,7 @@ import pytest
 from project import create_app, db
 from project.ordering_portal.forms import RegistrationForm, LoginForm
 from project.ordering_portal.store import Store
-from project.models import User
+from project.ordering_portal.models import User
 from .mocks import MockStore
 
 
