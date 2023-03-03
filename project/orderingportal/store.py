@@ -3,9 +3,9 @@
 import logging
 
 from datetime import datetime
-from project.ordering_portal.models import User
-from project.ordering_portal import models
-from project.ordering_portal.forms import RegistrationForm, LoginForm
+from project.orderingportal.models import User
+from project.orderingportal import models
+from project.orderingportal.forms import RegistrationForm, LoginForm
 from flask_login import login_user, logout_user
 
 
@@ -14,7 +14,8 @@ LOG = logging.getLogger(__name__)
 
 class Store:
     User = models.User
-    # Project = modesl.Project etc ...
+    Project = models.Project
+    Examination = models.Examination
 
     def __init__(self, db) -> None:
         self.db = db

@@ -39,6 +39,10 @@ class FormConstants:
 class ModelConstants:
     """Enum constants for SQLalchemy models."""
 
-    PROJECT_STATUS = ()
+    PROJECT_STATUS = (
+        "Waiting for ethical approval",
+        "Retrieving data",
+        "Uploaded to data delivery",
+    )
     PSEUDONYMISATION_TYPES = ("No pseudonymisation", "Type 1", "Type 2")
     PATIENT_SEX = ("Both male and female", "Female", "Male")

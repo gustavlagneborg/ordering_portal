@@ -4,7 +4,7 @@ from . import ordering_portal_blueprint
 from flask import render_template, flash, redirect, url_for
 from .forms import ProjectForm, LoginForm, RegistrationForm, ExaminationsForm
 from .store import Store
-from project.ordering_portal.models import User
+from project.orderingportal.models import User
 from flask_login import current_user, login_required, login_user, logout_user
 from project import db
 

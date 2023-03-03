@@ -7,6 +7,8 @@ from flask import Flask
 from flask.logging import default_handler
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from orderingportal.models import User, Examination, ProjectExaminations, Project
+from datetime import datetime
 
 
 # -------------
@@ -61,7 +63,7 @@ def initialize_extensions(app):
     login.init_app(app)
 
     # Flask-Login configuration
-    from project.ordering_portal.models import User
+    from project.orderingportal.models import User
 
     @login.user_loader
     def load_user(user_id):
@@ -72,7 +74,7 @@ def register_blueprints(app):
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)
     from project.api import api_blueprint
-    from project.ordering_portal import ordering_portal_blueprint
+    from project.orderingportal import ordering_portal_blueprint
 
     app.register_blueprint(ordering_portal_blueprint)
     app.register_blueprint(api_blueprint)
@@ -85,3 +87,49 @@ def register_cli_commands(app):
         db.drop_all()
         db.create_all()
         echo("Initialized the database!")
+
+    @app.cli.command("bootstrap")
+    def bootstrap_data():
+        """Bootstrap the database."""
+        db.drop_all()
+        db.create_all()
+
+        # add users
+        admin_user = User(
+            username="Admin",
+            email="admin@admin.se",
+            date_joined=datetime.now(),
+            admin=True,
+        )
+        admin_user.set_password("admin")
+
+        user = User(
+            username="Gutav",
+            email="gustav@gustav.se",
+            date_joined=datetime.now(),
+        )
+        user.set_password("gustav")
+
+        db.session.add_all([admin_user, user])
+        echo("Users added!")
+
+        # add examinations
+
+        # add data delivery
+
+        # add modalities
+
+        # add remittences
+
+        # add departments
+
+        # add laboratores
+
+        # add projects
+        echo("Bootstarped the database!")
+
+    @app.cli.command("update_database")
+    def bootstrap_data():
+        """Update database with master data from Sectra datawarehouse."""
+
+        echo("Database uppdated with master data from Sectra datawarehosue!")
