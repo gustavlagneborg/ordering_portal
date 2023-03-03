@@ -21,7 +21,10 @@ from wtforms.validators import (
     NumberRange,
 )
 from project.OrderingPortal.constants import FormConstants, ModelConstants
+from project import db
+from .store import Store
 
+store = Store(db=db)
 
 class GreaterThan(object):
     """
@@ -100,7 +103,7 @@ class ExaminationsForm(FlaskForm):
 
     examination = SelectMultipleField(
         "Examinations",
-        choices=FormConstants.BODY_PART_OPTIONS,
+        choices=store.get_examinations,
         validators=[InputRequired()],
     )
     patient_sex = SelectMultipleField(

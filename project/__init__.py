@@ -7,8 +7,6 @@ from flask import Flask
 from flask.logging import default_handler
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from OrderingPortal.models import User, Examination, ProjectExaminations, Project
-from datetime import datetime
 
 
 # -------------
@@ -88,48 +86,3 @@ def register_cli_commands(app):
         db.create_all()
         echo("Initialized the database!")
 
-    @app.cli.command("bootstrap")
-    def bootstrap_data():
-        """Bootstrap the database."""
-        db.drop_all()
-        db.create_all()
-
-        # add users
-        admin_user = User(
-            username="Admin",
-            email="admin@admin.se",
-            date_joined=datetime.now(),
-            admin=True,
-        )
-        admin_user.set_password("admin")
-
-        user = User(
-            username="Gutav",
-            email="gustav@gustav.se",
-            date_joined=datetime.now(),
-        )
-        user.set_password("gustav")
-
-        db.session.add_all([admin_user, user])
-        echo("Users added!")
-
-        # add examinations
-
-        # add data delivery
-
-        # add modalities
-
-        # add remittences
-
-        # add departments
-
-        # add laboratores
-
-        # add projects
-        echo("Bootstarped the database!")
-
-    @app.cli.command("update_database")
-    def bootstrap_data():
-        """Update database with master data from Sectra datawarehouse."""
-
-        echo("Database uppdated with master data from Sectra datawarehosue!")

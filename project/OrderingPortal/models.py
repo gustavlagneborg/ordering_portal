@@ -56,6 +56,8 @@ class Examination(db.Model):
     examination = db.Column(db.String, index=True, nullable=False)
     projects = db.relationship("ProjectExaminations", back_populates="examination")
 
+    def __repr__(self):
+        return self.examination
 
 class ProjectExaminations(db.Model):
     """Association table between Project and Examination."""
