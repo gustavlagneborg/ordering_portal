@@ -46,6 +46,7 @@ class Store:
 
         return False
 
-    def get_examinations(self):
+    def get_examinations(self) -> list[str]:
         """Return all examinations."""
-        return self.Examination.query.all()
+        return [str(examination) for examination in self.Examination.query.all()]
+    

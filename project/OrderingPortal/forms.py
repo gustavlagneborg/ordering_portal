@@ -20,12 +20,7 @@ from wtforms.validators import (
     EqualTo,
     NumberRange,
 )
-from project.OrderingPortal.constants import (
-    FormConstants,
-    PATIENT_SEX,
-    PROJECT_STATUS,
-    PSEUDONYMISATION_TYPES,
-)
+from project.OrderingPortal.constants import FormConstants, PATIENT_SEX, PROJECT_STATUS, PSEUDONYMISATION_TYPES
 from project import db
 from .store import Store
 
