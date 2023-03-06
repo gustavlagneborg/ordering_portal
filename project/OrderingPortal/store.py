@@ -12,6 +12,8 @@ LOG = logging.getLogger(__name__)
 
 
 class Store:
+    """Class for perfomring backend actions between the frontend and database."""
+    
     User = models.User
     Project = models.Project
     Examination = models.Examination
