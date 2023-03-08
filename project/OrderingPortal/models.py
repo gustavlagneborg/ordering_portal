@@ -51,7 +51,6 @@ class Project(db.Model):
     examinations = db.relationship("ProjectExaminations", back_populates="project")
     
 
-
 class Examination(db.Model):
     """Examination table."""
 
