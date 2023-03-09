@@ -129,7 +129,7 @@ class ExaminationsForm(FlaskForm):
 
     producing_department = SelectMultipleField(
         "Producing department",
-        choices=store.get_departments,
+        choices=store.get_producing_departments,
         validators=[validators.optional()],
     )
     modality_lab = SelectMultipleField(

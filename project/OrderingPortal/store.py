@@ -20,7 +20,7 @@ class Store:
     data_delivery = models.DataDelivery
     modality = models.Modality
     remittent = models.Remittent
-    department = models.Department
+    producing_department = models.ProducingDepartment
     laboratory = models.Laboratory
 
     def __init__(self, db) -> None:
@@ -69,9 +69,9 @@ class Store:
         """Return all remittences."""
         return [str(remittent) for remittent in self.remittent.query.all()]
 
-    def get_departments(self) -> list[str]:
+    def get_producing_departments(self) -> list[str]:
         """Return all departments."""
-        return [str(department) for department in self.department.query.all()]
+        return [str(producing_department) for producing_department in self.producing_department.query.all()]
 
     def get_laboratories(self) -> list[str]:
         """Return all laboratories."""

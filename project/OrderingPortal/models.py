@@ -57,7 +57,7 @@ class Project(db.Model):
     data_deliveries = db.relationship("ProjectDataDeliveries", back_populates="project")
     modalities = db.relationship("ProjectModalities", back_populates="project")
     remittances = db.relationship("ProjectRemittances", back_populates="project")
-    departments = db.relationship("ProjectDepartments", back_populates="project")
+    producing_departments = db.relationship("ProjectProducingDepartments", back_populates="project")
     laboratories = db.relationship("ProjectLaboratories", back_populates="project")
 
 
@@ -169,32 +169,32 @@ class ProjectRemittances(db.Model):
     project = db.relationship("Project", back_populates="remittances")
 
 
-class Department(db.Model):
-    """Department table."""
+class ProducingDepartment(db.Model):
+    """Producing department table."""
 
     id = db.Column(db.Integer, primary_key=True)
-    department = db.Column(db.String, index=True, nullable=False)
+    producing_department = db.Column(db.String, index=True, nullable=False)
 
     # Association Objects
-    projects = db.relationship("ProjectDepartments", back_populates="department")
+    projects = db.relationship("ProjectProducingDepartments", back_populates="producing_department")
 
     def __repr__(self) -> str:
-        return self.department
+        return self.producing_department
 
 
-class ProjectDepartments(db.Model):
-    """Association table between Project and Department."""
+class ProjectProducingDepartments(db.Model):
+    """Association table between Project and Producing department."""
 
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
-    department_id = db.Column(
-        db.Integer, db.ForeignKey("department.id"), nullable=False
+    producing_department_id = db.Column(
+        db.Integer, db.ForeignKey("producing_department.id"), nullable=False
     )
 
     # Association Objects
-    department = db.relationship("Department", back_populates="projects")
-    project = db.relationship("Project", back_populates="departments")
+    producing_department = db.relationship("ProducingDepartment", back_populates="projects")
+    project = db.relationship("Project", back_populates="producing_departments")
 
 
 class Laboratory(db.Model):

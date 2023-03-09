@@ -13,8 +13,8 @@ from .models import (
     Modality,
     Remittent,
     ProjectRemittances,
-    Department,
-    ProjectDepartments,
+    ProducingDepartment,
+    ProjectProducingDepartments,
     Laboratory,
     ProjectLaboratories,
 )
@@ -98,16 +98,16 @@ def bootstrap_data():
     echo("Remittences added!")
 
     # add departments
-    neuro_huddinge_d = Department(department="Neuro Huddinge")
-    neuro_solna_d = Department(department="Neuro Solna")
-    kardiolog_huddinge_d = Department(department="Kardiolog Huddinge")
-    kardiolog_solna_d = Department(department="Kardiolog Solna")
+    neuro_huddinge_d = ProducingDepartment(producing_department="Neuro Huddinge")
+    neuro_solna_d = ProducingDepartment(producing_department="Neuro Solna")
+    kardiolog_huddinge_d = ProducingDepartment(producing_department="Kardiolog Huddinge")
+    kardiolog_solna_d = ProducingDepartment(producing_department="Kardiolog Solna")
 
     db.session.add_all(
         [neuro_huddinge_d, neuro_solna_d, kardiolog_huddinge_d, kardiolog_solna_d]
     )
     db.session.commit()
-    echo("Departments added!")
+    echo("Producing departments added!")
 
     # add laboratories
     lab1 = Laboratory(laboratory="Lab 1")
@@ -153,11 +153,11 @@ def bootstrap_data():
     db.session.add_all([project1_neuro_solna, project1_neuro_huddinge])
 
     # add departments to project 1
-    project1_neuro_solna_d = ProjectDepartments(
-        project=project1, department=neuro_solna_d
+    project1_neuro_solna_d = ProjectProducingDepartments(
+        project=project1, producing_department=neuro_solna_d
     )
-    project1_neuro_huddinge_d = ProjectDepartments(
-        project=project1, department=neuro_huddinge_d
+    project1_neuro_huddinge_d = ProjectProducingDepartments(
+        project=project1, producing_department=neuro_huddinge_d
     )
     db.session.add_all([project1_neuro_solna_d, project1_neuro_huddinge_d])
 
@@ -183,8 +183,8 @@ def bootstrap_data():
     for remittent in project1.remittances:
         echo(remittent.remittent)
 
-    for department in project1.departments:
-        echo(department.department)
+    for producing_department in project1.producing_departments:
+        echo(producing_department.producing_department)
 
     for laboratory in project1.laboratories:
         echo(laboratory.laboratory)
