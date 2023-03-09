@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from wtforms import (
     StringField,
     SubmitField,
-    RadioField,
     SelectMultipleField,
     PasswordField,
     BooleanField,
@@ -11,7 +10,6 @@ from wtforms import (
     IntegerField,
     ValidationError,
     validators,
-    SelectField,
 )
 from wtforms.validators import (
     DataRequired,
@@ -20,7 +18,7 @@ from wtforms.validators import (
     EqualTo,
     NumberRange,
 )
-from project.OrderingPortal.constants import FormConstants
+from project.OrderingPortal.constants import PseudonymisaiontTypes, PatientSex
 from project import db
 from .store import Store
 
@@ -77,12 +75,12 @@ class ProjectForm(FlaskForm):
     )
     pseudo_type = SelectMultipleField(
         "Pseudonymisation",
-        choices=FormConstants.PSEUDONYMISATION_TYPES,
+        choices=PseudonymisaiontTypes.list(),
         validators=[InputRequired()],
     )
     data_delivery = SelectMultipleField(
         "Data delivery",
-        choices=FormConstants.DATA_DELIVERY,
+        choices=store.get_data_deliveries,
         validators=[InputRequired()],
     )
 
@@ -97,7 +95,7 @@ class ExaminationsForm(FlaskForm):
 
     modalities = SelectMultipleField(
         "Modality",
-        choices=FormConstants.MODALITY_OPTIONS,
+        choices=store.get_modalities,
         validators=[InputRequired()],
     )
 
@@ -107,7 +105,7 @@ class ExaminationsForm(FlaskForm):
         validators=[InputRequired()],
     )
     patient_sex = SelectMultipleField(
-        "Sex", choices=FormConstants.PATIENT_SEX, validators=[validators.optional()]
+        "Sex", choices=PatientSex.list(), validators=[validators.optional()]
     )
 
     # Optional fields
@@ -125,18 +123,18 @@ class ExaminationsForm(FlaskForm):
     )
     remittent = SelectMultipleField(
         "Remittent",
-        choices=FormConstants.REMITTENT_OPTIONS,
+        choices=store.get_remittences,
         validators=[validators.optional()],
     )
 
     producing_department = SelectMultipleField(
         "Producing department",
-        choices=FormConstants.PRODUCING_DEPARTMENT,
+        choices=store.get_departments,
         validators=[validators.optional()],
     )
     modality_lab = SelectMultipleField(
         "Modality laboratory",
-        choices=FormConstants.MODALITY_LABORATORY,
+        choices=store.get_laboratories,
         validators=[validators.optional()],
     )
     radiology_verdict = BooleanField(

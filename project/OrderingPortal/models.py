@@ -42,23 +42,35 @@ class Project(db.Model):
         nullable=False,
         default=ProjectStatus.ETHICAL_APPROVAL,
     )
-    pseudonymisation_type = db.Column(
-        db.Enum(PseudonymisaiontTypes), nullable=False
-    )
+    pseudonymisation_type = db.Column(db.Enum(PseudonymisaiontTypes), nullable=False)
     patient_sex = db.Column(db.Enum(PatientSex), nullable=False)
     ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    min_patient_age = db.Column(db.Integer)
+    max_patient_age = db.Column(db.Integer)
+    radiology_verdict = db.Column(db.Boolean)
+
+    # Association Objects
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     examinations = db.relationship("ProjectExaminations", back_populates="project")
-    
+    data_deliveries = db.relationship("ProjectDataDeliveries", back_populates="project")
+    modalities = db.relationship("ProjectModalities", back_populates="project")
+    remittances = db.relationship("ProjectRemittances", back_populates="project")
+    departments = db.relationship("ProjectDepartments", back_populates="project")
+    laboratories = db.relationship("ProjectLaboratories", back_populates="project")
+
 
 class Examination(db.Model):
     """Examination table."""
 
     id = db.Column(db.Integer, primary_key=True)
     examination = db.Column(db.String, index=True, nullable=False)
+
+    # Association Objects
     projects = db.relationship("ProjectExaminations", back_populates="examination")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.examination
 
 
@@ -67,70 +79,147 @@ class ProjectExaminations(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
     examination_id = db.Column(
         db.Integer, db.ForeignKey("examination.id"), nullable=False
     )
-    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
 
+    # Association Objects
     examination = db.relationship("Examination", back_populates="projects")
     project = db.relationship("Project", back_populates="examinations")
 
 
-# class DataDelivery(db.Model):
-#     """DataDelivery table."""
+class DataDelivery(db.Model):
+    """DataDelivery table."""
 
-#     pass
+    id = db.Column(db.Integer, primary_key=True)
+    data_delivery = db.Column(db.String, index=True, nullable=False)
 
+    # Association Objects
+    projects = db.relationship("ProjectDataDeliveries", back_populates="data_delivery")
 
-# class ProjectDataDelivery(db.Model):
-#     """Association table between Project and DataDelivery."""
-
-#     pass
-
-
-# class Modality(db.Model):
-#     """Modality Table."""
-
-#     pass
+    def __repr__(self) -> str:
+        return self.data_delivery
 
 
-# class ProjectModalities(db.Model):
-#     """Association table between Project and Modality."""
+class ProjectDataDeliveries(db.Model):
+    """Association table between Project and DataDelivery."""
 
-#     pass
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    data_delivery_id = db.Column(
+        db.Integer, db.ForeignKey("data_delivery.id"), nullable=False
+    )
 
-
-# class Remittent(db.Model):
-#     """Remittent table."""
-
-#     pass
-
-
-# class ProjectRemittances(db.Model):
-#     """Association table between Project and Remittent."""
-
-#     pass
+    # Association Objects
+    data_delivery = db.relationship("DataDelivery", back_populates="projects")
+    project = db.relationship("Project", back_populates="data_deliveries")
 
 
-# class Department(db.Model):
-#     """Department table."""
+class Modality(db.Model):
+    """Modality Table."""
 
-#     pass
+    id = db.Column(db.Integer, primary_key=True)
+    modality = db.Column(db.String, index=True, nullable=False)
 
+    # Association Objects
+    projects = db.relationship("ProjectModalities", back_populates="modality")
 
-# class ProjectDepartments(db.Model):
-#     """Association table between Project and Department."""
-
-#     pass
-
-
-# class Laboratory(db.Model):
-#     """Laboratory table."""
-
-#     pass
+    def __repr__(self) -> str:
+        return self.modality
 
 
-# class ProjectLaboratories(db.Model):
-#     """Association table between Project and Department."""
+class ProjectModalities(db.Model):
+    """Association table between Project and Modality."""
 
-#     pass""
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    modality_id = db.Column(db.Integer, db.ForeignKey("modality.id"), nullable=False)
+
+    # Association Objects
+    modality = db.relationship("Modality", back_populates="projects")
+    project = db.relationship("Project", back_populates="modalities")
+
+
+class Remittent(db.Model):
+    """Remittent table."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    remittent = db.Column(db.String, index=True, nullable=False)
+
+    # Association Objects
+    projects = db.relationship("ProjectRemittances", back_populates="remittent")
+
+    def __repr__(self) -> str:
+        return self.remittent
+
+
+class ProjectRemittances(db.Model):
+    """Association table between Project and Remittent."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    remittent_id = db.Column(db.Integer, db.ForeignKey("remittent.id"), nullable=False)
+
+    # Association Objects
+    remittent = db.relationship("Remittent", back_populates="projects")
+    project = db.relationship("Project", back_populates="remittances")
+
+
+class Department(db.Model):
+    """Department table."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    department = db.Column(db.String, index=True, nullable=False)
+
+    # Association Objects
+    projects = db.relationship("ProjectDepartments", back_populates="department")
+
+    def __repr__(self) -> str:
+        return self.department
+
+
+class ProjectDepartments(db.Model):
+    """Association table between Project and Department."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    department_id = db.Column(
+        db.Integer, db.ForeignKey("department.id"), nullable=False
+    )
+
+    # Association Objects
+    department = db.relationship("Department", back_populates="projects")
+    project = db.relationship("Project", back_populates="departments")
+
+
+class Laboratory(db.Model):
+    """Laboratory table."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    laboratory = db.Column(db.String, index=True, nullable=False)
+
+    # Association Objects
+    projects = db.relationship("ProjectLaboratories", back_populates="laboratory")
+
+    def __repr__(self) -> str:
+        return self.laboratory
+
+
+class ProjectLaboratories(db.Model):
+    """Association table between Project and Laboratory."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    laboratory_id = db.Column(
+        db.Integer, db.ForeignKey("laboratory.id"), nullable=False
+    )
+
+    # Association Objects
+    laboratory = db.relationship("Laboratory", back_populates="projects")
+    project = db.relationship("Project", back_populates="laboratories")

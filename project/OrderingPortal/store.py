@@ -13,17 +13,22 @@ LOG = logging.getLogger(__name__)
 
 class Store:
     """Class for perfomring backend actions between the frontend and database."""
-    
-    User = models.User
-    Project = models.Project
-    Examination = models.Examination
+
+    user = models.User
+    project = models.Project
+    examination = models.Examination
+    data_delivery = models.DataDelivery
+    modality = models.Modality
+    remittent = models.Remittent
+    department = models.Department
+    laboratory = models.Laboratory
 
     def __init__(self, db) -> None:
         self.db = db
 
-    def add_user(self, form: FlaskForm) -> User:
+    def add_user(self, form: FlaskForm) -> user:
         """Add a new user to the database."""
-        user = self.User(
+        user = self.user(
             username=form.username.data,
             email=form.email.data,
             date_joined=datetime.now(),
@@ -50,5 +55,24 @@ class Store:
 
     def get_examinations(self) -> list[str]:
         """Return all examinations."""
-        return [str(examination) for examination in self.Examination.query.all()]
-    
+        return [str(examination) for examination in self.examination.query.all()]
+
+    def get_data_deliveries(self) -> list[str]:
+        """Return all data deliveries."""
+        return [str(data_delivery) for data_delivery in self.data_delivery.query.all()]
+
+    def get_modalities(self) -> list[str]:
+        """Return all modalities."""
+        return [str(modality) for modality in self.modality.query.all()]
+
+    def get_remittences(self) -> list[str]:
+        """Return all remittences."""
+        return [str(remittent) for remittent in self.remittent.query.all()]
+
+    def get_departments(self) -> list[str]:
+        """Return all departments."""
+        return [str(department) for department in self.department.query.all()]
+
+    def get_laboratories(self) -> list[str]:
+        """Return all laboratories."""
+        return [str(laboratory) for laboratory in self.laboratory.query.all()]

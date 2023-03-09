@@ -3,17 +3,20 @@ from project.OrderingPortal.store import Store
 from project.OrderingPortal.models import User
 from flask_wtf import FlaskForm
 from tests.ordering_portal.mocks import MockStore
+import logging
 
 
-def test_add_user(add_user_form: FlaskForm, store: Store):
+def test_add_user(add_user_form: FlaskForm, store: Store, caplog):
     """Test adding a new user."""
+    caplog.set_level(logging.INFO)
 
     # GIVEN a new user
     # WHEN its added to the databse
     user: User = store.add_user(form=add_user_form)
 
     # THEN a user should be returend
-    assert store.User.query.filter_by(email=add_user_form.email.data).first() == user
+    assert store.user.query.filter_by(email=add_user_form.email.data).first() == user
+    assert "successfully added!" in caplog.text
 
 
 def test_login_existing_user(
