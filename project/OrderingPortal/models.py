@@ -60,6 +60,14 @@ class Project(db.Model):
     producing_departments = db.relationship("ProjectProducingDepartments", back_populates="project")
     laboratories = db.relationship("ProjectLaboratories", back_populates="project")
 
+    def to_json(self):
+        """Returns a project in json format."""
+
+        return {
+
+        }
+
+
 
 class Examination(db.Model):
     """Examination table."""
