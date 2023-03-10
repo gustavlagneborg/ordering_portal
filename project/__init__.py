@@ -7,7 +7,7 @@ from flask import Flask
 from flask.logging import default_handler
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_jwt_extended import JWTManager
 
 # -------------
 # Configuration
@@ -17,6 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 login = LoginManager()
 login.login_view = ".login"
+jwt = JWTManager()
 
 
 # ----------------------------
@@ -59,6 +60,7 @@ def initialize_extensions(app):
     # extension instance to bind it to the Flask application instance (app)
     db.init_app(app)
     login.init_app(app)
+    jwt.init_app(app)
 
     # Flask-Login configuration
     from project.OrderingPortal.models import User
