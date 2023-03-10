@@ -1,8 +1,7 @@
 """Ordering Portal REST API"""
-from flask import jsonify, make_response
+from flask import jsonify, make_response, request
 from . import api_blueprint
 from ..OrderingPortal.models import Project
-import json
 
 
 @api_blueprint.route("/")

@@ -34,9 +34,8 @@ def create_app(env: str):
         config_type = os.getenv("CONFIG_TYPE", default="config.StageConfig")
     else:
         config_type = os.getenv("CONFIG_TYPE", default="config.ProductionConfig")
-
+    
     app.config.from_object(config_type)
-
     initialize_extensions(app)
     register_blueprints(app)
     register_cli_commands(app)
