@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from project import db
 from datetime import datetime
-from sqlalchemy import types
+from typing import List
 from .constants import PatientSex, ProjectStatus, PseudonymisaiontTypes
 
 
@@ -49,7 +49,7 @@ class Project(db.Model):
     end_date = db.Column(db.DateTime, nullable=False)
     min_patient_age = db.Column(db.Integer)
     max_patient_age = db.Column(db.Integer)
-    radiology_verdict = db.Column(db.Boolean)
+    radiology_verdict = db.Column(db.Boolean, default=False)
 
     # Association Objects
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
@@ -62,40 +62,92 @@ class Project(db.Model):
     )
     laboratories = db.relationship("ProjectLaboratories", back_populates="project")
 
-    def to_dict(self):
+    @property
+    def ordering_date_isoformat(self) -> datetime:
+        return self.ordering_date.isoformat()
+
+    @property
+    def start_date_isoformat(self) -> datetime:
+        return self.start_date.isoformat()
+
+    @property
+    def end_date_isoformat(self) -> datetime:
+        return self.end_date.isoformat()
+
+    @property
+    def get_data_deliveries(self) -> List[str]:
+        return (
+            [{"Data delivery:": str(d.data_delivery)} for d in self.data_deliveries]
+            if self.data_deliveries
+            else None
+        )
+
+    @property
+    def get_examinations(self) -> List[str]:
+        return (
+            [{"Examination:": str(e.examination)} for e in self.examinations]
+            if self.examinations
+            else None
+        )
+
+    @property
+    def get_modalities(self) -> List[str]:
+        return (
+            [{"Modality:": str(m.modality)} for m in self.modalities]
+            if self.modalities
+            else None
+        )
+
+    @property
+    def get_remittances(self) -> List[str]:
+        return (
+            [{"Remittent:": str(r.remittent)} for r in self.remittances]
+            if self.remittances
+            else None
+        )
+
+    @property
+    def get_producing_departments(self) -> List[str]:
+        return (
+            [
+                {"department:": str(d.producing_department)}
+                for d in self.producing_departments
+            ]
+            if self.producing_departments
+            else None
+        )
+
+    @property
+    def get_laboratories(self) -> List[str]:
+        return (
+            [{"Laboratory:": str(l.laboratory)} for l in self.laboratories]
+            if self.laboratories
+            else None
+        )
+
+    @property
+    def to_dict(self) -> dict:
         """Returns a project in json format."""
 
         return {
             "id:": self.id,
             "Project name:": self.project_name,
-            "Project status:": self.project_status,
-            "Pseudonymisation type:": self.pseudonymisation_type,
-            "Patient sex:": self.patient_sex,
-            "Date ordered:": self.ordering_date,
-            "Start date:": self.start_date,
-            "End date": self.end_date,
+            "Project status:": self.project_status.value,
+            "Pseudonymisation type:": self.pseudonymisation_type.value,
+            "Patient sex:": self.patient_sex.value,
+            "Date ordered:": self.ordering_date_isoformat,
+            "Start date:": self.start_date_isoformat,
+            "End date": self.end_date_isoformat,
             "Minimum patient age:": self.min_patient_age,
             "Maximum patient age:": self.max_patient_age,
             "Radiology verdict:": self.radiology_verdict,
             "User id:": self.user_id,
-            "Data Deliveries:": [
-                {"Data delivery:": d.data_delivery} for d in self.data_deliveries
-            ],
-            "Examinations:": [
-                {"Examination:": e.examination} for e in self.examinations
-            ],
-            "Modalities:": [{"Modality:": m.modality} for m in self.modalities],
-            "Remittances:": [{"Remittent:": r.remittent} for r in self.remittances]
-            if self.remittances
-            else None,
-            "Producing departments:": [
-                {"department:": d.producing_department} for d in self.producing_departments
-            ]
-            if self.producing_departments
-            else None,
-            "Laboratories:": [{"Laboratory:": l.laboratory} for l in self.laboratories]
-            if self.laboratories
-            else None,
+            "Data Deliveries:": self.get_data_deliveries,
+            "Examinations:": self.get_examinations,
+            "Modalities:": self.get_modalities,
+            "Remittances:": self.get_remittances,
+            "Producing departments:": self.get_producing_departments,
+            "Laboratories:": self.get_laboratories,
         }
 
 

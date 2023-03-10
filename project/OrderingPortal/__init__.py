@@ -19,7 +19,7 @@ from .models import (
     ProjectLaboratories,
 )
 from .constants import PatientSex, PseudonymisaiontTypes
-
+import json
 
 ordering_portal_blueprint = Blueprint(
     "ordering_portal",
@@ -171,7 +171,7 @@ def bootstrap_data():
     echo("Bootstarped the database!")
 
     echo("__________Project 1__________")
-    project1_dict = project1.to_dict()
+    project1_dict = project1.to_dict
     echo(project1_dict)
 
 
