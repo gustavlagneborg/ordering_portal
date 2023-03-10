@@ -6,6 +6,7 @@ from datetime import datetime
 from project.OrderingPortal.models import User
 from project.OrderingPortal import models
 from flask_login import login_user
+from typing import List
 
 
 LOG = logging.getLogger(__name__)
@@ -53,26 +54,26 @@ class Store:
 
         return False
 
-    def get_examinations(self) -> list[str]:
+    def get_examinations(self) -> List[str]:
         """Return all examinations."""
         return [str(examination) for examination in self.examination.query.all()]
 
-    def get_data_deliveries(self) -> list[str]:
+    def get_data_deliveries(self) -> List[str]:
         """Return all data deliveries."""
         return [str(data_delivery) for data_delivery in self.data_delivery.query.all()]
 
-    def get_modalities(self) -> list[str]:
+    def get_modalities(self) -> List[str]:
         """Return all modalities."""
         return [str(modality) for modality in self.modality.query.all()]
 
-    def get_remittences(self) -> list[str]:
+    def get_remittences(self) -> List[str]:
         """Return all remittences."""
         return [str(remittent) for remittent in self.remittent.query.all()]
 
-    def get_producing_departments(self) -> list[str]:
+    def get_producing_departments(self) -> List[str]:
         """Return all departments."""
         return [str(producing_department) for producing_department in self.producing_department.query.all()]
 
-    def get_laboratories(self) -> list[str]:
+    def get_laboratories(self) -> List[str]:
         """Return all laboratories."""
         return [str(laboratory) for laboratory in self.laboratory.query.all()]
