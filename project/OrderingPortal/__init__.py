@@ -100,7 +100,9 @@ def bootstrap_data():
     # add departments
     neuro_huddinge_d = ProducingDepartment(producing_department="Neuro Huddinge")
     neuro_solna_d = ProducingDepartment(producing_department="Neuro Solna")
-    kardiolog_huddinge_d = ProducingDepartment(producing_department="Kardiolog Huddinge")
+    kardiolog_huddinge_d = ProducingDepartment(
+        producing_department="Kardiolog Huddinge"
+    )
     kardiolog_solna_d = ProducingDepartment(producing_department="Kardiolog Solna")
 
     db.session.add_all(
@@ -169,25 +171,8 @@ def bootstrap_data():
     echo("Bootstarped the database!")
 
     echo("__________Project 1__________")
-    echo(project1.user_id)
-
-    for examination in project1.examinations:
-        echo(examination.examination)
-
-    for delivery in project1.data_deliveries:
-        echo(delivery.data_delivery)
-
-    for modality in project1.modalities:
-        echo(modality.modality)
-
-    for remittent in project1.remittances:
-        echo(remittent.remittent)
-
-    for producing_department in project1.producing_departments:
-        echo(producing_department.producing_department)
-
-    for laboratory in project1.laboratories:
-        echo(laboratory.laboratory)
+    project1_dict = project1.to_dict()
+    echo(project1_dict)
 
 
 @ordering_portal_blueprint.cli.command("update_database")

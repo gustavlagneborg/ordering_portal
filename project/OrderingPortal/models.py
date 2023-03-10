@@ -53,20 +53,50 @@ class Project(db.Model):
 
     # Association Objects
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    examinations = db.relationship("ProjectExaminations", back_populates="project")
     data_deliveries = db.relationship("ProjectDataDeliveries", back_populates="project")
+    examinations = db.relationship("ProjectExaminations", back_populates="project")
     modalities = db.relationship("ProjectModalities", back_populates="project")
     remittances = db.relationship("ProjectRemittances", back_populates="project")
-    producing_departments = db.relationship("ProjectProducingDepartments", back_populates="project")
+    producing_departments = db.relationship(
+        "ProjectProducingDepartments", back_populates="project"
+    )
     laboratories = db.relationship("ProjectLaboratories", back_populates="project")
 
-    def to_json(self):
+    def to_dict(self):
         """Returns a project in json format."""
 
         return {
-
+            "id:": self.id,
+            "Project name:": self.project_name,
+            "Project status:": self.project_status,
+            "Pseudonymisation type:": self.pseudonymisation_type,
+            "Patient sex:": self.patient_sex,
+            "Date ordered:": self.ordering_date,
+            "Start date:": self.start_date,
+            "End date": self.end_date,
+            "Minimum patient age:": self.min_patient_age,
+            "Maximum patient age:": self.max_patient_age,
+            "Radiology verdict:": self.radiology_verdict,
+            "User id:": self.user_id,
+            "Data Deliveries:": [
+                {"Data delivery:": d.data_delivery} for d in self.data_deliveries
+            ],
+            "Examinations:": [
+                {"Examination:": e.examination} for e in self.examinations
+            ],
+            "Modalities:": [{"Modality:": m.modality} for m in self.modalities],
+            "Remittances:": [{"Remittent:": r.remittent} for r in self.remittances]
+            if self.remittances
+            else None,
+            "Producing departments:": [
+                {"department:": d.producing_department} for d in self.producing_departments
+            ]
+            if self.producing_departments
+            else None,
+            "Laboratories:": [{"Laboratory:": l.laboratory} for l in self.laboratories]
+            if self.laboratories
+            else None,
         }
-
 
 
 class Examination(db.Model):
@@ -184,7 +214,9 @@ class ProducingDepartment(db.Model):
     producing_department = db.Column(db.String, index=True, nullable=False)
 
     # Association Objects
-    projects = db.relationship("ProjectProducingDepartments", back_populates="producing_department")
+    projects = db.relationship(
+        "ProjectProducingDepartments", back_populates="producing_department"
+    )
 
     def __repr__(self) -> str:
         return self.producing_department
@@ -201,7 +233,9 @@ class ProjectProducingDepartments(db.Model):
     )
 
     # Association Objects
-    producing_department = db.relationship("ProducingDepartment", back_populates="projects")
+    producing_department = db.relationship(
+        "ProducingDepartment", back_populates="projects"
+    )
     project = db.relationship("Project", back_populates="producing_departments")
 
 

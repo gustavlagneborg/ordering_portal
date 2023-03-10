@@ -72,7 +72,10 @@ class Store:
 
     def get_producing_departments(self) -> List[str]:
         """Return all departments."""
-        return [str(producing_department) for producing_department in self.producing_department.query.all()]
+        return [
+            str(producing_department)
+            for producing_department in self.producing_department.query.all()
+        ]
 
     def get_laboratories(self) -> List[str]:
         """Return all laboratories."""
