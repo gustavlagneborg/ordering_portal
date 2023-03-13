@@ -29,6 +29,7 @@ class Store:
 
     def add_user(self, form: FlaskForm) -> user:
         """Add a new user to the database."""
+
         user = self.user(
             username=form.username.data,
             email=form.email.data,
@@ -36,7 +37,7 @@ class Store:
             admin=form.admin.data,
             external=form.external.data,
         )
-        user.set_password(form.password.data)
+        self.user.set_password(form.password.data)
 
         self.db.session.add(user)
         self.db.session.commit()
@@ -46,7 +47,7 @@ class Store:
     def login(self, form: FlaskForm) -> bool:
         """Login in a user."""
 
-        user: User = User.query.filter_by(email=form.email.data).first()
+        user: User = self.user.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data)
             LOG.info(f"User {user} logged in")
@@ -56,22 +57,27 @@ class Store:
 
     def get_examinations(self) -> List[str]:
         """Return all examinations."""
+
         return [str(examination) for examination in self.examination.query.all()]
 
     def get_data_deliveries(self) -> List[str]:
         """Return all data deliveries."""
+
         return [str(data_delivery) for data_delivery in self.data_delivery.query.all()]
 
     def get_modalities(self) -> List[str]:
         """Return all modalities."""
+
         return [str(modality) for modality in self.modality.query.all()]
 
     def get_remittences(self) -> List[str]:
         """Return all remittences."""
+
         return [str(remittent) for remittent in self.remittent.query.all()]
 
     def get_producing_departments(self) -> List[str]:
         """Return all departments."""
+
         return [
             str(producing_department)
             for producing_department in self.producing_department.query.all()
@@ -79,4 +85,5 @@ class Store:
 
     def get_laboratories(self) -> List[str]:
         """Return all laboratories."""
+
         return [str(laboratory) for laboratory in self.laboratory.query.all()]

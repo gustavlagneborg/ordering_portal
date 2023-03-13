@@ -7,6 +7,31 @@ from typing import List
 from .constants import PatientSex, ProjectStatus, PseudonymisaiontTypes
 
 
+class APIUser(db.Model):
+    """API authenticaed user table."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    public_id = db.Column(db.String(50), unique=True)
+    name = db.Column(db.String(50))
+    password = db.Column(db.String(80))
+    admin = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        """Representaion function."""
+
+        return f"User: {self.name}"
+
+    @property
+    def to_dict(self):
+        """Return a API user in dict format."""
+
+        return {
+            "public_id": self.public_id,
+            "name": self.name,
+            "admin": self.admin,
+        }
+
+
 class User(UserMixin, db.Model):
     """User table."""
 
@@ -127,7 +152,7 @@ class Project(db.Model):
 
     @property
     def to_dict(self) -> dict:
-        """Returns a project in json format."""
+        """Returns a project in dict format."""
 
         return {
             "id:": self.id,
