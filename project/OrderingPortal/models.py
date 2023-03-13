@@ -31,6 +31,14 @@ class APIUser(db.Model):
             "admin": self.admin,
         }
 
+    def set_password(self, password):
+        """Function for hashing passowrds."""
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        """Function for checking the password against the hasing function."""
+        return check_password_hash(self.password, password)
+
 
 class User(UserMixin, db.Model):
     """User table."""

@@ -17,6 +17,7 @@ from .models import (
     ProjectProducingDepartments,
     Laboratory,
     ProjectLaboratories,
+    APIUser,
 )
 from .constants import PatientSex, PseudonymisaiontTypes
 import json
@@ -36,6 +37,13 @@ def bootstrap_data():
     db.drop_all()
     db.create_all()
 
+    # add api users
+    api_admin_user = APIUser(name="API_Admin", public_id="public-id-admin", admin=True)
+    api_admin_user.set_password("apiadmin")
+    db.session.add(api_admin_user)
+    db.session.commit()
+    echo("API users added!")
+
     # add users
     admin_user = User(
         username="Admin",
@@ -44,7 +52,6 @@ def bootstrap_data():
         admin=True,
     )
     admin_user.set_password("admin")
-    db.session.add(admin_user)
 
     # regular user
     gustav = User(

@@ -19,13 +19,12 @@ class APIStore(Store):
     def add_api_user(self, data) -> APIUser:
         """Add a new API user to the database."""
 
-        hashed_password = generate_password_hash(data["password"], method="sha256")
         api_user = APIUser(
             public_id=str(uuid.uuid4()),
             name=data["name"],
-            password=hashed_password,
             admin=False,
         )
+        api_user.set_password(data["password"])
 
         self.db.session.add(api_user)
         self.db.session.commit()
