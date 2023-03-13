@@ -6,6 +6,7 @@ from .store import APIStore
 from project import db
 from datetime import datetime, timedelta
 from functools import wraps
+from typing import List
 
 import jwt
 import os
@@ -87,7 +88,7 @@ def create_api_user(current_user):
 def get_all_api_users(current_user):
     """Get all api users from the database."""
 
-    api_users = api_store.api_user.query.all()
+    api_users: List[APIUser] = api_store.api_user.query.all()
     output = [api_user.to_dict for api_user in api_users]
 
     return make_response(jsonify({"users": output}), 200)
@@ -110,13 +111,22 @@ def get_api_user(current_user, public_id):
         api_store.delete_api_user(api_user=api_user)
         return make_response(jsonify({"message": f"user deleted!"}))
 
+@api_blueprint.route("/projects", methods=["GET"])
+@token_required
+def get_projects(current_user):
+    """Get all projects."""
 
+    projects: List[Project] = api_store.project.query.all()
+    output = [project.to_dict for project in projects]
+
+    return make_response(jsonify({"projects": output}), 200)
+    
 @api_blueprint.route("/projects/<int:id>", methods=["GET"])
 @token_required
 def get_project(current_user, id):
-    """Get endpoint for a single project."""
+    """Get a single project."""
 
-    project: Project = Project.query.get(id)
+    project: Project = api_store.project.query.get(id)
     if project:
         return make_response(jsonify(project.to_dict), 200)
     else:
