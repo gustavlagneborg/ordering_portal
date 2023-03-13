@@ -50,7 +50,7 @@ class Store:
         user: User = self.user.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data)
-            LOG.info(f"User {user} logged in")
+            LOG.info(f"User {user} logged in!")
             return True
 
         return False
