@@ -20,18 +20,12 @@ def token_required(f):
     """Checks if current user have a valid jwt token."""
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = api_store.check_jwt_token()
-    
         try:
-            data = jwt.decode(
-                token,
-                os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
-                algorithms=["HS256"],
-            )
+            data = api_store.decode_token(token=api_store.check_jwt_token())
             current_user = APIUser.query.filter_by(public_id=data["public_id"]).first()
         except:
-            return jsonify({"message": "Token is invalid!"}), 401
-
+            return jsonify({"message": "Not a valid token!"}), 403
+        
         return f(current_user, *args, **kwargs)
     return decorated
 
@@ -39,14 +33,8 @@ def admin_required(f):
     """Checks if current user have a valid jwt token and is admin."""
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = api_store.check_jwt_token()
-
         try:
-            data = jwt.decode(
-                token,
-                os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
-                algorithms=["HS256"],
-            )
+            data = api_store.decode_token(token=api_store.check_jwt_token())
             current_user = APIUser.query.filter_by(public_id=data["public_id"]).first()
             assert current_user.admin
         except:

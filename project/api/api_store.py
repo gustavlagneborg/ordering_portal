@@ -3,6 +3,8 @@ from project.OrderingPortal.models import APIUser
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request, jsonify
 
+import os
+import jwt
 import uuid
 import logging
 
@@ -58,3 +60,14 @@ class APIStore(Store):
             return jsonify({"message": "Token is missing!"}), 401
         else:
             return token
+    
+    def decode_token(self, token):
+        """"Decode jwt doken."""
+
+        return jwt.decode(
+            token,
+            os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
+            algorithms=["HS256"],
+        )
+
+        
