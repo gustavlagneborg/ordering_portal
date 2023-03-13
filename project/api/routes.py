@@ -13,11 +13,13 @@ import os
 
 api_store = APIStore(db=db)
 
+
 # ----------------------------
 # Custom decorators
 # ----------------------------
 def token_required(f):
     """Checks if current user have a valid jwt token."""
+
     @wraps(f)
     def decorated(*args, **kwargs):
         try:
@@ -25,12 +27,15 @@ def token_required(f):
             current_user = APIUser.query.filter_by(public_id=data["public_id"]).first()
         except:
             return jsonify({"message": "Not a valid token!"}), 403
-        
+
         return f(current_user, *args, **kwargs)
+
     return decorated
+
 
 def admin_required(f):
     """Checks if current user have a valid jwt token and is admin."""
+
     @wraps(f)
     def decorated(*args, **kwargs):
         try:
@@ -41,6 +46,7 @@ def admin_required(f):
             return jsonify({"message": "Admin only!"}), 403
 
         return f(current_user, *args, **kwargs)
+
     return decorated
 
 
@@ -49,6 +55,7 @@ def index():
     """Welcome to Ordering Portral API."""
 
     return "Welcome to Ordering Portal REST API"
+
 
 # ----------------------------
 # GET endpoints
@@ -76,7 +83,8 @@ def login():
         )
 
         return jsonify({"token": token})
-    
+
+
 @api_blueprint.route("/projects", methods=["GET"])
 @token_required
 def get_projects(current_user):
@@ -86,7 +94,8 @@ def get_projects(current_user):
     output = [project.to_dict for project in projects]
 
     return make_response(jsonify({"projects": output}), 200)
-    
+
+
 @api_blueprint.route("/projects/<int:id>", methods=["GET"])
 @token_required
 def get_project(current_user, id):
@@ -97,6 +106,7 @@ def get_project(current_user, id):
         return make_response(jsonify(project.to_dict), 200)
     else:
         return make_response(jsonify({"error": "Project not found"}), 404)
+
 
 @api_blueprint.route("/users", methods=["GET"])
 @token_required
@@ -121,9 +131,10 @@ def get_api_user(current_user, public_id):
     else:
         return make_response(jsonify({"user": api_user.to_dict}), 200)
 
+
 # ----------------------------
 # POST endpoints
-# ----------------------------   
+# ----------------------------
 @api_blueprint.route("/user", methods=["POST"])
 @admin_required
 def create_api_user(current_user):
@@ -133,6 +144,7 @@ def create_api_user(current_user):
     api_user = api_store.add_api_user(data=data)
 
     return make_response(jsonify({"message": f"New API user {api_user} created!"}), 200)
+
 
 # ----------------------------
 # DELETE endpoints
@@ -149,5 +161,3 @@ def delete_api_user(current_user, public_id):
     else:
         api_store.delete_api_user(api_user=api_user)
         return make_response(jsonify({"message": f"user deleted!"}))
-
-

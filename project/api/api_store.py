@@ -47,27 +47,25 @@ class APIStore(Store):
         if api_user.check_password(auth.password):
             LOG.info(f"API user {api_user} logged in!")
             return api_user
-        
+
     def check_jwt_token(self):
         """Check if jwt token exists in request."""
-        
+
         token = None
 
         if "x-access-token" in request.headers:
             token = request.headers["x-access-token"]
-        
+
         if not token:
             return jsonify({"message": "Token is missing!"}), 401
         else:
             return token
-    
+
     def decode_token(self, token):
-        """"Decode jwt doken."""
+        """ "Decode jwt doken."""
 
         return jwt.decode(
             token,
             os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
             algorithms=["HS256"],
         )
-
-        
