@@ -63,7 +63,7 @@ def login():
         token = jwt.encode(
             {
                 "public_id": api_user.public_id,
-                "exp": datetime.utcnow() + timedelta(minutes=30),
+                "exp": datetime.utcnow() + timedelta(days=30),
             },
             os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
         )
