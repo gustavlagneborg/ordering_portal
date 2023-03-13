@@ -1,9 +1,8 @@
 from ..OrderingPortal.store import Store
 from project.OrderingPortal.models import APIUser
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import request, jsonify
 
-import os
-import jwt
 import uuid
 import logging
 
@@ -42,6 +41,20 @@ class APIStore(Store):
         """Login api user."""
 
         api_user: APIUser = self.api_user.query.filter_by(name=auth.username).first()
-        if check_password_hash(api_user.password, auth.password):
+        print(api_user)
+        if api_user.check_password(auth.password):
             LOG.info(f"API user {api_user} logged in!")
             return api_user
+        
+    def check_jwt_token(self):
+        """Check if jwt token exists in request."""
+        
+        token = None
+
+        if "x-access-token" in request.headers:
+            token = request.headers["x-access-token"]
+        
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 401
+        else:
+            return token

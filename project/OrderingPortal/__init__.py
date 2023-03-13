@@ -40,7 +40,10 @@ def bootstrap_data():
     # add api users
     api_admin_user = APIUser(name="API_Admin", public_id="public-id-admin", admin=True)
     api_admin_user.set_password("apiadmin")
-    db.session.add(api_admin_user)
+
+    api_user_gustav = APIUser(name="Gustav", public_id="public-id-gustav")
+    api_user_gustav.set_password("test123")
+    db.session.add_all([api_admin_user, api_user_gustav])
     db.session.commit()
     echo("API users added!")
 
