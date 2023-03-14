@@ -1,3 +1,4 @@
+"""Unit tests for the Ordering Portal Store."""
 from project import create_app, db
 from project.OrderingPortal.store import Store
 from project.OrderingPortal.models import User
@@ -15,7 +16,7 @@ def test_add_user(add_user_form: FlaskForm, store: Store, caplog):
     user: User = store.add_user(form=add_user_form)
 
     # THEN a user should be returend
-    assert store.user.query.filter_by(email=add_user_form.email.data).first() == user
+    assert  user == store.user.query.filter_by(email=add_user_form.email.data).first()
     assert "successfully added!" in caplog.text
 
 

@@ -62,7 +62,7 @@ class APIStore(Store):
             return token
 
     def decode_token(self, token):
-        """ "Decode jwt doken."""
+        """Decode jwt doken."""
 
         return jwt.decode(
             token,
