@@ -75,8 +75,8 @@ class Project(db.Model):
         nullable=False,
         default=ProjectStatus.ETHICAL_APPROVAL,
     )
-    pseudonymisation_type = db.Column(db.Enum(PseudonymisaiontTypes), nullable=False)
-    patient_sex = db.Column(db.Enum(PatientSex), nullable=False)
+    pseudonymisation_type = db.Column(db.String, nullable=False)
+    patient_sex = db.Column(db.String, nullable=False)
     ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now())
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
@@ -94,6 +94,24 @@ class Project(db.Model):
         "ProjectProducingDepartments", back_populates="project"
     )
     laboratories = db.relationship("ProjectLaboratories", back_populates="project")
+
+    def set_data_deliveries(self, data_delivery):
+        self.data_deliveries.append(data_delivery)
+
+    def set_examinations(self, examination):
+        self.examinations.append(examination)
+
+    def set_modalities(self, modality):
+        self.modalities.append(modality)
+
+    def set_remittances(self, remittent):
+        self.remittances.append(remittent)
+
+    def set_producing_departments(self, producing_department):
+        self.producing_departments.append(producing_department)
+
+    def set_laboratories(self, laboratory):
+        self.laboratories.append(laboratory)
 
     @property
     def ordering_date_isoformat(self) -> datetime:
@@ -166,8 +184,8 @@ class Project(db.Model):
             "id:": self.id,
             "Project name:": self.project_name,
             "Project status:": self.project_status.value,
-            "Pseudonymisation type:": self.pseudonymisation_type.value,
-            "Patient sex:": self.patient_sex.value,
+            "Pseudonymisation type:": self.pseudonymisation_type,
+            "Patient sex:": self.patient_sex,
             "Date ordered:": self.ordering_date_isoformat,
             "Start date:": self.start_date_isoformat,
             "End date": self.end_date_isoformat,

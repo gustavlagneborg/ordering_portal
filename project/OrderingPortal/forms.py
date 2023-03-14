@@ -94,7 +94,7 @@ class ExaminationsForm(FlaskForm):
     end_date = DateField("End Date", format="%Y-%m-%d", validators=[InputRequired()])
 
     modalities = SelectMultipleField(
-        "Modality",
+        "Modalities",
         choices=store.get_modalities,
         validators=[InputRequired()],
     )
@@ -104,20 +104,21 @@ class ExaminationsForm(FlaskForm):
         choices=store.get_examinations,
         validators=[InputRequired()],
     )
+
     patient_sex = SelectMultipleField(
         "Sex", choices=PatientSex.list(), validators=[validators.optional()]
     )
 
     # Optional fields
-    patient_age_start = IntegerField(
+    min_patient_age = IntegerField(
         "Minimum patient age",
         validators=[NumberRange(min=0, max=150), validators.optional()],
     )
-    patient_age_end = IntegerField(
+    max_patient_age = IntegerField(
         "Maximum patient age",
         validators=[
             NumberRange(min=0, max=150),
-            GreaterThan("patient_age_start"),
+            GreaterThan("min_patient_age"),
             validators.optional(),
         ],
     )

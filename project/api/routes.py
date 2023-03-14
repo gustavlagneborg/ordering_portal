@@ -141,7 +141,10 @@ def create_api_user(current_user):
     """Create api user route."""
 
     data = request.get_json()
-    api_user = api_store.add_api_user(data=data)
+    try:
+        api_user = api_store.add_api_user(data=data)
+    except Exception as e:
+        return make_response(jsonify({"Error:": f"{e}"}))
 
     return make_response(jsonify({"message": f"New API user {api_user} created!"}), 200)
 
@@ -159,5 +162,8 @@ def delete_api_user(current_user, public_id):
     if not api_user:
         return make_response(jsonify({"error": "No user found"}), 404)
     else:
-        api_store.delete_api_user(api_user=api_user)
-        return make_response(jsonify({"message": f"user deleted!"}))
+        try:
+            api_store.delete_api_user(api_user=api_user)
+            return make_response(jsonify({"message": f"user deleted!"}))
+        except Exception as e:
+            return make_response(jsonify({"Error:": f"{e}"}))

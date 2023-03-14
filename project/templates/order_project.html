@@ -112,8 +112,8 @@
         multiple
         data-actions-box="true"
       >
-        {% for type in examination_form.examination %}
-        <td>{{ type }}</td>
+        {% for btn in examination_form.examination %}
+        <td>{{ btn }}</td>
         {% endfor %}
       </select>
       {% if examination_form.errors.examination %}
@@ -148,17 +148,17 @@
 
     <!-- Patient age -->
     <div class="patient_age">
-      <p id="patient_age_start">
-        {{ examination_form.patient_age_start.label }} {{
-        examination_form.patient_age_start }}
+      <p id="min_patient_age">
+        {{ examination_form.min_patient_age.label }} {{
+        examination_form.min_patient_age }}
       </p>
-      <p id="patient_age_end">
-        {{ examination_form.patient_age_end.label }} {{
-        examination_form.patient_age_end }}
+      <p id="max_patient_age">
+        {{ examination_form.max_patient_age.label }} {{
+        examination_form.max_patient_age }}
       </p>
 
-      {% if examination_form.errors.patient_age_end %}
-      <p class="error">{{ examination_form.errors.patient_age_end[0] }}</p>
+      {% if examination_form.errors.max_patient_age %}
+      <p class="error">{{ examination_form.errors.max_patient_age[0] }}</p>
       {% endif %}
     </div>
 

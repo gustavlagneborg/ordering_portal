@@ -21,13 +21,16 @@ def index():
 @login_required
 def order_project():
     """Route for ordering a project."""
+
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
     examination_form: ExaminationsForm = ExaminationsForm(csrf_enabled=False)
 
     if project_form.validate_on_submit and examination_form.validate_on_submit():
-        print("form Success!")
-        print(examination_form.start_date.data)
-        print(examination_form.end_date.data)
+        store.add_project(
+            examination_form=examination_form,
+            project_form=project_form,
+            current_user=current_user,
+        )
 
     return render_template(
         "order_project.html",
@@ -44,7 +47,10 @@ def register():
     if current_user.admin:
         if register_form.validate_on_submit():
             user = store.add_user(form=register_form)
-            flash(f"{user} successfully added!")
+            if user:
+                flash(f"{user} successfully added!")
+            else:
+                flash("A user with this email already exists!")
 
         return render_template("register.html", form=register_form)
     else:
