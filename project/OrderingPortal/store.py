@@ -37,7 +37,7 @@ class Store:
             admin=form.admin.data,
             external=form.external.data,
         )
-        self.user.set_password(form.password.data)
+        user.set_password(password=form.password.data)
 
         self.db.session.add(user)
         self.db.session.commit()

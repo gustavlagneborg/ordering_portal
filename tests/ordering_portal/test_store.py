@@ -10,6 +10,7 @@ import logging
 def test_add_user(add_user_form: FlaskForm, store: Store, caplog):
     """Test adding a new user."""
     caplog.set_level(logging.INFO)
+    print(store)
 
     # GIVEN a new user
     # WHEN its added to the databse

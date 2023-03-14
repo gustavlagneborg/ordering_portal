@@ -7,7 +7,7 @@ from typing import List
 from .constants import PatientSex, ProjectStatus, PseudonymisaiontTypes
 
 
-class APIUser(db.Model):
+class APIUser(UserMixin, db.Model):
     """API authenticaed user table."""
 
     id = db.Column(db.Integer, primary_key=True)
