@@ -19,7 +19,6 @@ from .models import (
     ProjectLaboratories,
     APIUser,
 )
-from .constants import PatientSex, PseudonymisaiontTypes
 
 ordering_portal_blueprint = Blueprint(
     "ordering_portal",
