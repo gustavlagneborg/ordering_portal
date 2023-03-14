@@ -37,13 +37,12 @@ class APIStore(Store):
 
         self.db.session.delete(api_user)
         self.db.session.commit()
-        LOG.info(f"User {api_user} successfully deleted!")
+        LOG.info(f"User successfully deleted!")
 
     def login(self, auth) -> APIUser:
         """Login api user."""
 
         api_user: APIUser = self.api_user.query.filter_by(name=auth.username).first()
-        print(api_user)
         if api_user.check_password(auth.password):
             LOG.info(f"API user {api_user} logged in!")
             return api_user

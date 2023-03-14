@@ -30,8 +30,8 @@ def login_form_existing_user():
     wtforms_json.init()
 
     login: dict = {
-        "email": "tolvan@tolvansson.se",
-        "password": "tolvan",
+        "email": "tolvan2@tolvansson.se",
+        "password": "a",
         "remember": True,
         "submit": True,
     }

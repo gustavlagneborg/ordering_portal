@@ -20,7 +20,6 @@ from .models import (
     APIUser,
 )
 from .constants import PatientSex, PseudonymisaiontTypes
-import json
 
 ordering_portal_blueprint = Blueprint(
     "ordering_portal",

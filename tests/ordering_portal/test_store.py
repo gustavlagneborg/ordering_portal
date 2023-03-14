@@ -1,5 +1,5 @@
 """Unit tests for the Ordering Portal Store."""
-from project import create_app, db
+
 from project.OrderingPortal.store import Store
 from project.OrderingPortal.models import User
 from flask_wtf import FlaskForm
@@ -10,14 +10,13 @@ import logging
 def test_add_user(add_user_form: FlaskForm, store: Store, caplog):
     """Test adding a new user."""
     caplog.set_level(logging.INFO)
-    print(store)
 
     # GIVEN a new user
     # WHEN its added to the databse
     user: User = store.add_user(form=add_user_form)
 
-    # THEN a user should be returend
-    assert  user == store.user.query.filter_by(email=add_user_form.email.data).first()
+    # THEN a user should be returend and stored in the database
+    assert user == store.user.query.filter_by(email=add_user_form.email.data).first()
     assert "successfully added!" in caplog.text
 
 
