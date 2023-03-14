@@ -92,7 +92,7 @@ class Store:
             max_patient_age=examination_form.max_patient_age.data,
             radiology_verdict=examination_form.radiology_verdict.data,
             user_id=current_user.id,
-         )
+        )
 
         for data_delivery in project_form.data_delivery.data:
             project.set_data_deliveries(
