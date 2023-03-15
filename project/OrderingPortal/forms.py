@@ -96,7 +96,7 @@ class ExaminationsForm(FlaskForm):
     modalities = SelectMultipleField(
         "Modalities",
         choices=store.get_modalities,
-        validators=[InputRequired()],
+        validators=[DataRequired()],
     )
 
     examination = SelectMultipleField(

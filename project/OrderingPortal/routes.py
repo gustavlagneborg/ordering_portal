@@ -25,7 +25,7 @@ def order_project():
     project_form: ProjectForm = ProjectForm(csrf_enabled=False)
     examination_form: ExaminationsForm = ExaminationsForm(csrf_enabled=False)
 
-    if project_form.validate_on_submit and examination_form.validate_on_submit():
+    if project_form.validate_on_submit() and examination_form.validate_on_submit():
         store.add_project(
             examination_form=examination_form,
             project_form=project_form,
