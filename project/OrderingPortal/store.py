@@ -20,7 +20,8 @@ from project.OrderingPortal.models import (
     ProducingDepartment,
 )
 from project.OrderingPortal import models
-from project.OrderingPortal.constants import ProjectStatus
+from project.OrderingPortal.constants import OPTIONAL_EXAMIANTION_FORM_FIELDS
+from project.exec import ProjectFormError, ExaminationFormError
 from flask_login import login_user
 from typing import List
 
@@ -145,6 +146,28 @@ class Store:
         self.db.session.add(project)
         self.db.session.commit()
         LOG.info(f"Project {project.project_name} successfully added!")
+
+    def verify_project_form(self, project_form) -> None:
+        """Verify project form."""
+
+        for field in project_form:
+            if not field.data:
+                LOG.error(f"Project form is not validated, {field.name} cant be None!")
+                raise ProjectFormError(
+                    f"Project form is not validated, {field.name} cant be None!"
+                )
+
+    def verify_examination_form(self, examination_form) -> None:
+        """Verify examination form."""
+
+        for field in examination_form:
+            if field.name not in OPTIONAL_EXAMIANTION_FORM_FIELDS and not field.data:
+                LOG.error(
+                    f"Examination form is not validated, {field.name} cant be None!"
+                )
+                raise ExaminationFormError(
+                    f"Examination form is not validated, {field.name} cant be None!"
+                )
 
     def get_examinations(self) -> List[str]:
         """Return all examinations."""

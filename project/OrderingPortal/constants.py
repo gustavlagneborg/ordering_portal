@@ -24,3 +24,13 @@ class PatientSex(ExtendedEnum):
     MALE = "Male"
     FEMALE = "Female"
     BOTH = "Both"
+
+
+OPTIONAL_EXAMIANTION_FORM_FIELDS: List = [
+    "min_patient_age",
+    "max_patient_age",
+    "remittent",
+    "producing_department",
+    "modality_lab",
+    "radiology_verdict",
+]

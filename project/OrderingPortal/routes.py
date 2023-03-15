@@ -26,11 +26,15 @@ def order_project():
     examination_form: ExaminationsForm = ExaminationsForm(csrf_enabled=False)
 
     if project_form.validate_on_submit() and examination_form.validate_on_submit():
+        store.verify_project_form(project_form=project_form)
+        store.verify_examination_form(examination_form=examination_form)
+        
         store.add_project(
             examination_form=examination_form,
             project_form=project_form,
             current_user=current_user,
         )
+        return redirect(url_for(".user"))
 
     return render_template(
         "order_project.html",
