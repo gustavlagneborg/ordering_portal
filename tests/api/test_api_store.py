@@ -7,19 +7,19 @@ from .mocks import MockAuth
 import logging
 
 
-def test_add_api_user(api_store: APIStore, add_api_user_data: dict, caplog):
+def test_add_api_user(api_store: APIStore, api_user_data: dict, caplog):
     """Test adding a new API user."""
 
     caplog.set_level(logging.INFO)
 
     # GIVEN a new API user
     # WHEN its added to the database
-    api_user: APIUser = api_store.add_api_user(data=add_api_user_data)
+    api_user: APIUser = api_store.add_api_user(data=api_user_data)
 
     # THEN a user should be returend and stored in the database
     assert (
         api_user
-        == api_store.api_user.query.filter_by(name=add_api_user_data["name"]).first()
+        == api_store.api_user.query.filter_by(name=api_user_data["name"]).first()
     )
     assert "successfully added!" in caplog.text
 
@@ -40,7 +40,9 @@ def test_delete_api_user(api_store: APIStore, caplog):
     assert "User successfully deleted!" in caplog.text
 
 
-def test_login(api_store: APIStore, login_auth: MockAuth, caplog):
+def test_login(
+    api_store: APIStore, login_auth: MockAuth, add_api_user: APIUser, caplog
+):
     """Test for loging in a user"""
 
     caplog.set_level(logging.INFO)

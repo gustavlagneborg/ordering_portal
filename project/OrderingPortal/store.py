@@ -80,8 +80,11 @@ class Store:
         project_form: FlaskForm,
         examination_form: FlaskForm,
         current_user: User,
-    ):
+    ) -> Project:
         """Add project to the database."""
+
+        self.verify_project_form(project_form=project_form)
+        self.verify_examination_form(examination_form=examination_form)
 
         project: Project = self.project(
             project_name=project_form.project_name.data,
@@ -146,6 +149,8 @@ class Store:
         self.db.session.add(project)
         self.db.session.commit()
         LOG.info(f"Project {project.project_name} successfully added!")
+
+        return project
 
     def verify_project_form(self, project_form) -> None:
         """Verify project form."""
@@ -232,3 +237,8 @@ class Store:
         """Return Laboratory."""
 
         return self.laboratory.query.filter_by(laboratory=laboratory).first()
+    
+    def get_projects(self) -> List:
+        """Return projects."""
+
+        return [str(project) for project in self.project.query.all()]

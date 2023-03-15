@@ -69,7 +69,7 @@ class Project(db.Model):
     """Porject table."""
 
     id = db.Column(db.Integer, primary_key=True)
-    project_name = db.Column(db.String, nullable=False, index=True)
+    project_name = db.Column(db.String, nullable=False, index=True, unique=True,)
     project_status = db.Column(
         db.Enum(ProjectStatus),
         nullable=False,
@@ -94,6 +94,10 @@ class Project(db.Model):
         "ProjectProducingDepartments", back_populates="project"
     )
     laboratories = db.relationship("ProjectLaboratories", back_populates="project")
+
+    def __repr__(self):
+        """Representaion function."""
+        return self.project_name
 
     def set_data_deliveries(self, data_delivery):
         self.data_deliveries.append(data_delivery)

@@ -1,7 +1,7 @@
 """Unit tests for the Ordering Portal Store."""
 
 from project.OrderingPortal.store import Store
-from project.OrderingPortal.models import User
+from project.OrderingPortal.models import User, Project
 from flask_wtf import FlaskForm
 from tests.ordering_portal.mocks import MockStore
 import logging
@@ -43,3 +43,20 @@ def test_login_non_existing_user(
 
     # THEN the user should not be logged in
     assert not login
+
+
+def test_add_project(
+    project_form, examination_form, store: Store, project_user: User, caplog
+):
+    """Test for adding a project to the database."""
+    caplog.set_level(logging.INFO)
+
+    # GIVEN a new projcet
+    # WHEN storing it in the database
+    project: Project = store.add_project(
+        examination_form=examination_form, project_form=project_form, current_user=project_user
+    )
+
+    # THEN it should be stored and logged
+    assert project.project_name in store.get_projects()
+    assert "successfully added!" in caplog.text 

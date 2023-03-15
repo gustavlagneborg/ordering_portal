@@ -4,7 +4,7 @@ from . import ordering_portal_blueprint
 from flask import render_template, flash, redirect, url_for
 from .forms import ProjectForm, LoginForm, RegistrationForm, ExaminationsForm
 from .store import Store
-from project.OrderingPortal.models import User
+from project.OrderingPortal.models import User, Project
 from flask_login import current_user, login_required, login_user, logout_user
 from project import db
 
@@ -26,10 +26,7 @@ def order_project():
     examination_form: ExaminationsForm = ExaminationsForm(csrf_enabled=False)
 
     if project_form.validate_on_submit() and examination_form.validate_on_submit():
-        store.verify_project_form(project_form=project_form)
-        store.verify_examination_form(examination_form=examination_form)
-        
-        store.add_project(
+        project: Project = store.add_project(
             examination_form=examination_form,
             project_form=project_form,
             current_user=current_user,
@@ -50,7 +47,7 @@ def register():
 
     if current_user.admin:
         if register_form.validate_on_submit():
-            user = store.add_user(form=register_form)
+            user: User = store.add_user(form=register_form)
             if user:
                 flash(f"{user} successfully added!")
             else:
