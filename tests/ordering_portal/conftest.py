@@ -62,6 +62,17 @@ def project_form():
     }
     return ProjectForm.from_json(project_form)
 
+@pytest.fixture()
+def project_form_unvalid():
+    wtforms_json.init()
+    project_form: ProjectForm = {
+        "project_name": "Test project",
+        "pseudo_type": ["No pseudonymisation"],
+        "data_delivery": [],
+        "csrf_token": "ImMyMzVmMmIwN2UwN2RlNDNjYTI2MmJlYmE0MDZkZGEzZmFkMjRmMTIi.ZBGvvg.LoZYRve7r1cQnDXgopil2vSKw94",
+    }
+    return ProjectForm.from_json(project_form)
+
 
 @pytest.fixture()
 def examination_form():
@@ -71,6 +82,26 @@ def examination_form():
         "start_date": "2011-03-25",
         "end_date": "2023-3-15",
         "modalities": ["Computed Tomography - CT"],
+        "examination": ["Scul"],
+        "patient_sex": ["Male"],
+        "min_patient_age": 1,
+        "max_patient_age": 2,
+        "remittent": ["Neuro Huddinge", "Neuro Solna"],
+        "producing_department": ["Neuro Huddinge", "Neuro Solna"],
+        "modality_lab": ["Lab 1"],
+        "radiology_verdict": False,
+        "csrf_token": "ImMyMzVmMmIwN2UwN2RlNDNjYTI2MmJlYmE0MDZkZGEzZmFkMjRmMTIi.ZBGvvg.LoZYRve7r1cQnDXgopil2vSKw94",
+    }
+    return ExaminationsForm.from_json(examination_form)
+
+@pytest.fixture()
+def examination_form_unvalid():
+
+    wtforms_json.init()
+    examination_form: dict = {
+        "start_date": "2011-03-25",
+        "end_date": "2023-3-15",
+        "modalities": [],
         "examination": ["Scul"],
         "patient_sex": ["Male"],
         "min_patient_age": 1,
