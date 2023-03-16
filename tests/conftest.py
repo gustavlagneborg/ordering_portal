@@ -26,7 +26,7 @@ from project.OrderingPortal.models import (
 )
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def test_client():
     """Create a Flask app configured for testing"""
 
@@ -135,7 +135,7 @@ def test_client():
             db.drop_all()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def store(test_client):
     """Create the database and the database table."""
 
@@ -143,7 +143,7 @@ def store(test_client):
     
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def api_store(test_client):
     """Create the database and the database table."""
 
