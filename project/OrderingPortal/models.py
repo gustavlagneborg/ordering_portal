@@ -69,7 +69,12 @@ class Project(db.Model):
     """Porject table."""
 
     id = db.Column(db.Integer, primary_key=True)
-    project_name = db.Column(db.String, nullable=False, index=True, unique=True,)
+    project_name = db.Column(
+        db.String,
+        nullable=False,
+        index=True,
+        unique=True,
+    )
     project_status = db.Column(
         db.Enum(ProjectStatus),
         nullable=False,

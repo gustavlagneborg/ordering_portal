@@ -56,33 +56,31 @@ def test_add_project(
     # GIVEN a new projcet
     # WHEN storing it in the database
     project: Project = store.add_project(
-        examination_form=examination_form, project_form=project_form, current_user=project_user
+        examination_form=examination_form,
+        project_form=project_form,
+        current_user=project_user,
     )
 
     # THEN it should be stored and logged
     assert project.project_name in store.get_projects()
-    assert "successfully added!" in caplog.text 
+    assert "successfully added!" in caplog.text
 
 
-def test_verify_project_form(
-    project_form_unvalid,  store: Store, caplog):
+def test_verify_project_form(project_form_unvalid, store: Store, caplog):
     """Test verifying project form."""
-    
+
     # GIVEN a unvalid project form
     # WHEN verifying it
     with pytest.raises(ProjectFormError):
         # THEN it should raise an ProjectFormError
         store.verify_project_form(project_form=project_form_unvalid)
-    
 
-def test_verify_examination_form(
-    examination_form_unvalid,  store: Store, caplog):
+
+def test_verify_examination_form(examination_form_unvalid, store: Store, caplog):
     """Test verifying examination form."""
-    
+
     # GIVEN a unvalid examination form
     # WHEN verifying it
     with pytest.raises(ExaminationFormError):
         # THEN it should raise an ExaminationFormError
         store.verify_examination_form(examination_form=examination_form_unvalid)
-    
-   

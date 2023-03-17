@@ -39,7 +39,9 @@ def test_client():
         with flask_app.app_context():
             db.create_all()
             # add api users
-            api_admin_user = APIUser(name="API_Admin", public_id="public-id-admin", admin=True)
+            api_admin_user = APIUser(
+                name="API_Admin", public_id="public-id-admin", admin=True
+            )
             api_admin_user.set_password("apiadmin")
 
             api_user_gustav = APIUser(name="Gustav", public_id="public-id-gustav")
@@ -109,15 +111,24 @@ def test_client():
             echo("Remittences added!")
 
             # add departments
-            neuro_huddinge_d = ProducingDepartment(producing_department="Neuro Huddinge")
+            neuro_huddinge_d = ProducingDepartment(
+                producing_department="Neuro Huddinge"
+            )
             neuro_solna_d = ProducingDepartment(producing_department="Neuro Solna")
             kardiolog_huddinge_d = ProducingDepartment(
                 producing_department="Kardiolog Huddinge"
             )
-            kardiolog_solna_d = ProducingDepartment(producing_department="Kardiolog Solna")
+            kardiolog_solna_d = ProducingDepartment(
+                producing_department="Kardiolog Solna"
+            )
 
             db.session.add_all(
-                [neuro_huddinge_d, neuro_solna_d, kardiolog_huddinge_d, kardiolog_solna_d]
+                [
+                    neuro_huddinge_d,
+                    neuro_solna_d,
+                    kardiolog_huddinge_d,
+                    kardiolog_solna_d,
+                ]
             )
             db.session.commit()
             echo("Producing departments added!")
@@ -140,7 +151,6 @@ def store(test_client):
     """Create the database and the database table."""
 
     return Store(db=db)  # this is where the testing happens!
-    
 
 
 @pytest.fixture(scope="session")
@@ -148,4 +158,3 @@ def api_store(test_client):
     """Create the database and the database table."""
 
     return APIStore(db=db)  # this is where the testing happens!
-    

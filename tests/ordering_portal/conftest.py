@@ -2,7 +2,12 @@ import wtforms_json
 import pytest
 import datetime
 
-from project.OrderingPortal.forms import RegistrationForm, LoginForm, ExaminationsForm, ProjectForm
+from project.OrderingPortal.forms import (
+    RegistrationForm,
+    LoginForm,
+    ExaminationsForm,
+    ProjectForm,
+)
 from .mocks import MockStore
 
 
@@ -62,6 +67,7 @@ def project_form():
     }
     return ProjectForm.from_json(project_form)
 
+
 @pytest.fixture()
 def project_form_unvalid():
     wtforms_json.init()
@@ -76,7 +82,6 @@ def project_form_unvalid():
 
 @pytest.fixture()
 def examination_form():
-
     wtforms_json.init()
     examination_form: dict = {
         "start_date": "2011-03-25",
@@ -94,9 +99,9 @@ def examination_form():
     }
     return ExaminationsForm.from_json(examination_form)
 
+
 @pytest.fixture()
 def examination_form_unvalid():
-
     wtforms_json.init()
     examination_form: dict = {
         "start_date": "2011-03-25",

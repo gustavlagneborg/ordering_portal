@@ -237,7 +237,7 @@ class Store:
         """Return Laboratory."""
 
         return self.laboratory.query.filter_by(laboratory=laboratory).first()
-    
+
     def get_projects(self) -> List:
         """Return projects."""
 
