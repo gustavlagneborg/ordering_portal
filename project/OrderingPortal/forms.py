@@ -51,7 +51,8 @@ class GreaterThan(object):
         if field.data is None or other.data is None:
             return None
         if field.data < other.data:  #  --> Change to >= from !=
-            d = {"other_label": hasattr(other, "label")
+            d = {
+                "other_label": hasattr(other, "label")
                 and other.label.text
                 or self.fieldname,
                 "other_name": self.fieldname,
