@@ -1,4 +1,4 @@
-name: Docker build and push
+name: Build
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
         run: |
           pytest
           
-  docker:
+  docker build and push:
     needs: pytest
     if: success()
     runs-on: ubuntu-latest
