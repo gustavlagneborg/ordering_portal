@@ -34,7 +34,7 @@ jobs:
         run: |
           pytest
           
-  docker build and push:
+  docker-build-and-push:
     needs: pytest
     if: success()
     runs-on: ubuntu-latest
