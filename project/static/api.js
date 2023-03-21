@@ -118,10 +118,14 @@ getProjects().then(data => {
       const row = document.createElement('tr');
       projectKeys.forEach(key => {
           const cell = document.createElement('td');
-          
           if (Array.isArray(project[key])) {
             project[key].forEach(list => {
-              cell.textContent += Object.values(list);
+              if (!cell.textContent) {
+                cell.textContent += Object.values(list);
+              } else {
+                cell.textContent += ", ";
+                cell.textContent += Object.values(list);
+              }
             });
           } else {
             cell.textContent = project[key];
