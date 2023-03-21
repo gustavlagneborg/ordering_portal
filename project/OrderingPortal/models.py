@@ -124,15 +124,15 @@ class Project(db.Model):
 
     @property
     def ordering_date_isoformat(self) -> datetime:
-        return self.ordering_date.strftime('%Y/%m/%d')
+        return self.ordering_date.strftime("%Y/%m/%d")
 
     @property
     def start_date_isoformat(self) -> datetime:
-        return self.start_date.strftime('%Y/%m/%d')
+        return self.start_date.strftime("%Y/%m/%d")
 
     @property
     def end_date_isoformat(self) -> datetime:
-        return self.end_date.strftime('%Y/%m/%d')
+        return self.end_date.strftime("%Y/%m/%d")
 
     @property
     def get_data_deliveries(self) -> List[str]:

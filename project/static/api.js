@@ -76,42 +76,9 @@ getProjects().then(data => {
       const header = document.createElement('th');
       header.textContent = key;
       headerRow.appendChild(header);
-});
-  // const nameHeader = document.createElement('th');
-  // nameHeader.textContent = 'Project Name';
-  // headerRow.appendChild(nameHeader);
-
-  // const statusHeader = document.createElement('th');
-  // statusHeader.textContent = 'Project Status';
-  // headerRow.appendChild(statusHeader);
-
-  // const pseudonymisationModel = document.createElement('th');
-  // pseudonymisationModel.textContent = 'Pseudonymisation Model';
-  // headerRow.appendChild(pseudonymisationModel);
+  });
 
   table.appendChild(headerRow);
-
-  // Iterate through the list of projects and create table rows for each project
-  // projects.forEach(project => {
-  // const row = document.createElement('tr');
-  
-  // // add project name
-  // const nameCell = document.createElement('td');
-  // nameCell.textContent = project['Project name:'];
-  // row.appendChild(nameCell);
-  
-  // // add project status
-  // const statusCell = document.createElement('td');
-  // statusCell.textContent = project['Project status:'];
-  // row.appendChild(statusCell);
-
-  // // add pseudo model
-  // const pseudonymisationCell = document.createElement('td');
-  // pseudonymisationCell.textContent = project['Pseudonymisation type:'];
-  // row.appendChild(pseudonymisationCell);
-  
-  // table.appendChild(row);
-  // });
 
   // Iterate through the list of projects and create table rows for each project
   projects.forEach(project => {
