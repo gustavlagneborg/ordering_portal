@@ -4,4 +4,69 @@
 <h1>Admin page</h1>
 <a href="/register">Register new user</a>
 
+<div id="project-data"></div>
+
+<script>
+    getProjects().then(data => {
+        // Parse the JSON list of projects into a JavaScript object
+        const projects = data.projects;
+
+        // Create an HTML table element to display the projects
+        const table = document.createElement('table');
+
+        // Create the table header row
+        const headerRow = document.createElement('tr');
+        const nameHeader = document.createElement('th');
+        nameHeader.textContent = 'Project Name';
+        const statusHeader = document.createElement('th');
+        statusHeader.textContent = 'Project Status';
+        headerRow.appendChild(nameHeader);
+        headerRow.appendChild(statusHeader);
+        table.appendChild(headerRow);
+
+        // Iterate through the list of projects and create table rows for each project
+        projects.forEach(project => {
+        const row = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        nameCell.textContent = project['Project name:'];
+        const statusCell = document.createElement('td');
+        statusCell.textContent = project['Project status:'];
+        row.appendChild(nameCell);
+        row.appendChild(statusCell);
+        table.appendChild(row);
+        });
+
+        // Get a reference to the div with ID "project-data"
+        const projectDataDiv = document.getElementById('project-data');
+
+        // Add the table to the projectDataDiv element
+        projectDataDiv.appendChild(table);
+
+    }).catch(error => {
+    // handle error
+    });
+</script>
+
+<script>
+    getProjects().then(data => {
+
+    // Get the project data div
+    const projectDataDiv = document.getElementById('project-data');
+    
+    // Create a new HTML element to display the project data
+    const projectDataElement = document.createElement('p');
+    
+    // Set the text of the new HTML element to the project data
+    projectDataElement.textContent = JSON.stringify(data);
+    
+    // Append the new HTML element to the project data div
+    projectDataDiv.appendChild(projectDataElement);
+
+    }).catch(error => {
+    // handle error
+    });
+</script>
+
+  
+
 {% endblock %}
