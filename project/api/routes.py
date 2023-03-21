@@ -66,7 +66,7 @@ def index():
 @token_required
 def get_projects(current_user):
     """Get all projects."""
-    
+
     projects: List[Project] = api_store.project.query.all()
     output = [project.to_dict for project in projects]
 
