@@ -63,7 +63,18 @@ async function getProjects() {
 
 getProjects().then(data => {
   // Parse the JSON list of projects into a JavaScript object
-  const projects = data.projects;
+  const rawProjects = data.projects;
+  const projects = [];
+
+  // trim and re-order project
+  rawProjects.forEach(rawProject => {
+    let trimmedProj = {
+      'Project name:': rawProject['Project name:'],
+      'Pseudonymisation type:': rawProject['Pseudonymisation type:'],
+    };
+
+    projects.push(trimmedProj);
+  });
 
   // Create an HTML table element to display the projects
   const table = document.createElement('table');
