@@ -71,6 +71,13 @@ getProjects().then(data => {
     let trimmedProj = {
       'Project name:': rawProject['Project name:'],
       'Pseudonymisation type:': rawProject['Pseudonymisation type:'],
+      'Data Deliveries:': rawProject['Data Deliveries:'],
+      'Modalities:': rawProject['Modalities:'],
+      'Examinations:': rawProject['Examinations:'],
+      'Patient gender:': rawProject['Patient gender:'],
+      'Date interval': `${rawProject['Start date:']} - ${rawProject['End date:']}`,
+      'Date ordered:': rawProject['Date ordered:'],
+      
     };
 
     projects.push(trimmedProj);

@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from project import db
 from datetime import datetime
 from typing import List
-from .constants import PatientSex, ProjectStatus, PseudonymisaiontTypes
+from .constants import PatientGender, ProjectStatus, PseudonymisaiontTypes
 
 
 class APIUser(UserMixin, db.Model):
@@ -81,7 +81,7 @@ class Project(db.Model):
         default=ProjectStatus.ETHICAL_APPROVAL,
     )
     pseudonymisation_type = db.Column(db.String, nullable=False)
-    patient_sex = db.Column(db.String, nullable=False)
+    patient_gender = db.Column(db.String, nullable=False)
     ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now())
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
@@ -194,10 +194,10 @@ class Project(db.Model):
             "Project name:": self.project_name,
             "Project status:": self.project_status.value,
             "Pseudonymisation type:": self.pseudonymisation_type,
-            "Patient sex:": self.patient_sex,
+            "Patient gender:": self.patient_gender,
             "Date ordered:": self.ordering_date_isoformat,
             "Start date:": self.start_date_isoformat,
-            "End date": self.end_date_isoformat,
+            "End date:": self.end_date_isoformat,
             "Minimum patient age:": self.min_patient_age,
             "Maximum patient age:": self.max_patient_age,
             "Radiology verdict:": self.radiology_verdict,

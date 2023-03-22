@@ -132,7 +132,7 @@ def bootstrap_data():
     project1 = Project(
         project_name="Female Sculs",
         pseudonymisation_type="No pseudonymisation",
-        patient_sex="Female",
+        patient_gender="Female",
         start_date=date(2000, 1, 1),
         end_date=datetime.now(),
         user_id=gustav.id,

@@ -117,25 +117,25 @@
     {% endif %}
   </div>
 
-    <!-- Patient sex -->
-    <div class="patient_sex">
-    <p>Select patient sex</p>
+    <!-- Patient gender -->
+    <div class="patient_gender">
+    <p>Select patient gender</p>
     <select
-      name="patient_sex"
-      id="patient_sex"
+      name="patient_gender"
+      id="patient_gender"
       class="form-control selectpicker"
       data-live-search="true"
       data-actions-box="true"
     >
       <tr>
-        {% for btn in examination_form.patient_sex %}
+        {% for btn in examination_form.patient_gender %}
         <td>{{ btn.label }}</td>
         <td>{{ btn }}</td>
         {% endfor %}
       </tr>
     </select>
-    {% if examination_form.errors.patient_sex %}
-    <p class="error">{{ examination_form.errors.patient_sex[0] }}</p>
+    {% if examination_form.errors.patient_gender %}
+    <p class="error">{{ examination_form.errors.patient_gender[0] }}</p>
     {% endif %}
   </div><br>
 
