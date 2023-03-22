@@ -201,13 +201,13 @@ class Project(db.Model):
             "Minimum patient age:": self.min_patient_age,
             "Maximum patient age:": self.max_patient_age,
             "Radiology verdict:": self.radiology_verdict,
-            "User id:": self.user_id,
+            "User:": User.query.filter_by(id=self.user_id).first().username,
             "Data Deliveries:": self.get_data_deliveries,
             "Examinations:": self.get_examinations,
             "Modalities:": self.get_modalities,
             "Remittances:": self.get_remittances,
             "Producing departments:": self.get_producing_departments,
-            "Laboratories:": self.get_laboratories,
+            "Modality laboratories:": self.get_laboratories,
         }
 
 
