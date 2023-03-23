@@ -99,7 +99,6 @@ getProjects().then(data => {
   })
 
   // Create an HTML table element to display the projects
-  const table = document.getElementById('project-table')
   var thead = document.getElementById("project-header");
 
   // Create the table header row
@@ -142,7 +141,6 @@ getProjects().then(data => {
   })
 
   thead.appendChild(headerRow)
-  table.append(thead)
 
   // Iterate through the list of projects and create table rows for each project
   var tbody = document.getElementById("project-body");
@@ -189,9 +187,4 @@ getProjects().then(data => {
     })
     tbody.append(row)
   })
-  table.appendChild(tbody)
-
-  // // Get a reference to the div with ID "project-data"
-  // const projectDataDiv = document.getElementById('project-data1')
-  // projectDataDiv.appendChild(table)
 })
