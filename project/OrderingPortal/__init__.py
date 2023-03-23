@@ -85,8 +85,8 @@ def bootstrap_data():
     echo("Data deliveries added!")
 
     # add modalities
-    ct = Modality(modality="Computed Tomography - CT")
-    mri = Modality(modality="Magnetic resonance imaging - MRI")
+    ct = Modality(modality="CT")
+    mri = Modality(modality="MRI")
     x_ray = Modality(modality="X-ray")
 
     db.session.add_all([ct, mri, x_ray])

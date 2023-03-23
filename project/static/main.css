@@ -129,7 +129,6 @@ form {
 
 
 #project-data1 {
-  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -141,12 +140,17 @@ form {
 
 #project-data1 tr:nth-child(even){background-color: #f2f2f2;}
 
-#project-data1 tr:hover {background-color: #ddd;}
+#project-data1 tr:hover {background-color: #efe4e4;}
 
 #project-data1 th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
   background-color: #2599cf;
-  color: white;
 }
+
+#project-button{
+  width: 100px;
+  display: inline-block;
+  font-size: 12px;
+  }

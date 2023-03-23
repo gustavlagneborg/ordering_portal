@@ -44,7 +44,7 @@ class User(UserMixin, db.Model):
     """User table."""
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True, nullable=False)
+    username = db.Column(db.String(64), index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.now())
@@ -190,24 +190,25 @@ class Project(db.Model):
         """Returns a project in dict format."""
 
         return {
-            "id:": self.id,
-            "Project name:": self.project_name,
-            "Project status:": self.project_status.value,
-            "Pseudonymisation type:": self.pseudonymisation_type,
-            "Patient gender:": self.patient_gender,
-            "Date ordered:": self.ordering_date_isoformat,
-            "Start date:": self.start_date_isoformat,
-            "End date:": self.end_date_isoformat,
-            "Minimum patient age:": self.min_patient_age,
-            "Maximum patient age:": self.max_patient_age,
-            "Radiology verdict:": self.radiology_verdict,
-            "User:": User.query.filter_by(id=self.user_id).first().username,
-            "Data Deliveries:": self.get_data_deliveries,
-            "Examinations:": self.get_examinations,
-            "Modalities:": self.get_modalities,
-            "Remittances:": self.get_remittances,
-            "Producing departments:": self.get_producing_departments,
-            "Modality laboratories:": self.get_laboratories,
+            "id": self.id,
+            "Project name": self.project_name,
+            "Project status": self.project_status.value,
+            "Pseudonymisation type": self.pseudonymisation_type,
+            "Patient gender": self.patient_gender,
+            "Date ordered": self.ordering_date_isoformat,
+            "Start date": self.start_date_isoformat,
+            "End date": self.end_date_isoformat,
+            "Minimum patient age": self.min_patient_age,
+            "Maximum patient age": self.max_patient_age,
+            "Radiology verdict": self.radiology_verdict,
+            "User": User.query.filter_by(id=self.user_id).first().username,
+            "User id": User.query.filter_by(id=self.user_id).first().id,
+            "Data Deliveries": self.get_data_deliveries,
+            "Examinations": self.get_examinations,
+            "Modalities": self.get_modalities,
+            "Remittances": self.get_remittances,
+            "Producing departments": self.get_producing_departments,
+            "Modality laboratories": self.get_laboratories,
         }
 
 
