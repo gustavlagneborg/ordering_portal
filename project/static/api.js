@@ -68,22 +68,30 @@ getProjects().then(data => {
   const projects = []
   rawProjects.forEach(rawProject => {
     let project = {
-      'Project': rawProject['Project name'],
-      'User': rawProject['User'],
-      'Status': rawProject['Project status'],
-      'Pseudonymisation': rawProject['Pseudonymisation type'],
+      Project: rawProject['Project name'],
+      User: rawProject['User'],
+      Status: rawProject['Project status'],
+      Pseudonymisation: rawProject['Pseudonymisation type'],
       'Data Deliveries': rawProject['Data Deliveries'],
-      'Modalities': rawProject['Modalities'],
-      'Examinations': rawProject['Examinations'],
+      Modalities: rawProject['Modalities'],
+      Examinations: rawProject['Examinations'],
       'Patient gender': rawProject['Patient gender'],
       'Date range': `${rawProject['Start date']} - ${rawProject['End date']}`,
       'Date ordered': rawProject['Date ordered:'],
-      'Age range': `${rawProject['Minimum patient age']} - ${rawProject['Maximum patient age']}`,
-      'Remittances': rawProject['Remittances'],
+      'Age range': `${
+        rawProject['Minimum patient age'] !== null
+          ? rawProject['Minimum patient age']
+          : ''
+      } - ${
+        rawProject['Maximum patient age'] !== null
+          ? rawProject['Maximum patient age']
+          : ''
+      }`,
+      Remittances: rawProject['Remittances'],
       'Producing departments': rawProject['Producing departments'],
       'Modality laboratories': rawProject['Modality laboratories'],
       'Radiology verdict': rawProject['Radiology verdict'],
-      'id': rawProject['id'],
+      id: rawProject['id'],
       'User id': rawProject['User id']
     }
 
@@ -99,20 +107,23 @@ getProjects().then(data => {
   const projectKeys = Object.keys(projects[0])
   projectKeys.forEach(key => {
     if (key !== 'id' && key !== 'User id') {
+      const header = document.createElement('th')
       if (key === 'User') {
         var userLogo = document.createElement('i')
-        userLogo.className = 'fa-solid fa-user';
+        userLogo.className = 'fa-solid fa-user'
+        header.textContent = `${key} `
 
-        const header = document.createElement('th');
-        header.textContent = key;
-        header.appendChild(userLogo);
-        headerRow.appendChild(header);
+        header.appendChild(userLogo)
+      } else if (key === 'Date range' || key === 'Date ordered') {
+        var dateLogo = document.createElement('i')
+        dateLogo.className = "fa-regular fa-calendar-days"
+        header.textContent = `${key} `
 
+        header.appendChild(dateLogo)
       } else {
-        const header = document.createElement('th');
-        header.textContent = key;
-        headerRow.appendChild(header);
+        header.textContent = key
       }
+      headerRow.appendChild(header)
     }
   })
 

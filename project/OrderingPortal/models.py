@@ -202,7 +202,7 @@ class Project(db.Model):
             "Maximum patient age": self.max_patient_age,
             "Radiology verdict": self.radiology_verdict,
             "User": User.query.filter_by(id=self.user_id).first().username,
-            "User id": User.query.filter_by(id=self.user_id).first().id,
+            "User id": self.user_id,
             "Data Deliveries": self.get_data_deliveries,
             "Examinations": self.get_examinations,
             "Modalities": self.get_modalities,

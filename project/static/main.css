@@ -131,6 +131,7 @@ form {
 #project-data1 {
   border-collapse: collapse;
   width: 100%;
+  font-size: 12px;
 }
 
 #project-data1 td, #project-data1 th {
