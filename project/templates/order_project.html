@@ -17,13 +17,8 @@
   <!-- Pseudonymisation options -->
   <div class="pseudo_type">
     <p>Select pseudonymisation model</p>
-    <select
-      name="pseudo_type"
-      id="pseudo_type"
-      class="form-control selectpicker"
-      data-live-search="true"
-      data-actions-box="true"
-    >
+    <select name="pseudo_type" id="pseudo_type" class="form-control selectpicker" data-live-search="true"
+      data-actions-box="true">
       <tr>
         {% for btn in project_form.pseudo_type %}
         <td>{{ btn.label }}</td>
@@ -39,14 +34,8 @@
   <!-- Data delivery options -->
   <div class="data_delivery">
     <p>Select Data delivery</p>
-    <select
-      name="data_delivery"
-      id="data_delivery"
-      class="form-control selectpicker"
-      data-live-search="true"
-      multiple
-      data-actions-box="true"
-    >
+    <select name="data_delivery" id="data_delivery" class="form-control selectpicker" data-live-search="true" multiple
+      data-actions-box="true">
       <tr>
         {% for btn in project_form.data_delivery %}
         <td>{{ btn.label }}</td>
@@ -78,14 +67,8 @@
   <!-- Modality options -->
   <div class="modalities">
     <p>Select modality type</p>
-    <select
-      name="modalities"
-      id="modalities"
-      class="form-control selectpicker"
-      data-live-search="true"
-      multiple
-      data-actions-box="true"
-    >
+    <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple
+      data-actions-box="true">
       <tr>
         {% for btn in examination_form.modalities %}
         <td>{{ btn }}</td>
@@ -100,14 +83,8 @@
   <!-- Examination options -->
   <div class="examination_options">
     <p>Select examinations</p>
-    <select
-      name="examination"
-      id="examination"
-      class="form-control selectpicker"
-      data-live-search="true"
-      multiple
-      data-actions-box="true"
-    >
+    <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple
+      data-actions-box="true">
       {% for btn in examination_form.examination %}
       <td>{{ btn }}</td>
       {% endfor %}
@@ -117,16 +94,11 @@
     {% endif %}
   </div>
 
-    <!-- Patient gender -->
-    <div class="patient_gender">
+  <!-- Patient gender -->
+  <div class="patient_gender">
     <p>Select patient gender</p>
-    <select
-      name="patient_gender"
-      id="patient_gender"
-      class="form-control selectpicker"
-      data-live-search="true"
-      data-actions-box="true"
-    >
+    <select name="patient_gender" id="patient_gender" class="form-control selectpicker" data-live-search="true"
+      data-actions-box="true">
       <tr>
         {% for btn in examination_form.patient_gender %}
         <td>{{ btn.label }}</td>
@@ -161,14 +133,8 @@
   <!-- Remittent opt -->
   <div class="remittent_options">
     <p>Select remittents</p>
-    <select
-      name="remittent"
-      id="remittent"
-      class="form-control selectpicker"
-      data-live-search="true"
-      multiple
-      data-actions-box="true"
-    >
+    <select name="remittent" id="remittent" class="form-control selectpicker" data-live-search="true" multiple
+      data-actions-box="true">
       {% for type in examination_form.remittent %}
       <td>{{ type }}</td>
       {% endfor %}
@@ -181,14 +147,8 @@
   <!-- Producing department -->
   <div class="producing_department_options">
     <p>Select producing department</p>
-    <select
-      name="producing_department"
-      id="producing_department"
-      class="form-control selectpicker"
-      data-live-search="true"
-      multiple
-      data-actions-box="true"
-    >
+    <select name="producing_department" id="producing_department" class="form-control selectpicker"
+      data-live-search="true" multiple data-actions-box="true">
       {% for type in examination_form.producing_department %}
       <td>{{ type }}</td>
       {% endfor %}
@@ -201,14 +161,8 @@
   <!-- Modality lab -->
   <div class="modality_lab_options">
     <p>Select modality laboratories</p>
-    <select
-      name="modality_lab"
-      id="modality_lab"
-      class="form-control selectpicker"
-      data-live-search="true"
-      multiple
-      data-actions-box="true"
-    >
+    <select name="modality_lab" id="modality_lab" class="form-control selectpicker" data-live-search="true" multiple
+      data-actions-box="true">
       {% for type in examination_form.modality_lab %}
       <td>{{ type }}</td>
       {% endfor %}
@@ -226,11 +180,7 @@
   </p>
 
   <!-- Submit button -->
-  <button
-    type="button"
-    class="explore_data_button"
-    onclick="createKibanaLink()"
-  >
+  <button type="button" class="explore_data_button" onclick="createKibanaLink()">
     Explore data
   </button>
   <br />

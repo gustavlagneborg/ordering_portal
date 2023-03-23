@@ -100,14 +100,20 @@ getProjects().then(data => {
 
   // Create an HTML table element to display the projects
   const table = document.createElement('table')
+  table.id = "projects_table"
+  table.setAttribute("data-search", "true")
+  table.setAttribute("data-custom-search", "customSearch")
+  table.setAttribute("data-url", "json/data1.json")  
 
   // Create the table header row
   const headerRow = document.createElement('tr')
 
   const projectKeys = Object.keys(projects[0])
   projectKeys.forEach(key => {
+    const header = document.createElement('th')
+    header.id = key
+    header.setAttribute("data-field", key)
     if (key !== 'id' && key !== 'User id') {
-      const header = document.createElement('th')
       if (key === 'User') {
         var userLogo = document.createElement('i')
         userLogo.className = 'fa-solid fa-user'
@@ -116,10 +122,22 @@ getProjects().then(data => {
         header.appendChild(userLogo)
       } else if (key === 'Date range' || key === 'Date ordered') {
         var dateLogo = document.createElement('i')
-        dateLogo.className = "fa-regular fa-calendar-days"
+        dateLogo.className = 'fa-regular fa-calendar-days'
         header.textContent = `${key} `
 
         header.appendChild(dateLogo)
+      } else if (key === 'Examinations') {
+        var examinationLogo = document.createElement('i')
+        examinationLogo.className = 'fa-sharp fa-solid fa-x-ray'
+        header.textContent = `${key} `
+
+        header.appendChild(examinationLogo)
+      } else if (key === "Patient gender") {
+        var genderLogo = document.createElement('i')
+        genderLogo.className = "fa-solid fa-person-half-dress"
+        header.textContent = `${key} `
+
+        header.appendChild(genderLogo)
       } else {
         header.textContent = key
       }
