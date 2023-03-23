@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Ordering Portal</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
+
 <body>
     <header class="nav_header">
-        <a class="logo" href="/"><h3>Ordering Portal</h3></a>
+        <a class="logo" href="/">
+            <h3>Ordering Portal</h3>
+        </a>
         <nav class="nav_bar">
             <ul class="nav_links">
                 <li><a href="/order_project">Order a project</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
                 {% if current_user.admin %}
-                    <li><a class="admin" href="/admin">Admin</a></li>
+                <li><a class="admin" href="/admin">Admin</a></li>
                 {% endif %}
             </ul>
         </nav>
         {% if current_user.is_authenticated %}
-            <ul class="nav_links" id="login_logout">
-                <li><a class="user" href="/user"><button>{{ current_user.username }}</button></a></li>
-                <li><a class="logout" href="/logout"><button>Logout</button></a></li>
-            </ul>
+        <ul class="nav_links" id="login_logout">
+            <li><a class="user" href="/user"><button>{{ current_user.username }}</button></a></li>
+            <li><a class="logout" href="/logout"><button>Logout</button></a></li>
+        </ul>
         {% else %}
-            <a class="login" href="/login"><button>Login</button></a>
+        <a class="login" href="/login"><button>Login</button></a>
         {% endif %}
     </header>
 
@@ -33,18 +40,18 @@
         <div id="main_content">
             {% block content %}
             <h1>Welcome to the Ordering Portal</h1>
-    
+
             {% endblock %}
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                {% for message in messages %}
-                    <p class="message">{{ message }}</p>
-                {% endfor %}
+            {% for message in messages %}
+            <p class="message">{{ message }}</p>
+            {% endfor %}
             {% endif %}
             {% endwith %}
         </div>
     </div>
-    
+
 
     <footer id="footer">
         <div id="footer_content">
@@ -61,5 +68,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="https://kit.fontawesome.com/d0443263ba.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
 </body>
+
 </html>

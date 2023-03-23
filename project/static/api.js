@@ -101,9 +101,7 @@ getProjects().then(data => {
   // Create an HTML table element to display the projects
   const table = document.createElement('table')
   table.id = "projects_table"
-  table.setAttribute("data-search", "true")
-  table.setAttribute("data-custom-search", "customSearch")
-  table.setAttribute("data-url", "json/data1.json")  
+  table.setAttribute("class", "table table-striped")
 
   // Create the table header row
   const headerRow = document.createElement('tr')
@@ -112,7 +110,6 @@ getProjects().then(data => {
   projectKeys.forEach(key => {
     const header = document.createElement('th')
     header.id = key
-    header.setAttribute("data-field", key)
     if (key !== 'id' && key !== 'User id') {
       if (key === 'User') {
         var userLogo = document.createElement('i')
