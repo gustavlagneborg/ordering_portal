@@ -27,7 +27,7 @@ The best solution is to run the image in detached mode. Because we need to view 
 ## Run container
 The best solution is to run the image in detached mode. Because we need to view this application in the browser rather than the container, we'll modify our docker run and add two additional tags: "-d" to run it in detached mode and "-p" to specify the port to be exposed. 
 
-`docker run -d -p 5000:5000 gustavlagneborg/ordering_portal`
+`docker run -p 5000:5000 gustavlagneborg/ordering_portal`
 
 ## Access 
 For local access visit: 127.0.0.1:5000/
