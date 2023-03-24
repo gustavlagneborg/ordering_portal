@@ -101,6 +101,7 @@ getProjects().then(data => {
   // Create an HTML table element to display the projects
   var thead = document.getElementById('project-header')
   var tfoot = document.getElementById('project-footer')
+  
   // Create the table header row
   const headerRow = document.createElement('tr')
   const footerRow = document.createElement('tr')
