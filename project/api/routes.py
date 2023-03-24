@@ -60,29 +60,6 @@ def index():
 # ----------------------------
 # GET endpoints
 # ----------------------------
-@api_blueprint.route("/login")
-def login():
-    """Authentication route."""
-
-    auth = request.authorization
-    api_user: APIUser = api_store.login(auth=auth)
-
-    if not api_user:
-        return make_response(
-            "Coult not verify",
-            401,
-            {"WWW-Authentivate": "Basic realm='Login required!'"},
-        )
-    else:
-        token = jwt.encode(
-            {
-                "public_id": api_user.public_id,
-                "exp": datetime.utcnow() + timedelta(days=30),
-            },
-            os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
-        )
-
-        return jsonify({"token": token})
 
 
 @api_blueprint.route("/projects", methods=["GET"])
@@ -147,6 +124,31 @@ def create_api_user(current_user):
         return make_response(jsonify({"Error:": f"{e}"}))
 
     return make_response(jsonify({"message": f"New API user {api_user} created!"}), 200)
+
+
+@api_blueprint.route("/login", methods=["POST"])
+def login():
+    """Authentication route."""
+
+    auth = request.authorization
+    api_user: APIUser = api_store.login(auth=auth)
+
+    if not api_user:
+        return make_response(
+            "Coult not verify",
+            401,
+            {"WWW-Authentivate": "Basic realm='Login required!'"},
+        )
+    else:
+        token = jwt.encode(
+            {
+                "public_id": api_user.public_id,
+                "exp": datetime.utcnow() + timedelta(days=30),
+            },
+            os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
+        )
+
+        return jsonify({"token": token})
 
 
 # ----------------------------

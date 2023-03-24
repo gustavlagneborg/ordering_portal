@@ -20,7 +20,7 @@ class PseudonymisaiontTypes(ExtendedEnum):
     TYPE2 = "Type 2"
 
 
-class PatientSex(ExtendedEnum):
+class PatientGender(ExtendedEnum):
     MALE = "Male"
     FEMALE = "Female"
     BOTH = "Both"

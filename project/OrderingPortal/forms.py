@@ -18,7 +18,7 @@ from wtforms.validators import (
     EqualTo,
     NumberRange,
 )
-from project.OrderingPortal.constants import PseudonymisaiontTypes, PatientSex
+from project.OrderingPortal.constants import PseudonymisaiontTypes, PatientGender
 from project import db
 from .store import Store
 
@@ -105,8 +105,8 @@ class ExaminationsForm(FlaskForm):
         validators=[InputRequired()],
     )
 
-    patient_sex = SelectMultipleField(
-        "Sex", choices=PatientSex.list(), validators=[validators.optional()]
+    patient_gender = SelectMultipleField(
+        "Gender", choices=PatientGender.list(), validators=[validators.optional()]
     )
 
     # Optional fields

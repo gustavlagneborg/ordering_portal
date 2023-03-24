@@ -1,7 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Admin page</h1>
-<a href="/register">Register new user</a>
+<h1>Admin page</h1><br>
+
+<div id="user_management">
+    <a href="/register">
+        <button>
+            Register new user <i class="fa-solid fa-user"></i>
+        </button>
+    </a>
+</div><br>
+
+<div id="project-data1">
+    <h2>Projects</h2>
+    <div id="searchProject">
+        <input type="text" id="searchProjectInput" onkeyup="searchProjectTable()" placeholder="Search for a project">
+    </div>
+    <table id="project-table">
+        <thead id="project-header"></thead>
+        <tbody id="project-body"></tbody>
+        <tfoot id="project-footer"></tfoot>
+    </table>
+</div>
+
+<script src="{{ url_for('static', filename='api.js') }}"></script>
 
 {% endblock %}

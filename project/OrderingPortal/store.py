@@ -89,7 +89,7 @@ class Store:
         project: Project = self.project(
             project_name=project_form.project_name.data,
             pseudonymisation_type=project_form.pseudo_type.data[0],
-            patient_sex=examination_form.patient_sex.data[0],
+            patient_gender=examination_form.patient_gender.data[0],
             start_date=examination_form.start_date.data,
             end_date=examination_form.end_date.data,
             min_patient_age=examination_form.min_patient_age.data,

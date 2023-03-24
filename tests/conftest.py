@@ -6,7 +6,7 @@ from project.OrderingPortal.forms import RegistrationForm
 from project.OrderingPortal.store import Store
 from project.api.api_store import APIStore
 from project import create_app, db
-from project.OrderingPortal.constants import PatientSex, PseudonymisaiontTypes
+from project.OrderingPortal.constants import PatientGender, PseudonymisaiontTypes
 from project.OrderingPortal.models import (
     User,
     Examination,

@@ -85,8 +85,8 @@ def bootstrap_data():
     echo("Data deliveries added!")
 
     # add modalities
-    ct = Modality(modality="Computed Tomography - CT")
-    mri = Modality(modality="Magnetic resonance imaging - MRI")
+    ct = Modality(modality="CT")
+    mri = Modality(modality="MRI")
     x_ray = Modality(modality="X-ray")
 
     db.session.add_all([ct, mri, x_ray])
@@ -132,7 +132,7 @@ def bootstrap_data():
     project1 = Project(
         project_name="Female Sculs",
         pseudonymisation_type="No pseudonymisation",
-        patient_sex="Female",
+        patient_gender="Female",
         start_date=date(2000, 1, 1),
         end_date=datetime.now(),
         user_id=gustav.id,
