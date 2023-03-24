@@ -101,7 +101,7 @@ getProjects().then(data => {
   // Create an HTML table element to display the projects
   var thead = document.getElementById('project-header')
   var tfoot = document.getElementById('project-footer')
-  
+
   // Create the table header row
   const headerRow = document.createElement('tr')
   const footerRow = document.createElement('tr')
@@ -110,12 +110,12 @@ getProjects().then(data => {
 
   projectKeys.forEach(key => {
     const header = document.createElement('th')
-    const footer = document.createElement("td")
+    const footer = document.createElement('td')
 
     header.id = key
     header.setAttribute('onclick', `sortTable(${count})`)
 
-    footer.id = "table-footer"
+    footer.id = 'table-footer'
     count++
     if (key !== 'id' && key !== 'User id') {
       var sortLogo = document.createElement('i')
@@ -123,16 +123,15 @@ getProjects().then(data => {
       header.textContent = `${key} `
       header.appendChild(sortLogo)
       headerRow.appendChild(header)
-      
+
       footer.textContent = key
       footerRow.appendChild(footer)
-
     }
   })
-  
+
   tfoot.appendChild(footerRow)
   thead.appendChild(headerRow)
-  
+
   // Iterate through the list of projects and create table rows for each project
   var tbody = document.getElementById('project-body')
   projects.forEach(project => {
@@ -162,7 +161,7 @@ getProjects().then(data => {
           cell.appendChild(link)
         } else if (key === 'User') {
           var link = document.createElement('a')
-          link.href = `/user/${project['User id']}`
+          link.href = `/users/${project['User id']}`
 
           var button = document.createElement('button')
           button.innerText = project[key]
