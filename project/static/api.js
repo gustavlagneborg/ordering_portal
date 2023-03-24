@@ -43,7 +43,7 @@ async function queryOrderingPortal (method) {
 }
 
 async function getProjects () {
-  const url = 'http://127.0.0.1:5000/api/v1/projects' // replace with your API endpoint URL
+  const url = 'http://127.0.0.1:5000/api/v1/projects'
 
   const options = await queryOrderingPortal('GET')
 
@@ -56,7 +56,22 @@ async function getProjects () {
     })
     .catch(error => {
       console.error(error)
-      // handle error, such as displaying an error message to the user
+    })
+}
+
+async function getProject (projectId) {
+  const url = `http://127.0.0.1:5000/api/v1/projects/${projectId}`
+  const options = await queryOrderingPortal('GET')
+
+  return fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to get data')
+      }
+      return response.json()
+    })
+    .catch(error => {
+      console.error(error)
     })
 }
 
@@ -99,8 +114,8 @@ getProjects().then(data => {
   })
 
   // Create an HTML table element to display the projects
-  var thead = document.getElementById('project-header')
-  var tfoot = document.getElementById('project-footer')
+  var thead = document.getElementById('projects-header')
+  var tfoot = document.getElementById('projects-footer')
 
   // Create the table header row
   const headerRow = document.createElement('tr')
@@ -133,7 +148,7 @@ getProjects().then(data => {
   thead.appendChild(headerRow)
 
   // Iterate through the list of projects and create table rows for each project
-  var tbody = document.getElementById('project-body')
+  var tbody = document.getElementById('projects-body')
   projects.forEach(project => {
     const row = document.createElement('tr')
 

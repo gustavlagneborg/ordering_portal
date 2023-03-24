@@ -104,7 +104,7 @@ def user():
 def project(id):
     """Route for editing a specific project."""
 
-    if current_user.id == id or current_user.admin:
+    if current_user.admin:
         return render_template("project.html")
     else:
         flash("You are not authorized for this page!")
@@ -145,5 +145,5 @@ def about():
 @ordering_portal_blueprint.route("/contact")
 def contact():
     """Route for contact page."""
-    
+
     return render_template("contact.html")
