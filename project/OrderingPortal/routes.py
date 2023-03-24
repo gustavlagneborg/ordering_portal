@@ -100,7 +100,6 @@ def project(id):
         return redirect(url_for(".user"))
 
 
-
 @ordering_portal_blueprint.route("/admin")
 @login_required
 def admin():
