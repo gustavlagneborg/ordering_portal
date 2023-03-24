@@ -11,18 +11,18 @@
     </a>
 </div><br>
 
-<div id="searchProject">
-    <input type="text" id="searchProjectInput" onkeyup="searchProjectTable()" placeholder="Search for Project names">
-</div>
-
 <div id="project-data1">
-    <table id="project-table" class="table table-striped">
+    <h2>Projects</h2>
+    <div id="searchProject">
+        <input type="text" id="searchProjectInput" onkeyup="searchProjectTable()" placeholder="Search for a project">
+    </div>
+    <table id="project-table">
         <thead id="project-header"></thead>
         <tbody id="project-body"></tbody>
+        <tfoot id="project-footer"></tfoot>
     </table>
 </div>
 
 <script src="{{ url_for('static', filename='api.js') }}"></script>
-<script src="https://kit.fontawesome.com/d0443263ba.js" crossorigin="anonymous"></script>
 
 {% endblock %}

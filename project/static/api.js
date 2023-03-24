@@ -77,7 +77,7 @@ getProjects().then(data => {
       Examinations: rawProject['Examinations'],
       'Patient gender': rawProject['Patient gender'],
       'Date range': `${rawProject['Start date']} - ${rawProject['End date']}`,
-      'Date ordered': rawProject['Date ordered:'],
+      'Date ordered': rawProject['Date ordered'],
       'Age range': `${
         rawProject['Minimum patient age'] !== null
           ? rawProject['Minimum patient age']
@@ -99,51 +99,41 @@ getProjects().then(data => {
   })
 
   // Create an HTML table element to display the projects
-  var thead = document.getElementById("project-header");
-
+  var thead = document.getElementById('project-header')
+  var tfoot = document.getElementById('project-footer')
   // Create the table header row
   const headerRow = document.createElement('tr')
-
+  const footerRow = document.createElement('tr')
   const projectKeys = Object.keys(projects[0])
+  var count = 0
+
   projectKeys.forEach(key => {
     const header = document.createElement('th')
+    const footer = document.createElement("td")
+
     header.id = key
+    header.setAttribute('onclick', `sortTable(${count})`)
+
+    footer.id = "table-footer"
+    count++
     if (key !== 'id' && key !== 'User id') {
-      if (key === 'User') {
-        var userLogo = document.createElement('i')
-        userLogo.className = 'fa-solid fa-user'
-        header.textContent = `${key} `
-
-        header.appendChild(userLogo)
-      } else if (key === 'Date range' || key === 'Date ordered') {
-        var dateLogo = document.createElement('i')
-        dateLogo.className = 'fa-regular fa-calendar-days'
-        header.textContent = `${key} `
-
-        header.appendChild(dateLogo)
-      } else if (key === 'Examinations') {
-        var examinationLogo = document.createElement('i')
-        examinationLogo.className = 'fa-sharp fa-solid fa-x-ray'
-        header.textContent = `${key} `
-
-        header.appendChild(examinationLogo)
-      } else if (key === "Patient gender") {
-        var genderLogo = document.createElement('i')
-        genderLogo.className = "fa-solid fa-person-half-dress"
-        header.textContent = `${key} `
-
-        header.appendChild(genderLogo)
-      } else {
-        header.textContent = key
-      }
+      var sortLogo = document.createElement('i')
+      sortLogo.className = 'fa-solid fa-sort'
+      header.textContent = `${key} `
+      header.appendChild(sortLogo)
       headerRow.appendChild(header)
+      
+      footer.textContent = key
+      footerRow.appendChild(footer)
+
     }
   })
-
+  
+  tfoot.appendChild(footerRow)
   thead.appendChild(headerRow)
-
+  
   // Iterate through the list of projects and create table rows for each project
-  var tbody = document.getElementById("project-body");
+  var tbody = document.getElementById('project-body')
   projects.forEach(project => {
     const row = document.createElement('tr')
 

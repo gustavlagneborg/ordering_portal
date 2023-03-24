@@ -6,7 +6,8 @@
 
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -28,11 +29,14 @@ html, body {
   margin-top: -50px;
   clear: both;
   padding-top: 50px;
-  
+
 }
 
 
-li, a, button, footer{
+li,
+a,
+button,
+footer {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -45,10 +49,11 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 30px 10%;
-  
+
 }
 
-#footer_content, header {
+#footer_content,
+header {
   background-color: #2599cf;
 }
 
@@ -57,18 +62,18 @@ p {
 }
 
 .error {
-    color:red;
+  color: red;
 }
 
 body {
   background-color: #C3E4F3;
-  }
+}
 
 
 /* Control size of examination selecter */
 .bootstrap-select {
-    width: 330px !important;
-  }
+  width: 330px !important;
+}
 
 .logo {
   cursor: pointer;
@@ -118,15 +123,15 @@ form {
   text-align: left;
 }
 
-#login_form, #register_form {
+#login_form,
+#register_form {
   text-align: center;
 }
 
-.data_link{
+.data_link {
   visibility: hidden;
   display: none;
 }
-
 
 #project-data1 {
   border-collapse: collapse;
@@ -134,28 +139,37 @@ form {
   font-size: 12px;
 }
 
-#project-data1 td, #project-data1 th {
-  border: 1px solid #ddd;
+#project-data1 td,
+#project-data1 th {
   padding: 8px;
 }
 
-#project-data1 tr:nth-child(even){background-color: #f2f2f2;}
+#project-data1 tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-#project-data1 tr:hover {background-color: #efe4e4;}
+#project-data1 tr:hover {
+  background-color: #efe4e4;
+}
 
-#project-data1 th {
+#project-data1 th,
+#table-footer {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
   background-color: #2599cf;
 }
 
-#project-button{
+
+#project-button {
   width: 100px;
   display: inline-block;
   font-size: 12px;
-  }
+}
 
 #searchProject {
+  width: -150px;
+  margin: auto auto;
   text-align: right;
+  padding: 10px;
 }
