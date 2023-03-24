@@ -152,7 +152,7 @@ getProjects().then(data => {
           })
         } else if (key === 'Project') {
           var link = document.createElement('a')
-          link.href = `/project/${project['id']}`
+          link.href = `/projects/${project['id']}`
 
           var button = document.createElement('button')
           button.innerText = project[key]

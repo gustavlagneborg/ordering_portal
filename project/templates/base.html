@@ -44,7 +44,7 @@
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
-            <p class="message">{{ message }}</p>
+            <p class="error">{{ message }}</p>
             {% endfor %}
             {% endif %}
             {% endwith %}

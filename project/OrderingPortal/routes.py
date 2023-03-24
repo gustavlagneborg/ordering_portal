@@ -90,6 +90,17 @@ def user():
     return render_template("user.html", user=current_user)
 
 
+@ordering_portal_blueprint.route("/projects/<int:id>")
+@login_required
+def project(id):
+    if current_user.id == id or current_user.admin:
+        return render_template("project.html")
+    else:
+        flash("You are not authorized for this page!")
+        return redirect(url_for(".user"))
+
+
+
 @ordering_portal_blueprint.route("/admin")
 @login_required
 def admin():
@@ -97,7 +108,7 @@ def admin():
         return render_template("admin.html")
     else:
         flash("To access the admin page you need to be an admin!")
-        redirect(url_for(".user"))
+        return redirect(url_for(".user"))
 
 
 @ordering_portal_blueprint.route("/about")
