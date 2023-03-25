@@ -23,30 +23,10 @@
                 <th id="Radiology verdict">Radiology verdict</th>
             </tr>
         </thead>
-        <tbody id="project-body">
-
-            <tr>
-                <td><a href="/projects/1"><button id="project-button">Female Sculs</button></a></td>
-                <td><a href="/users/2"><button id="project-button">Gustav</button></a></td>
-                <td>Waiting for ethical approval</td>
-                <td>No pseudonymisation</td>
-                <td>Kaapana, Dicom viewer</td>
-                <td>CT</td>
-                <td>Scul</td>
-                <td>Female</td>
-                <td>2000/01/01 - 2023/03/24</td>
-                <td>2023/03/24</td>
-                <td> - </td>
-                <td>Neuro Solna, Neuro Huddinge</td>
-                <td>Neuro Solna, Neuro Huddinge</td>
-                <td>Lab 1</td>
-                <td>false</td>
-            </tr>
-
-
-        </tbody>
+        <tbody id="project-body"></tbody>
     </table>
 </div>
 
+<script src="{{ url_for('static', filename='api.js') }}"></script>
 
 {% endblock %}

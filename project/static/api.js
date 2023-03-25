@@ -1,4 +1,4 @@
-async function login (username, password) {
+async function login(username, password) {
   const url = 'http://127.0.0.1:5000/api/v1/login' // replace with your API endpoint URL
 
   const headers = new Headers()
@@ -27,7 +27,7 @@ async function login (username, password) {
     })
 }
 
-async function queryOrderingPortal (method) {
+async function queryOrderingPortal(method) {
   const username = 'API_Admin'
   const password = 'apiadmin'
   const token = await login(username, password)
@@ -42,7 +42,7 @@ async function queryOrderingPortal (method) {
   return options
 }
 
-async function getProjects () {
+async function getProjects() {
   const url = 'http://127.0.0.1:5000/api/v1/projects'
 
   const options = await queryOrderingPortal('GET')
@@ -59,7 +59,7 @@ async function getProjects () {
     })
 }
 
-async function getProject (projectId) {
+async function getProject(projectId) {
   const url = `http://127.0.0.1:5000/api/v1/projects/${projectId}`
   const options = await queryOrderingPortal('GET')
 
@@ -75,6 +75,35 @@ async function getProject (projectId) {
     })
 }
 
+function projectStructure (rawProject) {
+  return {
+    Project: rawProject['Project name'],
+    User: rawProject['User'],
+    Status: rawProject['Project status'],
+    Pseudonymisation: rawProject['Pseudonymisation type'],
+    'Data Deliveries': rawProject['Data Deliveries'],
+    Modalities: rawProject['Modalities'],
+    Examinations: rawProject['Examinations'],
+    'Patient gender': rawProject['Patient gender'],
+    'Date range': `${rawProject['Start date']} - ${rawProject['End date']}`,
+    'Date ordered': rawProject['Date ordered'],
+    'Age range': `${rawProject['Minimum patient age'] !== null
+      ? rawProject['Minimum patient age']
+      : ''
+      } - ${rawProject['Maximum patient age'] !== null
+        ? rawProject['Maximum patient age']
+        : ''
+      }`,
+    Remittances: rawProject['Remittances'],
+    'Producing departments': rawProject['Producing departments'],
+    'Modality laboratories': rawProject['Modality laboratories'],
+    'Radiology verdict': rawProject['Radiology verdict'],
+    id: rawProject['id'],
+    'User id': rawProject['User id']
+  }
+}
+
+
 getProjects().then(data => {
   // Parse the JSON list of projects into a JavaScript object
   const rawProjects = data.projects
@@ -82,55 +111,24 @@ getProjects().then(data => {
   // trim and re-order project
   const projects = []
   rawProjects.forEach(rawProject => {
-    let project = {
-      Project: rawProject['Project name'],
-      User: rawProject['User'],
-      Status: rawProject['Project status'],
-      Pseudonymisation: rawProject['Pseudonymisation type'],
-      'Data Deliveries': rawProject['Data Deliveries'],
-      Modalities: rawProject['Modalities'],
-      Examinations: rawProject['Examinations'],
-      'Patient gender': rawProject['Patient gender'],
-      'Date range': `${rawProject['Start date']} - ${rawProject['End date']}`,
-      'Date ordered': rawProject['Date ordered'],
-      'Age range': `${
-        rawProject['Minimum patient age'] !== null
-          ? rawProject['Minimum patient age']
-          : ''
-      } - ${
-        rawProject['Maximum patient age'] !== null
-          ? rawProject['Maximum patient age']
-          : ''
-      }`,
-      Remittances: rawProject['Remittances'],
-      'Producing departments': rawProject['Producing departments'],
-      'Modality laboratories': rawProject['Modality laboratories'],
-      'Radiology verdict': rawProject['Radiology verdict'],
-      id: rawProject['id'],
-      'User id': rawProject['User id']
-    }
-
+    let project = projectStructure(rawProject)
     projects.push(project)
   })
 
   // Create an HTML table element to display the projects
   var thead = document.getElementById('projects-header')
-  var tfoot = document.getElementById('projects-footer')
 
   // Create the table header row
   const headerRow = document.createElement('tr')
-  const footerRow = document.createElement('tr')
   const projectKeys = Object.keys(projects[0])
   var count = 0
 
   projectKeys.forEach(key => {
     const header = document.createElement('th')
-    const footer = document.createElement('td')
 
     header.id = key
     header.setAttribute('onclick', `sortTable(${count})`)
 
-    footer.id = 'table-footer'
     count++
     if (key !== 'id' && key !== 'User id') {
       var sortLogo = document.createElement('i')
@@ -138,13 +136,9 @@ getProjects().then(data => {
       header.textContent = `${key} `
       header.appendChild(sortLogo)
       headerRow.appendChild(header)
-
-      footer.textContent = key
-      footerRow.appendChild(footer)
     }
   })
 
-  tfoot.appendChild(footerRow)
   thead.appendChild(headerRow)
 
   // Iterate through the list of projects and create table rows for each project
@@ -192,4 +186,37 @@ getProjects().then(data => {
     })
     tbody.append(row)
   })
+})
+
+
+getProject(1).then(rawProject => {
+
+  let project = projectStructure(rawProject)
+
+  const projectKeys = Object.keys(project)
+
+  // Iterate through the list of projects and create table rows for each project
+  var tbody = document.getElementById('project-body')
+  const row = document.createElement('tr')
+
+  projectKeys.forEach(key => {
+    const cell = document.createElement('td')
+    if (key !== 'id' && key !== 'User id') {
+      if (Array.isArray(project[key])) {
+        project[key].forEach(list => {
+          if (!cell.textContent) {
+            cell.textContent += Object.values(list)
+          } else {
+            cell.textContent += ', '
+            cell.textContent += Object.values(list)
+          }
+        })
+      } else {
+        cell.textContent = project[key]
+      }
+      row.appendChild(cell)
+    }
+  })
+
+  tbody.append(row)
 })
