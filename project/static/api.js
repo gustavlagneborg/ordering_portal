@@ -75,7 +75,7 @@ async function getProject(projectId) {
     })
 }
 
-function projectStructure (rawProject) {
+function projectStructure(rawProject) {
   return {
     Project: rawProject['Project name'],
     User: rawProject['User'],
@@ -103,6 +103,40 @@ function projectStructure (rawProject) {
   }
 }
 
+function loadProject(id) {
+  const rawProject = getProject(id)
+  
+  let project = projectStructure(rawProject)
+  const projectKeys = Object.keys(project)
+  
+
+  // Iterate through the list of projects and create table rows for each project
+  var tbody = document.getElementById('project-body')
+  const row = document.createElement('tr')
+
+  projectKeys.forEach(key => {
+    const cell = document.createElement('td')
+    if (key !== 'id' && key !== 'User id') {
+      if (Array.isArray(project[key])) {
+        project[key].forEach(list => {
+          if (!cell.textContent) {
+            cell.textContent += Object.values(list)
+          } else {
+            cell.textContent += ', '
+            cell.textContent += Object.values(list)
+          }
+        })
+      } else {
+        cell.textContent = project[key]
+      }
+      row.appendChild(cell)
+    }
+  })
+
+  tbody.append(row)
+}
+
+loadProject(1)
 
 getProjects().then(data => {
   // Parse the JSON list of projects into a JavaScript object
@@ -143,6 +177,7 @@ getProjects().then(data => {
 
   // Iterate through the list of projects and create table rows for each project
   var tbody = document.getElementById('projects-body')
+
   projects.forEach(project => {
     const row = document.createElement('tr')
 
@@ -164,6 +199,8 @@ getProjects().then(data => {
 
           var button = document.createElement('button')
           button.innerText = project[key]
+          button.setAttribute("onclick", `loadProject(${project['id']})`)
+
           button.id = 'project-button'
 
           link.appendChild(button)
@@ -174,7 +211,7 @@ getProjects().then(data => {
 
           var button = document.createElement('button')
           button.innerText = project[key]
-          button.id = 'project-button'
+          button.id = 'user-button'
 
           link.appendChild(button)
           cell.appendChild(link)
@@ -188,35 +225,3 @@ getProjects().then(data => {
   })
 })
 
-
-getProject(1).then(rawProject => {
-
-  let project = projectStructure(rawProject)
-
-  const projectKeys = Object.keys(project)
-
-  // Iterate through the list of projects and create table rows for each project
-  var tbody = document.getElementById('project-body')
-  const row = document.createElement('tr')
-
-  projectKeys.forEach(key => {
-    const cell = document.createElement('td')
-    if (key !== 'id' && key !== 'User id') {
-      if (Array.isArray(project[key])) {
-        project[key].forEach(list => {
-          if (!cell.textContent) {
-            cell.textContent += Object.values(list)
-          } else {
-            cell.textContent += ', '
-            cell.textContent += Object.values(list)
-          }
-        })
-      } else {
-        cell.textContent = project[key]
-      }
-      row.appendChild(cell)
-    }
-  })
-
-  tbody.append(row)
-})
