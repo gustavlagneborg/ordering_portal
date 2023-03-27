@@ -109,7 +109,7 @@ def project(id):
     else:
         flash("You are not authorized for this page!")
         return redirect(url_for(".user"))
-    
+
 
 @ordering_portal_blueprint.route("/users/<int:id>")
 @login_required

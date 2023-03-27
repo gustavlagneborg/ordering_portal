@@ -24,7 +24,6 @@ def token_required(f):
     def decorated(*args, **kwargs):
         try:
             data = api_store.decode_token(token=api_store.check_jwt_token())
-            print(data)
             current_user = APIUser.query.filter_by(public_id=data["public_id"]).first()
         except:
             return jsonify({"message": "Not a valid token!"}), 403

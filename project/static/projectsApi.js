@@ -67,22 +67,7 @@ function projectStructure (rawProject) {
     'Data Deliveries': rawProject['Data Deliveries'],
     Modalities: rawProject['Modalities'],
     Examinations: rawProject['Examinations'],
-    'Patient gender': rawProject['Patient gender'],
-    'Date range': `${rawProject['Start date']} - ${rawProject['End date']}`,
     'Date ordered': rawProject['Date ordered'],
-    'Age range': `${
-      rawProject['Minimum patient age'] !== null
-        ? rawProject['Minimum patient age']
-        : ''
-    } - ${
-      rawProject['Maximum patient age'] !== null
-        ? rawProject['Maximum patient age']
-        : ''
-    }`,
-    Remittances: rawProject['Remittances'],
-    'Producing departments': rawProject['Producing departments'],
-    'Modality laboratories': rawProject['Modality laboratories'],
-    'Radiology verdict': rawProject['Radiology verdict'],
     id: rawProject['id'],
     'User id': rawProject['User id']
   }
@@ -180,7 +165,6 @@ getProjects().then(data => {
 
           var button = document.createElement('button')
           button.innerText = project[key]
-          button.setAttribute('onclick', `loadProject(${project['id']})`)
 
           button.id = 'project-button'
 

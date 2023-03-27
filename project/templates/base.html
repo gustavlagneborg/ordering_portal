@@ -28,7 +28,8 @@
         <ul class="nav_links" id="login_logout">
             <li><a class="user" href="/user"><button>{{ current_user.username }} <i
                             class="fa-solid fa-user"></i></button></a></li>
-            <li><a class="logout" href="/logout"><button>Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></button></a></li>
+            <li><a class="logout" href="/logout"><button>Logout <i
+                            class="fa-solid fa-arrow-right-from-bracket"></i></button></a></li>
         </ul>
         {% else %}
         <a class="login" href="/login"><button>Login <i class="fa-solid fa-arrow-right-to-bracket"></i></button></a>
@@ -61,10 +62,9 @@
             <br>
         </div>
     </footer>
-    
+
     <script src="https://kit.fontawesome.com/d0443263ba.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script src="{{ url_for('static', filename='projectApi.js') }}"></script>
 </body>
 
 </html>

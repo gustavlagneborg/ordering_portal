@@ -133,27 +133,27 @@ form {
   display: none;
 }
 
-#project-data1 {
+#project-data {
   border-collapse: collapse;
   width: 100%;
   font-size: 12px;
   text-align: center !important;
 }
 
-#project-data1 td,
-#project-data1 th {
+#project-data td,
+#project-data th {
   padding: 8px;
 }
 
-#project-data1 tr:nth-child(even) {
+#project-data tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-#project-data1 tr:hover {
+#project-data tr:hover {
   background-color: #efe4e4;
 }
 
-#project-data1 th,
+#project-data th,
 #table-footer {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -169,13 +169,14 @@ form {
 }
 
 #searchProject {
-  width: -150px;
+  width: 1000px;
   margin: auto auto;
   text-align: right;
   padding: 10px;
 }
 
-#project-table, #projects-table {
+#project-table,
+#projects-table {
   margin-left: auto;
   margin-right: auto;
 }

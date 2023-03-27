@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Project</h1>
+<h1 id="project-h1"></h1>
 
-<div id="project-data1">
+<div id="project-data">
     <table id="project-table">
         <thead id="project-header">
             <tr>
@@ -27,6 +27,6 @@
     </table>
 </div>
 
-<script src="{{ url_for('static', filename='api.js') }}"></script>
+<script src="{{ url_for('static', filename='projectApi.js') }}"></script>
 
 {% endblock %}
