@@ -162,7 +162,7 @@ form {
 }
 
 
-#project-button {
+#project-button, #user-button {
   width: 100px;
   display: inline-block;
   font-size: 12px;
