@@ -62,7 +62,7 @@ class APIStore(Store):
 
     def decode_token(self, token):
         """Decode jwt doken."""
-
+        
         return jwt.decode(
             token,
             os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),

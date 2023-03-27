@@ -41,10 +41,9 @@ async function queryOrderingPortal (method) {
   return options
 }
 
-async function getProjects () {
-  const url = 'http://127.0.0.1:5000/api/v1/projects'
+async function getProject (projectId) {
+  const url = `http://127.0.0.1:5000/api/v1/projects/${projectId}`
   const options = await queryOrderingPortal('GET')
-  console.log(options.headers)
 
   return fetch(url, options)
     .then(response => {
@@ -88,10 +87,14 @@ function projectStructure (rawProject) {
   }
 }
 
-function loadProject (id) {
-  getProject(id).then(rawProject => {
+
+await function loadProject (id) {
+  console.log(id)
+  getProject(1).then(rawProject => {
+    console.log(rawProject)
     let project = projectStructure(rawProject)
     const projectKeys = Object.keys(project)
+
     // Iterate through the list of projects and create table rows for each project
     var tbody = document.getElementById('project-body')
     const row = document.createElement('tr')
@@ -119,89 +122,24 @@ function loadProject (id) {
   })
 }
 
-getProjects().then(data => {
-  // Parse the JSON list of projects into a JavaScript object
-  const rawProjects = data.projects
 
-  // trim and re-order project
-  const projects = []
-  rawProjects.forEach(rawProject => {
-    let project = projectStructure(rawProject)
-    projects.push(project)
-  })
-
-  // Create an HTML table element to display the projects
-  var thead = document.getElementById('projects-header')
-
-  // Create the table header row
-  const headerRow = document.createElement('tr')
-  const projectKeys = Object.keys(projects[0])
-  var count = 0
-
-  projectKeys.forEach(key => {
-    const header = document.createElement('th')
-
-    header.id = key
-    header.setAttribute('onclick', `sortTable(${count})`)
-
-    count++
-    if (key !== 'id' && key !== 'User id') {
-      var sortLogo = document.createElement('i')
-      sortLogo.className = 'fa-solid fa-sort'
-      header.textContent = `${key} `
-      header.appendChild(sortLogo)
-      headerRow.appendChild(header)
-    }
-  })
-
-  thead.appendChild(headerRow)
-
-  // Iterate through the list of projects and create table rows for each project
-  var tbody = document.getElementById('projects-body')
-
-  projects.forEach(project => {
-    const row = document.createElement('tr')
-
-    projectKeys.forEach(key => {
-      const cell = document.createElement('td')
-      if (key !== 'id' && key !== 'User id') {
-        if (Array.isArray(project[key])) {
-          project[key].forEach(list => {
-            if (!cell.textContent) {
-              cell.textContent += Object.values(list)
-            } else {
-              cell.textContent += ', '
-              cell.textContent += Object.values(list)
-            }
-          })
-        } else if (key === 'Project') {
-          var link = document.createElement('a')
-          link.href = `/projects/${project['id']}`
-
-          var button = document.createElement('button')
-          button.innerText = project[key]
-          button.setAttribute('onclick', `loadProject(${project['id']})`)
-
-          button.id = 'project-button'
-
-          link.appendChild(button)
-          cell.appendChild(link)
-        } else if (key === 'User') {
-          var link = document.createElement('a')
-          link.href = `/users/${project['User id']}`
-
-          var button = document.createElement('button')
-          button.innerText = project[key]
-          button.id = 'user-button'
-
-          link.appendChild(button)
-          cell.appendChild(link)
-        } else {
-          cell.textContent = project[key]
-        }
-        row.appendChild(cell)
-      }
-    })
-    tbody.append(row)
-  })
-})
+function addProjectToTable() {
+    const projectId = 1; // replace with actual project id
+    const table = document.getElementById('project-table-test').getElementsByTagName('tbody')[0];
+    
+    getProject(projectId)
+      .then(project => {
+        console.log(project)
+        console.log("hi")
+        const row = table.insertRow();
+        const idCell = row.insertCell();
+        const nameCell = row.insertCell();
+        const descriptionCell = row.insertCell();
+        
+        idCell.innerHTML = project.id;
+        nameCell.innerHTML = project.name;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
