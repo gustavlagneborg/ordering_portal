@@ -87,7 +87,7 @@ function projectStructure(rawProject) {
 
 
 function loadProject(id) {
-  
+
   getProject(id).then(rawProject => {
     let project = projectStructure(rawProject)
     const projectKeys = Object.keys(project)
