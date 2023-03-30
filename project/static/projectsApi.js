@@ -73,6 +73,43 @@ function projectStructure (rawProject) {
   }
 }
 
+function setProjectStatusProgress(cell, projectStatus) {  
+
+  cell.textContent = projectStatus
+  var progressElement = document.createElement("progress")
+  progressElement.id = 'project-progress'
+  progressElement.max = 100
+
+  // add progress bar
+  if (projectStatus === "Waiting for ethical approval") {
+    progressElement.value = progressElement.max / 5
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Ethical approval approved") {
+    progressElement.value = (progressElement.max / 5) * 2
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Retrieving data") {
+    progressElement.value = (progressElement.max / 5) * 3
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Uplaoding data") {
+    progressElement.value = (progressElement.max / 5) * 4
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Uploaded") {
+    progressElement.value = (progressElement.max / 5) * 5
+    progressElement.setAttribute("data-label", projectStatus)
+  } else if (projectStatus === "Ethical approval denied") {
+    progressElement.value = 0
+    progressElement.setAttribute("data-label", projectStatus)
+    cell.style.backgroundColor = "red"
+  }
+  cell.appendChild(document.createElement("br"))
+  cell.appendChild(progressElement)
+
+}
+
 
 getProjects().then(data => {
   // Parse the JSON list of projects into a JavaScript object
@@ -118,7 +155,7 @@ getProjects().then(data => {
     const row = document.createElement('tr')
 
     projectKeys.forEach(key => {
-      const cell = document.createElement('td')
+      let cell = document.createElement('td')
       if (key !== 'id' && key !== 'User id') {
         if (Array.isArray(project[key])) {
           project[key].forEach(list => {
@@ -152,37 +189,7 @@ getProjects().then(data => {
           link.appendChild(button)
           cell.appendChild(link)
         } else if (key === 'Status') {
-          cell.textContent = project[key]
-          var progressElement = document.createElement("progress")
-          progressElement.id = 'project-progress'
-          progressElement.max = 100
-
-          // add progress bar
-          if (project[key] === "Waiting for ethical approval") {
-            progressElement.value = progressElement.max / 5
-            progressElement.setAttribute("data-label", project[key])
-
-          } else if (project[key] === "Ethical approval approved") {
-            progressElement.value = (progressElement.max / 5) * 2
-            progressElement.setAttribute("data-label", project[key])
-
-          } else if (project[key] === "Retrieving data") {
-            progressElement.value = (progressElement.max / 5) * 3
-            progressElement.setAttribute("data-label", project[key])
-
-          } else if (project[key] === "Uplaoding data") {
-            progressElement.value = (progressElement.max / 5) * 4
-            progressElement.setAttribute("data-label", project[key])
-
-          } else if (project[key] === "Uploaded") {
-            progressElement.value = (progressElement.max / 5) * 5
-            progressElement.setAttribute("data-label", project[key])
-          } else if (project[key] === "Ethical approval denied") {
-            progressElement.value = 0
-            progressElement.setAttribute("data-label", project[key])
-          } 
-          cell.appendChild(document.createElement("br"))
-          cell.appendChild(progressElement)
+          setProjectStatusProgress(cell=cell, projectStatus=project[key])
         } else {
           cell.textContent = project[key]
         }
