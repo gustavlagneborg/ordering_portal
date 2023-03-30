@@ -158,12 +158,9 @@ def login():
 @admin_required
 def update_project_status(current_user, id):
     """Update the status for a project."""
-
     data = request.get_json()
     new_status = data.get("status")
-    print("____________________________________________________________________")
-    print(new_status)
-    print(id)
+    
 
     if not new_status:
         return jsonify({"message": "No status provided"}), 400

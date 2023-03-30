@@ -27,6 +27,24 @@
     </table>
 </div>
 
+<div id="update-status">
+    <h3>Update project status</h3>
+    <form method="PUT" action="/projects/{project_id}">
+        <label for="status">Update Project Status:</label>
+        <select id="status" name="status">
+            <option value="Waiting for ethical approval">Waiting for ethical approval</option>
+            <option value="Ethical approval denied">Ethical approval denied</option>
+            <option value="Ethical approval approved">Ethical approval approved</option>
+            <option value="Retrieving data">Retrieving data</option>
+            <option value="Uploading data">Uploading data</option>
+            <option value="Uploaded">Uploaded</option>
+        </select>
+        <br>
+        <button type="button" onclick="updateProjectStatus()">Submit</button>
+    </form>
+
+</div>
+
 <script src="{{ url_for('static', filename='projectApi.js') }}"></script>
 
 {% endblock %}
