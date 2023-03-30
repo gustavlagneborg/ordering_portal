@@ -22,3 +22,13 @@ def login_auth():
 @pytest.fixture()
 def add_api_user(api_store: APIStore, login_user_data: dict) -> APIUser:
     return api_store.add_api_user(data=login_user_data)
+
+
+@pytest.fixture()
+def valid_project_status() -> str:
+    return "Uploaded"
+
+
+@pytest.fixture()
+def invalid_project_status() -> str:
+    return "uppploaded"
