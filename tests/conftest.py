@@ -39,7 +39,7 @@ def test_client():
         with flask_app.app_context():
             db.drop_all()
             db.create_all()
-            
+
             # add api users
             api_admin_user = APIUser(
                 name="API_Admin", public_id="public-id-admin", admin=True
@@ -211,11 +211,11 @@ def test_client():
 def store(test_client):
     """Create the database and the database table."""
 
-    return Store(db=db)  
+    return Store(db=db)
 
 
 @pytest.fixture(scope="session")
 def api_store(test_client):
     """Create the database and the database table."""
 
-    return APIStore(db=db) 
+    return APIStore(db=db)

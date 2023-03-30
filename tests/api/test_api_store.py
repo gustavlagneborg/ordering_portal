@@ -82,8 +82,7 @@ def test_update_project_status_fail(
 
     # WHEN updating the status with a status that is not valid
     with pytest.raises(ProjectStatusError):
-        
         # THEN the status should not be updated and a ProjectStatusError should be raised
-        api_store.update_project_status(project=project, new_status=invalid_project_status)
-
-    
+        api_store.update_project_status(
+            project=project, new_status=invalid_project_status
+        )

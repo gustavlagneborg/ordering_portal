@@ -74,12 +74,12 @@ class APIStore(Store):
 
     def update_project_status(self, project: Project, new_status: str):
         """Update a projects status"""
-        
+
         new_status = new_status.capitalize()
 
         if new_status not in ProjectStatus.list():
             raise ProjectStatusError(f"Status input {new_status} is not a valid choice")
-        
+
         if new_status == ProjectStatus.ETHICAL_APPROVAL.value:
             project.project_status = ProjectStatus.ETHICAL_APPROVAL
         elif new_status == ProjectStatus.ETHICAL_APPROVAL_DENIED.value:
@@ -94,7 +94,6 @@ class APIStore(Store):
             project.project_status = ProjectStatus.UPLOADED
 
         self.db.session.commit()
-        LOG.info(f"Project {project.project_name} status is updated to {project.project_status.value}")
-
-        
-
+        LOG.info(
+            f"Project {project.project_name} status is updated to {project.project_status.value}"
+        )
