@@ -159,29 +159,28 @@ getProjects().then(data => {
 
           // add progress bar
           if (project[key] === "Waiting for ethical approval") {
-            progressElement.value = progressElement.max / 6
-            progressElement.setAttribute("data-label", project[key])
-
-          } else if (project[key] === "Ethical approval denied") {
-            progressElement.value = (progressElement.max / 6) * 2
+            progressElement.value = progressElement.max / 5
             progressElement.setAttribute("data-label", project[key])
 
           } else if (project[key] === "Ethical approval approved") {
-            progressElement.value = (progressElement.max / 6) * 3
+            progressElement.value = (progressElement.max / 5) * 2
             progressElement.setAttribute("data-label", project[key])
 
           } else if (project[key] === "Retrieving data") {
-            progressElement.value = (progressElement.max / 6) * 4
+            progressElement.value = (progressElement.max / 5) * 3
             progressElement.setAttribute("data-label", project[key])
 
           } else if (project[key] === "Uplaoding data") {
-            progressElement.value = (progressElement.max / 6) * 5
+            progressElement.value = (progressElement.max / 5) * 4
             progressElement.setAttribute("data-label", project[key])
 
           } else if (project[key] === "Uploaded") {
-            progressElement.value = (progressElement.max / 6) * 6
+            progressElement.value = (progressElement.max / 5) * 5
             progressElement.setAttribute("data-label", project[key])
-          }
+          } else if (project[key] === "Ethical approval denied") {
+            progressElement.value = 0
+            progressElement.setAttribute("data-label", project[key])
+          } 
           cell.appendChild(document.createElement("br"))
           cell.appendChild(progressElement)
         } else {

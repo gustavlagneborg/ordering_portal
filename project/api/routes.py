@@ -152,6 +152,43 @@ def login():
 
 
 # ----------------------------
+# PUT endpoints
+# ----------------------------
+@api_blueprint.route("/projects/<int:id>/status", methods=["PUT"])
+@admin_required
+def update_project_status(current_user, id):
+    """Update the status for a project."""
+    
+    
+    data = request.get_json()
+    new_status = data.get("status")
+    print("____________________________________________________________________")
+    print(new_status)
+    print(id)
+    
+    if not new_status:
+        return jsonify({"message": "No status provided"}), 400
+
+    project: Project = api_store.project.query.filter_by(id=id).first()
+    if not project:
+        return jsonify({"message": "Project not found"}), 404
+
+    try:
+        api_store.update_project_status(project=project, new_status=new_status)
+        return make_response(
+            jsonify(
+                {
+                    "message": "Project status updated successfully",
+                    "project": project.project_name,
+                    "status": new_status,
+                }
+            )
+        )
+    except Exception as e:
+        return make_response(jsonify({"Error:": f"{e}"}))
+
+
+# ----------------------------
 # DELETE endpoints
 # ----------------------------
 @api_blueprint.route("/user/<public_id>", methods=["DELETE"])

@@ -1,7 +1,10 @@
 from ..OrderingPortal.store import Store
-from project.OrderingPortal.models import APIUser
+from project.OrderingPortal.models import APIUser, Project
+from project.OrderingPortal.constants import ProjectStatus
+from project.exec import ProjectStatusError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request, jsonify
+
 
 import os
 import jwt
@@ -68,3 +71,30 @@ class APIStore(Store):
             os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
             algorithms=["HS256"],
         )
+
+    def update_project_status(self, project: Project, new_status: str):
+        """Update a projects status"""
+        
+        new_status = new_status.capitalize()
+
+        if new_status not in ProjectStatus.list():
+            raise ProjectStatusError(f"Status input {new_status} is not a valid choice")
+        
+        if new_status == ProjectStatus.ETHICAL_APPROVAL.value:
+            project.project_status = ProjectStatus.ETHICAL_APPROVAL
+        elif new_status == ProjectStatus.ETHICAL_APPROVAL_DENIED.value:
+            project.project_status = ProjectStatus.ETHICAL_APPROVAL_DENIED
+        elif new_status == ProjectStatus.ETHICAL_APPROVAL_APPROVED.value:
+            project.project_status = ProjectStatus.ETHICAL_APPROVAL_APPROVED
+        elif new_status == ProjectStatus.RETRIEVING_DATA.value:
+            project.project_status = ProjectStatus.RETRIEVING_DATA
+        elif new_status == ProjectStatus.UPLOADING_DATA.value:
+            project.project_status = ProjectStatus.UPLOADING_DATA
+        elif new_status == ProjectStatus.UPLOADED.value:
+            project.project_status = ProjectStatus.UPLOADED
+
+        self.db.session.commit()
+        LOG.info(f"Project {project.project_name} status is updated to {project.project_status.value}")
+
+        
+

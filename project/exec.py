@@ -14,3 +14,6 @@ class ProjectFormError(OrderingPoratalError):
 
 class ExaminationFormError(OrderingPoratalError):
     """Exception raised when a examination form is not valid."""
+
+class ProjectStatusError(OrderingPoratalError):
+    """Exception raised when a status update doesnt have a valid input."""
