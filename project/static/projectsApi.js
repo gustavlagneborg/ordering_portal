@@ -32,11 +32,15 @@ async function queryOrderingPortal (method) {
   const password = 'apiadmin'
   const token = await login(username, password)
   const headers = new Headers()
-  headers.set('x-access-token', token) // set the JWT token in the x-access-token header
   const options = {
     method: method,
     headers: headers
   }
+
+  options.headers = {
+    'Content-Type': 'application/json',
+    'x-access-token': token
+  };
 
   return options
 }
@@ -44,7 +48,6 @@ async function queryOrderingPortal (method) {
 async function getProjects () {
   const url = 'http://127.0.0.1:5000/api/v1/projects'
   const options = await queryOrderingPortal('GET')
-  console.log(options.headers)
 
   return fetch(url, options)
     .then(response => {

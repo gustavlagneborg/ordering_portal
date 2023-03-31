@@ -32,11 +32,15 @@ async function queryOrderingPortal(method) {
   const password = 'apiadmin'
   const token = await login(username, password)
   const headers = new Headers()
-  headers.set('x-access-token', token) // set the JWT token in the x-access-token header
   const options = {
     method: method,
     headers: headers
   }
+
+  options.headers = {
+    'Content-Type': 'application/json',
+    'x-access-token': token
+  };
 
   return options
 }
@@ -123,22 +127,20 @@ function setProjectStatusProgress(cell, projectStatus) {
 }
 
 async function updateProjectStatus() {
-  // Retrieve the selected value from the dropdown list
+
   const status = document.getElementById("status").value;
   const projectId = parseInt(currentPath.split('/').pop());
 
   const url = `http://127.0.0.1:5000/api/v1/projects/${projectId}/status`
   const options = await queryOrderingPortal('PUT')
   options.body = JSON.stringify({ status: status })
-  console.log(options.body)
 
-  // Make a PUT request to the backend
-  // Replace {project_id} with the actual ID of the project
   fetch(url, options)
     .then(response => {
       if (!response.ok) {
         throw new Error("Failed to update project status");
       }
+      location.reload()
       
     })
     .catch(error => {
