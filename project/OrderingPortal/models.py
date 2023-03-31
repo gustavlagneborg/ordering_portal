@@ -7,10 +7,12 @@ from typing import List
 from .constants import ProjectStatus
 from project import login
 
+
 # Flask-Login configuration
 @login.user_loader
 def load_user(user_id):
     return User.query.filter(User.id == int(user_id)).first()
+
 
 class APIUser(UserMixin, db.Model):
     """API authenticaed user table."""

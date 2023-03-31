@@ -62,7 +62,6 @@ def initialize_extensions(app):
     jwt.init_app(app)
 
 
-
 def register_blueprints(app):
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)

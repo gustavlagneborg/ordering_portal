@@ -7,7 +7,3 @@ ordering_portal_blueprint = Blueprint(
 )
 
 from . import routes
-
-
-
-
