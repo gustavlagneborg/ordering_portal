@@ -87,17 +87,3 @@ def test_update_project_status_fail(
             project=project, new_status=invalid_project_status
         )
 
-
-def test_get_project_pdf(api_store: APIStore, caplog):
-    """Test getting a pdf report for a project."""
-
-    caplog.set_level(logging.INFO)
-    # GIVEN a project
-    project: Project = api_store.project.query.first()
-
-    # WHEN getting a pdf report for this project
-    pdf = api_store.get_project_pdf(project=project)
-
-    # THEN a project pdf should be generated
-    assert project.project_name in caplog.text
-    assert pdf

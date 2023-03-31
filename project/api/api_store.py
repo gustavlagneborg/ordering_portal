@@ -9,7 +9,6 @@ from flask import request, jsonify, render_template
 import os
 import jwt
 import uuid
-import pdfkit
 import logging
 
 LOG = logging.getLogger(__name__)
