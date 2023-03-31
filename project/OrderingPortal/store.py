@@ -19,7 +19,6 @@ from project.OrderingPortal.models import (
     ProjectProducingDepartments,
     ProducingDepartment,
 )
-from project.OrderingPortal import models
 from project.OrderingPortal.constants import OPTIONAL_EXAMIANTION_FORM_FIELDS
 from project.exec import ProjectFormError, ExaminationFormError
 from flask_login import login_user
@@ -32,14 +31,14 @@ LOG = logging.getLogger(__name__)
 class Store:
     """Class for perfomring backend actions between the frontend and database."""
 
-    user = models.User
-    project = models.Project
-    examination = models.Examination
-    data_delivery = models.DataDelivery
-    modality = models.Modality
-    remittent = models.Remittent
-    producing_department = models.ProducingDepartment
-    laboratory = models.Laboratory
+    user = User
+    project = Project
+    examination = Examination
+    data_delivery = DataDelivery
+    modality = Modality
+    remittent = Remittent
+    producing_department = ProducingDepartment
+    laboratory = Laboratory
 
     def __init__(self, db) -> None:
         self.db = db
