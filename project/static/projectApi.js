@@ -214,21 +214,8 @@ function loadProject(id) {
   });
 }
 
-
-// Get a reference to the download button
-const downloadBtn = document.getElementById("download-btn");
-
-// Attach an event listener to the download button
-downloadBtn.addEventListener("click", async function () {
-  // Call the downloadProjectPDF function when the button is clicked
-  await downloadProjectPDF();
-
-});
-
 const currentPath = window.location.pathname;
 
 // Extract the integer value from the URL path
 const projectId = parseInt(currentPath.split('/').pop());
-
-// Call the loadProject function with the project ID
 loadProject(projectId);

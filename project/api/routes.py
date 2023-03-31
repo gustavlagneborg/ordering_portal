@@ -1,5 +1,5 @@
 """Ordering Portal REST API"""
-from flask import jsonify, make_response, request, Response, send_file
+from flask import jsonify, make_response, request, render_template, Response
 from . import api_blueprint
 from ..OrderingPortal.models import Project, APIUser
 from .api_store import APIStore
@@ -10,6 +10,7 @@ from typing import List
 
 import jwt
 import os
+import pdfkit
 
 api_store = APIStore(db=db)
 
@@ -105,9 +106,13 @@ def get_project_pdf(current_user, id):
     if not project:
         return jsonify({"message": "Project not found"}), 404
 
-    pdf_data = project.generate_project_pdf() # generate the PDF data
-    response = Response(pdf_data, content_type='application/pdf')
-    response.headers['Content-Disposition'] = f'attachment; filename={project.project_name}.pdf'
+    rendered = render_template("pdf_project_template.html", project=project)
+    pdf = pdfkit.from_string(rendered, False)
+
+    response = Response(pdf, content_type="application/pdf")
+    response.headers[
+        "Content-Disposition"
+    ] = f"attachment; filename={project.project_name}.pdf"
 
     return response
 
