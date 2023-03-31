@@ -10,7 +10,7 @@ from typing import List
 
 import jwt
 import os
-import pdfkit
+
 
 api_store = APIStore(db=db)
 
@@ -103,11 +103,11 @@ def get_project_pdf(current_user, id):
     """Get the PDF file for a project."""
 
     project = api_store.project.query.filter_by(id=id).first()
+
     if not project:
         return jsonify({"message": "Project not found"}), 404
 
-    rendered = render_template("pdf_project_template.html", project=project)
-    pdf = pdfkit.from_string(rendered, False)
+    pdf = api_store.get_project_pdf(project=project)
 
     response = Response(pdf, content_type="application/pdf")
     response.headers[
@@ -179,7 +179,7 @@ def login():
 @admin_required
 def update_project_status(current_user, id):
     """Update the status for a project."""
-    print(request.headers.get("Content-Type"))
+
     data = request.get_json()
     new_status = data.get("status")
 

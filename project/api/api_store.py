@@ -3,12 +3,13 @@ from project.OrderingPortal.models import APIUser, Project
 from project.OrderingPortal.constants import ProjectStatus
 from project.exec import ProjectStatusError
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 
 
 import os
 import jwt
 import uuid
+import pdfkit
 import logging
 
 LOG = logging.getLogger(__name__)
@@ -97,3 +98,10 @@ class APIStore(Store):
         LOG.info(
             f"Project {project.project_name} status is updated to {project.project_status.value}"
         )
+
+    def get_project_pdf(self, project: Project):
+        """Get a pdf report summerizing a project."""
+
+        rendered = render_template("pdf_project_template.html", project=project)
+        LOG.info(f"Generated a pdf report for project {project.project_name}!")
+        return pdfkit.from_string(rendered, False)
