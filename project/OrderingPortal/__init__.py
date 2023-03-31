@@ -2,6 +2,7 @@ from flask import Blueprint
 from project import db
 from click import echo
 from datetime import datetime, date
+from project import login
 from .models import (
     User,
     Examination,
@@ -26,6 +27,11 @@ ordering_portal_blueprint = Blueprint(
 )
 
 from . import routes
+
+# Flask-Login configuration
+@login.user_loader
+def load_user(user_id):
+    return User.query.filter(User.id == int(user_id)).first()
 
 
 # CLI commands for the Ordering_portal
