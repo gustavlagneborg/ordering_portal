@@ -61,6 +61,32 @@ async function getProject(projectId) {
     })
 }
 
+async function downloadProjectPDF() {
+  const projectId = parseInt(currentPath.split('/').pop());
+  const url = `http://127.0.0.1:5000/api/v1/projects/${projectId}/pdf`;
+  const options = await queryOrderingPortal('GET')
+
+  fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to download PDF");
+      }
+      return response.blob();
+    })
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `project-${projectId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    })
+    .catch(error => {
+      // Error handling
+    });
+}
+
 function projectStructure(rawProject) {
   return {
     Project: rawProject['Project name'],
@@ -89,7 +115,7 @@ function projectStructure(rawProject) {
   }
 }
 
-function setProjectStatusProgress(cell, projectStatus) {  
+function setProjectStatusProgress(cell, projectStatus) {
 
   cell.textContent = projectStatus
   var progressElement = document.createElement("progress")
@@ -141,7 +167,7 @@ async function updateProjectStatus() {
         throw new Error("Failed to update project status");
       }
       location.reload()
-      
+
     })
     .catch(error => {
       // Error handling
@@ -171,7 +197,7 @@ function loadProject(id) {
             }
           })
         } else if (key === 'Status') {
-          setProjectStatusProgress(cell=cell, projectStatus=project[key])
+          setProjectStatusProgress(cell = cell, projectStatus = project[key])
 
         } else {
           cell.textContent = project[key]
@@ -188,6 +214,16 @@ function loadProject(id) {
   });
 }
 
+
+// Get a reference to the download button
+const downloadBtn = document.getElementById("download-btn");
+
+// Attach an event listener to the download button
+downloadBtn.addEventListener("click", async function () {
+  // Call the downloadProjectPDF function when the button is clicked
+  await downloadProjectPDF();
+
+});
 
 const currentPath = window.location.pathname;
 

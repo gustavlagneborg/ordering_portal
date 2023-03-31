@@ -1,5 +1,5 @@
 """Ordering Portal REST API"""
-from flask import jsonify, make_response, request
+from flask import jsonify, make_response, request, Response, send_file
 from . import api_blueprint
 from ..OrderingPortal.models import Project, APIUser
 from .api_store import APIStore
@@ -94,6 +94,22 @@ def get_all_api_users(current_user):
     output = [api_user.to_dict for api_user in api_users]
 
     return make_response(jsonify({"users": output}), 200)
+
+
+@api_blueprint.route("/projects/<int:id>/pdf", methods=["GET"])
+@admin_required
+def get_project_pdf(current_user, id):
+    """Get the PDF file for a project."""
+
+    project = api_store.project.query.filter_by(id=id).first()
+    if not project:
+        return jsonify({"message": "Project not found"}), 404
+
+    pdf_data = project.generate_project_pdf() # generate the PDF data
+    response = Response(pdf_data, content_type='application/pdf')
+    response.headers['Content-Disposition'] = f'attachment; filename={project.project_name}.pdf'
+
+    return response
 
 
 @api_blueprint.route("/user/<public_id>", methods=["GET"])
