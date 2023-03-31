@@ -10,8 +10,11 @@ class ExtendedEnum(Enum):
 
 class ProjectStatus(ExtendedEnum):
     ETHICAL_APPROVAL = "Waiting for ethical approval"
+    ETHICAL_APPROVAL_DENIED = "Ethical approval denied"
+    ETHICAL_APPROVAL_APPROVED = "Ethical approval approved"
     RETRIEVING_DATA = "Retrieving data"
-    UPLOADED = "Uploaded to data delivery"
+    UPLOADING_DATA = "Uplaoding data"
+    UPLOADED = "Uploaded"
 
 
 class PseudonymisaiontTypes(ExtendedEnum):

@@ -133,26 +133,27 @@ form {
   display: none;
 }
 
-#project-data1 {
+#project-data {
   border-collapse: collapse;
   width: 100%;
   font-size: 12px;
+  text-align: center !important;
 }
 
-#project-data1 td,
-#project-data1 th {
+#project-data td,
+#project-data th {
   padding: 8px;
 }
 
-#project-data1 tr:nth-child(even) {
+#project-data tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-#project-data1 tr:hover {
+#project-data tr:hover {
   background-color: #efe4e4;
 }
 
-#project-data1 th,
+#project-data th,
 #table-footer {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -161,15 +162,57 @@ form {
 }
 
 
-#project-button {
+#project-button,
+#user-button {
   width: 100px;
   display: inline-block;
   font-size: 12px;
 }
 
 #searchProject {
-  width: -150px;
+  width: 1000px;
   margin: auto auto;
   text-align: right;
   padding: 10px;
+}
+
+#project-table,
+#projects-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }

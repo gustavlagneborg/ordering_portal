@@ -32,19 +32,21 @@ async function queryOrderingPortal (method) {
   const password = 'apiadmin'
   const token = await login(username, password)
   const headers = new Headers()
-
-  headers.set('x-access-token', token) // set the JWT token in the x-access-token header
   const options = {
     method: method,
     headers: headers
   }
 
+  options.headers = {
+    'Content-Type': 'application/json',
+    'x-access-token': token
+  };
+
   return options
 }
 
 async function getProjects () {
-  const url = 'http://127.0.0.1:5000/api/v1/projects' // replace with your API endpoint URL
-
+  const url = 'http://127.0.0.1:5000/api/v1/projects'
   const options = await queryOrderingPortal('GET')
 
   return fetch(url, options)
@@ -56,9 +58,61 @@ async function getProjects () {
     })
     .catch(error => {
       console.error(error)
-      // handle error, such as displaying an error message to the user
     })
 }
+
+function projectStructure (rawProject) {
+  return {
+    Project: rawProject['Project name'],
+    User: rawProject['User'],
+    Status: rawProject['Project status'],
+    Pseudonymisation: rawProject['Pseudonymisation type'],
+    'Data Deliveries': rawProject['Data Deliveries'],
+    Modalities: rawProject['Modalities'],
+    Examinations: rawProject['Examinations'],
+    'Date ordered': rawProject['Date ordered'],
+    id: rawProject['id'],
+    'User id': rawProject['User id']
+  }
+}
+
+function setProjectStatusProgress(cell, projectStatus) {  
+
+  cell.textContent = projectStatus
+  var progressElement = document.createElement("progress")
+  progressElement.id = 'project-progress'
+  progressElement.max = 100
+
+  // add progress bar
+  if (projectStatus === "Waiting for ethical approval") {
+    progressElement.value = progressElement.max / 5
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Ethical approval approved") {
+    progressElement.value = (progressElement.max / 5) * 2
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Retrieving data") {
+    progressElement.value = (progressElement.max / 5) * 3
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Uplaoding data") {
+    progressElement.value = (progressElement.max / 5) * 4
+    progressElement.setAttribute("data-label", projectStatus)
+
+  } else if (projectStatus === "Uploaded") {
+    progressElement.value = (progressElement.max / 5) * 5
+    progressElement.setAttribute("data-label", projectStatus)
+  } else if (projectStatus === "Ethical approval denied") {
+    progressElement.value = 0
+    progressElement.setAttribute("data-label", projectStatus)
+    cell.style.backgroundColor = "red"
+  }
+  cell.appendChild(document.createElement("br"))
+  cell.appendChild(progressElement)
+
+}
+
 
 getProjects().then(data => {
   // Parse the JSON list of projects into a JavaScript object
@@ -67,54 +121,24 @@ getProjects().then(data => {
   // trim and re-order project
   const projects = []
   rawProjects.forEach(rawProject => {
-    let project = {
-      Project: rawProject['Project name'],
-      User: rawProject['User'],
-      Status: rawProject['Project status'],
-      Pseudonymisation: rawProject['Pseudonymisation type'],
-      'Data Deliveries': rawProject['Data Deliveries'],
-      Modalities: rawProject['Modalities'],
-      Examinations: rawProject['Examinations'],
-      'Patient gender': rawProject['Patient gender'],
-      'Date range': `${rawProject['Start date']} - ${rawProject['End date']}`,
-      'Date ordered': rawProject['Date ordered'],
-      'Age range': `${
-        rawProject['Minimum patient age'] !== null
-          ? rawProject['Minimum patient age']
-          : ''
-      } - ${
-        rawProject['Maximum patient age'] !== null
-          ? rawProject['Maximum patient age']
-          : ''
-      }`,
-      Remittances: rawProject['Remittances'],
-      'Producing departments': rawProject['Producing departments'],
-      'Modality laboratories': rawProject['Modality laboratories'],
-      'Radiology verdict': rawProject['Radiology verdict'],
-      id: rawProject['id'],
-      'User id': rawProject['User id']
-    }
-
+    let project = projectStructure(rawProject)
     projects.push(project)
   })
 
   // Create an HTML table element to display the projects
-  var thead = document.getElementById('project-header')
-  var tfoot = document.getElementById('project-footer')
+  var thead = document.getElementById('projects-header')
+
   // Create the table header row
   const headerRow = document.createElement('tr')
-  const footerRow = document.createElement('tr')
   const projectKeys = Object.keys(projects[0])
   var count = 0
 
   projectKeys.forEach(key => {
     const header = document.createElement('th')
-    const footer = document.createElement("td")
 
     header.id = key
     header.setAttribute('onclick', `sortTable(${count})`)
 
-    footer.id = "table-footer"
     count++
     if (key !== 'id' && key !== 'User id') {
       var sortLogo = document.createElement('i')
@@ -122,23 +146,19 @@ getProjects().then(data => {
       header.textContent = `${key} `
       header.appendChild(sortLogo)
       headerRow.appendChild(header)
-      
-      footer.textContent = key
-      footerRow.appendChild(footer)
-
     }
   })
-  
-  tfoot.appendChild(footerRow)
+
   thead.appendChild(headerRow)
-  
+
   // Iterate through the list of projects and create table rows for each project
-  var tbody = document.getElementById('project-body')
+  var tbody = document.getElementById('projects-body')
+
   projects.forEach(project => {
     const row = document.createElement('tr')
 
     projectKeys.forEach(key => {
-      const cell = document.createElement('td')
+      let cell = document.createElement('td')
       if (key !== 'id' && key !== 'User id') {
         if (Array.isArray(project[key])) {
           project[key].forEach(list => {
@@ -149,26 +169,30 @@ getProjects().then(data => {
               cell.textContent += Object.values(list)
             }
           })
-        } else if (key === 'Project') {
+        } 
+        else if (key === 'Project') {
           var link = document.createElement('a')
-          link.href = `/project/${project['id']}`
+          link.href = `/projects/${project['id']}`
 
           var button = document.createElement('button')
           button.innerText = project[key]
+
           button.id = 'project-button'
 
           link.appendChild(button)
           cell.appendChild(link)
         } else if (key === 'User') {
           var link = document.createElement('a')
-          link.href = `/user/${project['User id']}`
+          link.href = `/users/${project['User id']}`
 
           var button = document.createElement('button')
           button.innerText = project[key]
-          button.id = 'project-button'
+          button.id = 'user-button'
 
           link.appendChild(button)
           cell.appendChild(link)
+        } else if (key === 'Status') {
+          setProjectStatusProgress(cell=cell, projectStatus=project[key])
         } else {
           cell.textContent = project[key]
         }

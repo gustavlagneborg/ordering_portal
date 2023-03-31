@@ -37,7 +37,9 @@ def test_client():
     with flask_app.test_client() as testing_client:
         # Establish an application context
         with flask_app.app_context():
+            db.drop_all()
             db.create_all()
+
             # add api users
             api_admin_user = APIUser(
                 name="API_Admin", public_id="public-id-admin", admin=True
@@ -142,7 +144,66 @@ def test_client():
             db.session.commit()
             echo("Laboratories added!")
 
+            # add projects
+            project1 = Project(
+                project_name="Female Sculs",
+                pseudonymisation_type="No pseudonymisation",
+                patient_gender="Female",
+                start_date=date(2000, 1, 1),
+                end_date=datetime.now(),
+                user_id=gustav.id,
+            )
+            db.session.add(project1)
+            db.session.commit()
+
+            # add scul examinations to project1
+            project1Scul = ProjectExaminations(project=project1, examination=scul)
+            db.session.add(project1Scul)
+
+            # add kaapana and dicom viewer as data delivery to project1
+            project1Kapana = ProjectDataDeliveries(
+                project=project1, data_delivery=kaapana
+            )
+            project1dicom_viewer = ProjectDataDeliveries(
+                project=project1, data_delivery=dicom_viewer
+            )
+            db.session.add_all([project1Kapana, project1dicom_viewer])
+
+            # add modality ct to project 1
+            project1_ct = ProjectModalities(project=project1, modality=ct)
+            db.session.add(project1_ct)
+
+            # add remittences to proejct 1
+            project1_neuro_solna = ProjectRemittances(
+                project=project1, remittent=neuro_solna
+            )
+            project1_neuro_huddinge = ProjectRemittances(
+                project=project1, remittent=neuro_huddinge
+            )
+            db.session.add_all([project1_neuro_solna, project1_neuro_huddinge])
+
+            # add departments to project 1
+            project1_neuro_solna_d = ProjectProducingDepartments(
+                project=project1, producing_department=neuro_solna_d
+            )
+            project1_neuro_huddinge_d = ProjectProducingDepartments(
+                project=project1, producing_department=neuro_huddinge_d
+            )
+            db.session.add_all([project1_neuro_solna_d, project1_neuro_huddinge_d])
+
+            # add lab 1 to project 1
+            project1_lab1 = ProjectLaboratories(project=project1, laboratory=lab1)
+            db.session.add(project1_lab1)
+            db.session.commit()
+            echo("Projects added!")
+            echo("Bootstarped the database!")
+
+            echo("__________Project 1__________")
+            project1_dict = project1.to_dict
+            echo(project1_dict)
+
             yield testing_client  # this is where the testing happens!
+
             db.drop_all()
 
 
@@ -150,11 +211,11 @@ def test_client():
 def store(test_client):
     """Create the database and the database table."""
 
-    return Store(db=db)  # this is where the testing happens!
+    return Store(db=db)
 
 
 @pytest.fixture(scope="session")
 def api_store(test_client):
     """Create the database and the database table."""
 
-    return APIStore(db=db)  # this is where the testing happens!
+    return APIStore(db=db)

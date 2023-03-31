@@ -26,9 +26,21 @@
         </nav>
         {% if current_user.is_authenticated %}
         <ul class="nav_links" id="login_logout">
-            <li><a class="user" href="/user"><button>{{ current_user.username }} <i
-                            class="fa-solid fa-user"></i></button></a></li>
-            <li><a class="logout" href="/logout"><button>Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></button></a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="user" href="/user">
+                        <button class="dropbtn" >{{ current_user.username }} <i class="fa-solid fa-user"></i></button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/user#active-projects">Active projects</a>
+                        <a href="/user#old-projects">Old projects</a>
+                        <a href="/user#user-info">User info</a>
+                    </div>
+                </div>
+                
+            </li>
+            <li><a class="logout" href="/logout"><button>Logout <i
+                            class="fa-solid fa-arrow-right-from-bracket"></i></button></a></li>
         </ul>
         {% else %}
         <a class="login" href="/login"><button>Login <i class="fa-solid fa-arrow-right-to-bracket"></i></button></a>
@@ -44,7 +56,7 @@
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
-            <p class="message">{{ message }}</p>
+            <p class="error">{{ message }}</p>
             {% endfor %}
             {% endif %}
             {% endwith %}
@@ -61,7 +73,7 @@
             <br>
         </div>
     </footer>
-    
+
     <script src="https://kit.fontawesome.com/d0443263ba.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

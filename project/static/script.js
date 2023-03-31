@@ -10,7 +10,7 @@ function searchProjectTable () {
   var input, filter, table, tr, td, i, txtValue
   input = document.getElementById('searchProjectInput')
   filter = input.value.toUpperCase()
-  table = document.getElementById('project-table')
+  table = document.getElementById('projects-table')
   tr = table.getElementsByTagName('tr')
 
   // Loop through all table rows, and hide those who don't match the search query
@@ -37,7 +37,7 @@ function sortTable (n) {
     shouldSwitch,
     dir,
     switchcount = 0
-  table = document.getElementById('project-table')
+  table = document.getElementById('projects-table')
   switching = true
   // Set the sorting direction to ascending:
   dir = 'asc'

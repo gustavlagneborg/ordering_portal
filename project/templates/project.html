@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 id="project-h1"></h1>
+
+<div id="project-data">
+    <table id="project-table">
+        <thead id="project-header">
+            <tr>
+                <th id="Project">Project</th>
+                <th id="User">User</th>
+                <th id="Status">Status</th>
+                <th id="Pseudonymisation">Pseudonymisation</th>
+                <th id="Data Deliveries">Data Deliveries</th>
+                <th id="Modalities">Modalities</th>
+                <th id="Examinations">Examinations</th>
+                <th id="Patient gender">Patient gender</th>
+                <th id="Date range">Date range</th>
+                <th id="Date ordered">Date ordered</th>
+                <th id="Age range">Age range</th>
+                <th id="Remittances">Remittances</th>
+                <th id="Producing departments">Producing departments</th>
+                <th id="Modality laboratories">Modality laboratories</th>
+                <th id="Radiology verdict">Radiology verdict</th>
+            </tr>
+        </thead>
+        <tbody id="project-body"></tbody>
+    </table>
+</div>
+
+<div id="update-status">
+    <h3>Update project status</h3>
+    <form method="PUT" action="/projects/{project_id}">
+        <label for="status">Update Project Status:</label>
+        <select id="status" name="status">
+            <option value="Waiting for ethical approval">Waiting for ethical approval</option>
+            <option value="Ethical approval denied">Ethical approval denied</option>
+            <option value="Ethical approval approved">Ethical approval approved</option>
+            <option value="Retrieving data">Retrieving data</option>
+            <option value="Uploading data">Uploading data</option>
+            <option value="Uploaded">Uploaded</option>
+        </select>
+        <br>
+        <button type="button" onclick="updateProjectStatus()">Submit</button>
+    </form>
+
+</div>
+
+<script src="{{ url_for('static', filename='projectApi.js') }}"></script>
+
+{% endblock %}
