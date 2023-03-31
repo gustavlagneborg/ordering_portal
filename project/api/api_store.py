@@ -98,9 +98,3 @@ class APIStore(Store):
             f"Project {project.project_name} status is updated to {project.project_status.value}"
         )
 
-    def get_project_pdf(self, project: Project):
-        """Get a pdf report summerizing a project."""
-
-        rendered = render_template("pdf_project_template.html", project=project)
-        LOG.info(f"Generated a pdf report for project {project.project_name}!")
-        return pdfkit.from_string(rendered, False)
