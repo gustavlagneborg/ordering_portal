@@ -2,7 +2,6 @@ anyio==3.6.2
 attrs==22.2.0
 black==23.1.0
 cached-property==1.5.2
-# certifi @ file:///croot/certifi_1671487769961/work/certifi
 cffi==1.15.1
 charset-normalizer==3.1.0
 click==8.1.3
