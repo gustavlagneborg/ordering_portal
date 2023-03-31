@@ -97,4 +97,3 @@ class APIStore(Store):
         LOG.info(
             f"Project {project.project_name} status is updated to {project.project_status.value}"
         )
-

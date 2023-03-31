@@ -86,4 +86,3 @@ def test_update_project_status_fail(
         api_store.update_project_status(
             project=project, new_status=invalid_project_status
         )
-

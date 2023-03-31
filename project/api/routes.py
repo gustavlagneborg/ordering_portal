@@ -107,7 +107,7 @@ def get_project_pdf(current_user, id):
 
     if not project:
         return jsonify({"message": "Project not found"}), 404
-    
+
     rendered = render_template("pdf_project_template.html", project=project)
     pdf = pdfkit.from_string(rendered, False)
 
