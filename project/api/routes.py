@@ -158,10 +158,9 @@ def login():
 @admin_required
 def update_project_status(current_user, id):
     """Update the status for a project."""
-    print(request.headers.get('Content-Type'))
+    print(request.headers.get("Content-Type"))
     data = request.get_json()
     new_status = data.get("status")
-    
 
     if not new_status:
         return jsonify({"message": "No status provided"}), 400
