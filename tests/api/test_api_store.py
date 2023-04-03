@@ -88,6 +88,7 @@ def test_update_project_status_fail(
             project=project, new_status=invalid_project_status
         )
 
+
 def test_get_user_projects(api_store: APIStore):
     """Test getting all projectes for a specific user."""
 
