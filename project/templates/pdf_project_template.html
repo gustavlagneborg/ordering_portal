@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body> 
+
+    <h1>Reaserch project - {{ project.project_name }}</h1>
+
+    <h3>Project description</h3>
+    <span>{{ project.project_description }}</span>
+
+    <h3>Research project manager: </h3>
+    <ul>
+        <li style="font-weight: bold;">{{ user.firstname }} {{ user.surname }}</li>
+        <li style="font-weight: bold;">{{ user.email }}</li>
+    </ul>
+
+    <h3>Pseudonymisation Model</h3>
+    <p>This projct will apply the following pseudonymisation: <span style="font-weight: bold;">{{
+            project.pseudonymisation_type }}</span></p>
+
+    <h3>Data delivery</h3>
+    <p>The data collected in this project will be delivered to:</p>
+    {% for delivery in project.data_deliveries %}
+    <ul>
+        <li style="font-weight: bold;">{{ delivery.data_delivery }}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>Ordering date</h3>
+    <p>{{ project.ordering_date}}</p>
+
+    <br>
+
+    <h2>Data selection criteria</h2>
+    <p>Below are the criterias that form the data selection for this project</p>
+
+    <h3>Modalities</h3>
+    <p>The modality types that will be used in this reaserch project:</p>
+    {% for modality in project.modalities %}
+    <ul>
+        <li style="font-weight: bold;">{{ modality.modality }}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>Examinations</h3>
+    <p>The examinations that will be used in this reaserch project:</p>
+    {% for examination in project.examinations %}
+    <ul>
+        <li style="font-weight: bold;">{{ examination.examination }}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>Date range</h3>
+    <p>The data in this project will be between the following dates:</p>
+    <p>{{ project.start_date }} - {{ project.end_date }}</p>
+
+    {% if project.min_patient_age %}
+        <h3>Age range</h3>
+        <p>The patients in this project will be between the following ranges:</p>
+        <p>{{ project.min_patient_age }} - {{ project.max_patient_age }}</p>
+    {% endif %}
+
+    {% if project.remittances %}
+        <h3>Remittances</h3>
+        <p>The examinations will be remitted from the following remittances:</p>
+        {% for remittent in project.remittances %}
+            <ul>
+                <li style="font-weight: bold;">{{ remittent.remittent }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    {% if project.producing_departments %}
+        <h3>Image producing department</h3>
+        <p>The examinations will be producde by the following departments:</p>
+        {% for producing_department in project.producing_departments %}
+            <ul>
+                <li style="font-weight: bold;">{{ producing_department.producing_department }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    {% if project.laboratories %}
+        <h3>Modality laboratories</h3>
+        <p>The examinations will be producde by the following modality laboratories:</p>
+        {% for laboratory in project.laboratories %}
+            <ul>
+                <li style="font-weight: bold;">{{ laboratory.laboratory }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+
+    {% if project.radiology_verdict %}
+        <h3>Verdict from radiologist</h3>
+        <p>The examinations will include the radiologist verdict</p>
+    {% endif %}
+
+
+</body>
+
+</html>

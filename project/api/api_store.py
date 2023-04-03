@@ -3,7 +3,7 @@ from project.OrderingPortal.models import APIUser, Project
 from project.OrderingPortal.constants import ProjectStatus
 from project.exec import ProjectStatusError
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 
 
 import os

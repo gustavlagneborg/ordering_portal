@@ -1,7 +1,7 @@
 """Ordering Portal REST API"""
-from flask import jsonify, make_response, request
+from flask import jsonify, make_response, request, render_template, Response
 from . import api_blueprint
-from ..OrderingPortal.models import Project, APIUser
+from ..OrderingPortal.models import Project, APIUser, User
 from .api_store import APIStore
 from project import db
 from datetime import datetime, timedelta
@@ -10,6 +10,8 @@ from typing import List
 
 import jwt
 import os
+import pdfkit
+
 
 api_store = APIStore(db=db)
 
@@ -96,6 +98,28 @@ def get_all_api_users(current_user):
     return make_response(jsonify({"users": output}), 200)
 
 
+@api_blueprint.route("/projects/<int:id>/pdf", methods=["GET"])
+@admin_required
+def get_project_pdf(current_user, id):
+    """Get the PDF file for a project."""
+
+    project: Project = api_store.project.query.filter_by(id=id).first()
+    user: User = api_store.user.query.filter_by(id=project.user_id).first()
+
+    if not project:
+        return jsonify({"message": "Project not found"}), 404
+
+    rendered = render_template("pdf_project_template.html", project=project, user=user)
+    pdf = pdfkit.from_string(rendered, False)
+
+    response = Response(pdf, content_type="application/pdf")
+    response.headers[
+        "Content-Disposition"
+    ] = f"attachment; filename={project.project_name}.pdf"
+
+    return response
+
+
 @api_blueprint.route("/user/<public_id>", methods=["GET"])
 @token_required
 def get_api_user(current_user, public_id):
@@ -158,7 +182,7 @@ def login():
 @admin_required
 def update_project_status(current_user, id):
     """Update the status for a project."""
-    print(request.headers.get("Content-Type"))
+
     data = request.get_json()
     new_status = data.get("status")
 

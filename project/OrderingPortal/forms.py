@@ -10,6 +10,7 @@ from wtforms import (
     IntegerField,
     ValidationError,
     validators,
+    TextAreaField,
 )
 from wtforms.validators import (
     DataRequired,
@@ -72,6 +73,9 @@ class ProjectForm(FlaskForm):
     project_name = StringField(
         "Project name",
         validators=[InputRequired()],
+    )
+    project_description = TextAreaField(
+        "Project description", [InputRequired(), validators.length(max=200)]
     )
     pseudo_type = SelectMultipleField(
         "Pseudonymisation",
@@ -147,6 +151,8 @@ class ExaminationsForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     """Form for registring a user"""
 
+    firstname = StringField("Firstname", validators=[DataRequired()])
+    surname = StringField("Surname", validators=[DataRequired()])
     username = StringField("Username", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     external = BooleanField("External user")

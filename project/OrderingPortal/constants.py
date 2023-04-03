@@ -13,7 +13,7 @@ class ProjectStatus(ExtendedEnum):
     ETHICAL_APPROVAL_DENIED = "Ethical approval denied"
     ETHICAL_APPROVAL_APPROVED = "Ethical approval approved"
     RETRIEVING_DATA = "Retrieving data"
-    UPLOADING_DATA = "Uplaoding data"
+    UPLOADING_DATA = "Uploading data"
     UPLOADED = "Uploaded"
 
 

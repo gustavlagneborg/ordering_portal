@@ -61,10 +61,37 @@ async function getProject(projectId) {
     })
 }
 
+async function downloadProjectPDF() {
+  const projectId = parseInt(currentPath.split('/').pop());
+  const url = `http://127.0.0.1:5000/api/v1/projects/${projectId}/pdf`;
+  const options = await queryOrderingPortal('GET')
+
+  fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to download PDF");
+      }
+      return response.blob();
+    })
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `project-${projectId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    })
+    .catch(error => {
+      // Error handling
+    });
+}
+
 function projectStructure(rawProject) {
   return {
     Project: rawProject['Project name'],
     User: rawProject['User'],
+    Description: rawProject['Project description'],
     Status: rawProject['Project status'],
     Pseudonymisation: rawProject['Pseudonymisation type'],
     'Data Deliveries': rawProject['Data Deliveries'],
@@ -89,7 +116,7 @@ function projectStructure(rawProject) {
   }
 }
 
-function setProjectStatusProgress(cell, projectStatus) {  
+function setProjectStatusProgress(cell, projectStatus) {
 
   cell.textContent = projectStatus
   var progressElement = document.createElement("progress")
@@ -109,7 +136,7 @@ function setProjectStatusProgress(cell, projectStatus) {
     progressElement.value = (progressElement.max / 5) * 3
     progressElement.setAttribute("data-label", projectStatus)
 
-  } else if (projectStatus === "Uplaoding data") {
+  } else if (projectStatus === "Uploading data") {
     progressElement.value = (progressElement.max / 5) * 4
     progressElement.setAttribute("data-label", projectStatus)
 
@@ -141,7 +168,7 @@ async function updateProjectStatus() {
         throw new Error("Failed to update project status");
       }
       location.reload()
-      
+
     })
     .catch(error => {
       // Error handling
@@ -171,9 +198,10 @@ function loadProject(id) {
             }
           })
         } else if (key === 'Status') {
-          setProjectStatusProgress(cell=cell, projectStatus=project[key])
+          setProjectStatusProgress(cell = cell, projectStatus = project[key])
 
         } else {
+          console.log(key)
           cell.textContent = project[key]
         }
         row.appendChild(cell)
@@ -188,11 +216,8 @@ function loadProject(id) {
   });
 }
 
-
 const currentPath = window.location.pathname;
 
 // Extract the integer value from the URL path
 const projectId = parseInt(currentPath.split('/').pop());
-
-// Call the loadProject function with the project ID
 loadProject(projectId);

@@ -8,6 +8,7 @@
             <tr>
                 <th id="Project">Project</th>
                 <th id="User">User</th>
+                <th id="Description">Description</th>
                 <th id="Status">Status</th>
                 <th id="Pseudonymisation">Pseudonymisation</th>
                 <th id="Data Deliveries">Data Deliveries</th>
@@ -25,7 +26,7 @@
         </thead>
         <tbody id="project-body"></tbody>
     </table>
-</div>
+</div><br>
 
 <div id="update-status">
     <h3>Update project status</h3>
@@ -42,7 +43,11 @@
         <br>
         <button type="button" onclick="updateProjectStatus()">Submit</button>
     </form>
+</div><br>
 
+<div id="pdf-project">
+    <h3>Download Project PDF</h3>
+    <button id="download-btn" type="button" onclick="downloadProjectPDF()">Download PDF <i class="fa-solid fa-file-arrow-down"></i></button>
 </div>
 
 <script src="{{ url_for('static', filename='projectApi.js') }}"></script>

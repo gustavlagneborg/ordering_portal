@@ -5,9 +5,32 @@
 
 <form id="register_form" action="/register" method="post">
     {{ form.hidden_tag() }}
+
+    <!-- Firstname -->
+    <div class="register_firstname">
+        <h4>Firstname</h4>
+        <p>
+            {{ form.firstname(size=32,placeholder="firstname") }}<br>
+            {% for error in form.firstname.errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+        </p>
+    </div>
+
+    <!-- Surname -->
+    <div class="register_surname">
+        <h4>Surname</h4>
+        <p>
+            {{ form.surname(size=32,placeholder="surname") }}<br>
+            {% for error in form.surname.errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+        </p>
+    </div>
+
     <!-- Username -->
-    <div class=""register_username>
-        <p>{{ form.username.label }}</p>
+    <div class="register_username">
+        <h4>Username</h4>
         <p>
             {{ form.username(size=32,placeholder="username") }}<br>
             {% for error in form.username.errors %}
@@ -18,7 +41,7 @@
 
     <!-- Email -->
     <div class="register_email">
-        <p>{{ form.email.label }}</p>
+        <h4>Email</h4>
         <p>
             {{ form.email(size=32,placeholder="email@gmail.com") }}<br>
             {% for error in form.email.errors %}
@@ -29,7 +52,7 @@
 
     <!-- Password -->
     <div class="register_password">
-        <p>{{ form.password.label }}</p>
+        <h4>Password</h4>
         <p>
             {{ form.password(size=32,placeholder="password*$%!@") }}<br>
             {% for error in form.password.errors %}
@@ -42,10 +65,11 @@
             <span class="error">Passwords does not match</span>
             {% endfor %}
         </p>
+    </div><br>
 
     <!-- Extranal and Admin user -->
-    <p class="external">{{ form.external() }} {{ form.external.label }}</p>
-    <p class="external">{{ form.admin() }} {{ form.admin.label }}</p>
+    <h4 class="external">External user {{ form.external() }}</h4>
+    <h4 class="external">Admin user {{ form.admin() }}</h4><br>
     
     <!-- Submit button -->
     <p class="button" ><button>Register user</button></p>
