@@ -1,7 +1,7 @@
 """Ordering Portal REST API"""
 from flask import jsonify, make_response, request, render_template, Response
 from . import api_blueprint
-from ..OrderingPortal.models import Project, APIUser
+from ..OrderingPortal.models import Project, APIUser, User
 from .api_store import APIStore
 from project import db
 from datetime import datetime, timedelta
@@ -103,12 +103,13 @@ def get_all_api_users(current_user):
 def get_project_pdf(current_user, id):
     """Get the PDF file for a project."""
 
-    project = api_store.project.query.filter_by(id=id).first()
+    project: Project = api_store.project.query.filter_by(id=id).first()
+    user: User = api_store.user.query.filter_by(id=project.user_id).first()
 
     if not project:
         return jsonify({"message": "Project not found"}), 404
 
-    rendered = render_template("pdf_project_template.html", project=project)
+    rendered = render_template("pdf_project_template.html", project=project, user=user)
     pdf = pdfkit.from_string(rendered, False)
 
     response = Response(pdf, content_type="application/pdf")

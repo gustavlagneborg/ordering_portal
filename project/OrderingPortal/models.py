@@ -92,7 +92,7 @@ class Project(db.Model):
     project_description = db.Column(db.String, nullable=False)
     pseudonymisation_type = db.Column(db.String, nullable=False)
     patient_gender = db.Column(db.String, nullable=False)
-    ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now().date())
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
     min_patient_age = db.Column(db.Integer)

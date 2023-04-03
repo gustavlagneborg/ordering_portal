@@ -164,7 +164,7 @@ form {
 
 #project-button,
 #user-button {
-  width: 100px;
+  width: auto;
   display: inline-block;
   font-size: 12px;
 }
@@ -215,4 +215,10 @@ form {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+#ks-logo {
+  width: 70px;
+  height: auto;
+  border-radius: 50%;
 }
