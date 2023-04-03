@@ -48,7 +48,9 @@ def test_client():
 
 
 @pytest.fixture(scope="session")
-def add_dummy_data(test_client):
+def test_store(test_client):
+    """Add test data."""
+    
     # add api users
     api_admin_user = APIUser(name="API_Admin", public_id="public-id-admin", admin=True)
     api_admin_user.set_password("apiadmin")
@@ -206,16 +208,18 @@ def add_dummy_data(test_client):
     project1_dict = project1.to_dict
     echo(project1_dict)
 
+    yield db
+
 
 @pytest.fixture(scope="session")
-def store(test_client):
+def store(test_store):
     """Create the database and the database table."""
 
     return Store(db=db)
 
 
 @pytest.fixture(scope="session")
-def api_store(test_client):
+def api_store(test_store):
     """Create the database and the database table."""
 
     return APIStore(db=db)
