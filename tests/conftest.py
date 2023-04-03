@@ -50,7 +50,7 @@ def test_client():
 @pytest.fixture(scope="session")
 def test_store(test_client):
     """Add test data."""
-    
+
     # add api users
     api_admin_user = APIUser(name="API_Admin", public_id="public-id-admin", admin=True)
     api_admin_user.set_password("apiadmin")
