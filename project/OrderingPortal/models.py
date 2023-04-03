@@ -52,6 +52,8 @@ class User(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, nullable=False)
+    firstname = db.Column(db.String(64), index=True, nullable=False)
+    surname = db.Column(db.String(64), index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.now())
@@ -87,6 +89,7 @@ class Project(db.Model):
         nullable=False,
         default=ProjectStatus.ETHICAL_APPROVAL,
     )
+    project_description = db.Column(db.String, nullable=False)
     pseudonymisation_type = db.Column(db.String, nullable=False)
     patient_gender = db.Column(db.String, nullable=False)
     ordering_date = db.Column(db.DateTime, nullable=False, default=datetime.now())
@@ -199,6 +202,7 @@ class Project(db.Model):
         return {
             "id": self.id,
             "Project name": self.project_name,
+            "Project description": self.project_description,
             "Project status": self.project_status.value,
             "Pseudonymisation type": self.pseudonymisation_type,
             "Patient gender": self.patient_gender,

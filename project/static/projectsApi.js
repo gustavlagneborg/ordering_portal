@@ -96,7 +96,7 @@ function setProjectStatusProgress(cell, projectStatus) {
     progressElement.value = (progressElement.max / 5) * 3
     progressElement.setAttribute("data-label", projectStatus)
 
-  } else if (projectStatus === "Uplaoding data") {
+  } else if (projectStatus === "Uploading data") {
     progressElement.value = (progressElement.max / 5) * 4
     progressElement.setAttribute("data-label", projectStatus)
 

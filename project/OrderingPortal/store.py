@@ -50,6 +50,8 @@ class Store:
             return None
 
         user = self.user(
+            firstname=form.firstname.data,
+            surname=form.surname.data,
             username=form.username.data,
             email=form.email.data,
             date_joined=datetime.now(),
@@ -87,6 +89,7 @@ class Store:
 
         project: Project = self.project(
             project_name=project_form.project_name.data,
+            project_description=project_form.project_description.data,
             pseudonymisation_type=project_form.pseudo_type.data[0],
             patient_gender=examination_form.patient_gender.data[0],
             start_date=examination_form.start_date.data,

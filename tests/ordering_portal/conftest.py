@@ -16,6 +16,8 @@ def add_user_form():
     wtforms_json.init()
 
     user: dict = {
+        "firstname": "Tolvan",
+        "surname": "Tolvansson",
         "username": "tolvan2",
         "email": "tolvan2@tolvansson.se",
         "external": False,
@@ -61,6 +63,7 @@ def project_form():
     wtforms_json.init()
     project_form: ProjectForm = {
         "project_name": "Test project",
+        "project_description": "Test description",
         "pseudo_type": ["No pseudonymisation"],
         "data_delivery": ["Kaapana"],
         "csrf_token": "ImMyMzVmMmIwN2UwN2RlNDNjYTI2MmJlYmE0MDZkZGEzZmFkMjRmMTIi.ZBGvvg.LoZYRve7r1cQnDXgopil2vSKw94",
@@ -130,6 +133,8 @@ def project_user_form():
     wtforms_json.init()
 
     user: dict = {
+        "firstname": "tolvan3",
+        "surname": "tolvan3sson",
         "username": "tolva3",
         "email": "tolvan3@tolvansson.se",
         "external": False,

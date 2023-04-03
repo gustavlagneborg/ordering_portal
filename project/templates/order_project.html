@@ -9,14 +9,19 @@
   <h3>Project details</h3>
   <!-- Project name -->
   <div class="project_name">
-    <p id="project_name">
-      {{ project_form.project_name.label }} {{ project_form.project_name() }}
-    </p>
+    <h4 id="project_name">Project name</h4>
+    <p>{{ project_form.project_name() }}</p>
+  </div>
+
+  <!-- Project description -->
+  <div class="project_description">
+    <h4 id="project_description">Project description</h4>
+    <p>{{ project_form.project_description() }}</p>
   </div>
 
   <!-- Pseudonymisation options -->
   <div class="pseudo_type">
-    <p>Select pseudonymisation model</p>
+    <h4>Select pseudonymisation model</h4>
     <select name="pseudo_type" id="pseudo_type" class="form-control selectpicker" data-live-search="true"
       data-actions-box="true">
       <tr>
@@ -33,7 +38,7 @@
 
   <!-- Data delivery options -->
   <div class="data_delivery">
-    <p>Select Data delivery</p>
+    <h4>Select Data delivery</h4>
     <select name="data_delivery" id="data_delivery" class="form-control selectpicker" data-live-search="true" multiple
       data-actions-box="true">
       <tr>
@@ -54,19 +59,15 @@
 
   <!-- Date selection -->
   <div class="date_selection">
-    <p id="start_date">
-      {{ examination_form.start_date.label }}
-      {{examination_form.start_date(class='datepicker')}}
-    </p>
-    <p id="end_date">
-      {{ examination_form.end_date.label }}
-      {{examination_form.end_date(class='datepicker')}}
-    </p>
+    <h4 id="start_date">Start date</h4>
+    <p>{{examination_form.start_date(class='datepicker')}}</p>
+    <h4 id="end_date">End date</h4>
+    <p>{{examination_form.end_date(class='datepicker')}}</p>
   </div>
 
   <!-- Modality options -->
   <div class="modalities">
-    <p>Select modality type</p>
+    <h4>Select modality type</h4>
     <select name="modalities" id="modalities" class="form-control selectpicker" data-live-search="true" multiple
       data-actions-box="true">
       <tr>
@@ -82,7 +83,7 @@
 
   <!-- Examination options -->
   <div class="examination_options">
-    <p>Select examinations</p>
+    <h4>Select examinations</h4>
     <select name="examination" id="examination" class="form-control selectpicker" data-live-search="true" multiple
       data-actions-box="true">
       {% for btn in examination_form.examination %}
@@ -96,7 +97,7 @@
 
   <!-- Patient gender -->
   <div class="patient_gender">
-    <p>Select patient gender</p>
+    <h4>Select patient gender</h4>
     <select name="patient_gender" id="patient_gender" class="form-control selectpicker" data-live-search="true"
       data-actions-box="true">
       <tr>
@@ -116,14 +117,11 @@
 
   <!-- Patient age -->
   <div class="patient_age">
-    <p id="min_patient_age">
-      {{ examination_form.min_patient_age.label }} {{
-      examination_form.min_patient_age }}
-    </p>
-    <p id="max_patient_age">
-      {{ examination_form.max_patient_age.label }} {{
-      examination_form.max_patient_age }}
-    </p>
+    <h4 id="min_patient_age">Minimum patient age</h4>
+    <p>{{ examination_form.min_patient_age }}</p>
+
+    <h4 id="max_patient_age">Maximum patient age</h4>
+    <p>{{examination_form.max_patient_age }}</p>
 
     {% if examination_form.errors.max_patient_age %}
     <p class="error">{{ examination_form.errors.max_patient_age[0] }}</p>
@@ -132,7 +130,7 @@
 
   <!-- Remittent opt -->
   <div class="remittent_options">
-    <p>Select remittents</p>
+    <h4>Select remittents</h4>
     <select name="remittent" id="remittent" class="form-control selectpicker" data-live-search="true" multiple
       data-actions-box="true">
       {% for type in examination_form.remittent %}
@@ -146,7 +144,7 @@
 
   <!-- Producing department -->
   <div class="producing_department_options">
-    <p>Select producing department</p>
+    <h4>Select producing department</h4>
     <select name="producing_department" id="producing_department" class="form-control selectpicker"
       data-live-search="true" multiple data-actions-box="true">
       {% for type in examination_form.producing_department %}
@@ -160,7 +158,7 @@
 
   <!-- Modality lab -->
   <div class="modality_lab_options">
-    <p>Select modality laboratories</p>
+    <h4>Select modality laboratories</h4>
     <select name="modality_lab" id="modality_lab" class="form-control selectpicker" data-live-search="true" multiple
       data-actions-box="true">
       {% for type in examination_form.modality_lab %}
@@ -171,13 +169,9 @@
     <p class="error">{{ examination_form.errors.modality_lab[0] }}</p>
     {% endif %}
   </div>
-
+  
   <!-- radiology_verdict -->
-  <br />
-  <p id="radiology_verdict">
-    {{ examination_form.radiology_verdict() }} {{
-    examination_form.radiology_verdict.label }}
-  </p>
+  <h4 id="radiology_verdict">Verdict from radiologist {{ examination_form.radiology_verdict() }}</h4><br>
 
   <!-- Submit button -->
   <button type="button" class="explore_data_button" onclick="createKibanaLink()">

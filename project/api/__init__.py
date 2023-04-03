@@ -44,6 +44,8 @@ def bootstrap_data():
 
     # add users
     admin_user = User(
+        firstname="Gustav",
+        surname="Lagneborg",
         username="Admin",
         email="admin@admin.se",
         date_joined=datetime.now(),
@@ -53,7 +55,9 @@ def bootstrap_data():
 
     # regular user
     gustav = User(
-        username="Gustav",
+        firstname="Gustav",
+        surname="Lagneborg",
+        username="gustavlagneborg",
         email="gustav@gustav.se",
         date_joined=datetime.now(),
     )
@@ -133,6 +137,7 @@ def bootstrap_data():
         start_date=date(2000, 1, 1),
         end_date=datetime.now(),
         user_id=gustav.id,
+        project_description="This projects will examine female sculs",
     )
     db.session.add(project1)
     db.session.commit()

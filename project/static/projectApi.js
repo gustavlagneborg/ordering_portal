@@ -91,6 +91,7 @@ function projectStructure(rawProject) {
   return {
     Project: rawProject['Project name'],
     User: rawProject['User'],
+    Description: rawProject['Project description'],
     Status: rawProject['Project status'],
     Pseudonymisation: rawProject['Pseudonymisation type'],
     'Data Deliveries': rawProject['Data Deliveries'],
@@ -200,6 +201,7 @@ function loadProject(id) {
           setProjectStatusProgress(cell = cell, projectStatus = project[key])
 
         } else {
+          console.log(key)
           cell.textContent = project[key]
         }
         row.appendChild(cell)
