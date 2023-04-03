@@ -1,4 +1,5 @@
 import pytest
+import os
 
 from click import echo
 from datetime import datetime, date
@@ -37,9 +38,7 @@ def test_client():
     with flask_app.test_client() as testing_client:
         # Establish an application context
         with flask_app.app_context():
-            db.drop_all()
             db.create_all()
-
             # add api users
             api_admin_user = APIUser(
                 name="API_Admin", public_id="public-id-admin", admin=True
@@ -209,7 +208,10 @@ def test_client():
 
             yield testing_client  # this is where the testing happens!
 
-            db.drop_all()
+    with flask_app.app_context():
+        db.drop_all()
+
+        os.remove(flask_app.config["SQLALCHEMY_DATABASE_URI"].replace("sqlite:///", ""))
 
 
 @pytest.fixture(scope="session")
@@ -224,3 +226,6 @@ def api_store(test_client):
     """Create the database and the database table."""
 
     return APIStore(db=db)
+
+
+
