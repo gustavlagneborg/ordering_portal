@@ -98,8 +98,25 @@ def get_all_api_users(current_user):
     return make_response(jsonify({"users": output}), 200)
 
 
+@api_blueprint.route("/users/<int:user_id>/projects", methods=["GET"])
+@token_required
+def get_user_projects(current_user, user_id):
+    """Get all projects for a specific user."""
+
+    if (
+        api_store.user.query.filter_by(id=user_id).first()
+        not in api_store.user.query.all()
+    ):
+        return make_response(jsonify({"error": "User not found"}), 404)
+
+    projects: list[Project] = api_store.get_user_projects(user_id=user_id)
+    output = [project.to_dict for project in projects]
+
+    return make_response(jsonify({"projects": output}), 200)
+
+
 @api_blueprint.route("/projects/<int:id>/pdf", methods=["GET"])
-@admin_required
+@token_required
 def get_project_pdf(current_user, id):
     """Get the PDF file for a project."""
 
