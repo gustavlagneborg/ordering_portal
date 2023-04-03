@@ -109,8 +109,8 @@ def get_user_projects(current_user, user_id):
     ):
         return make_response(jsonify({"error": "User not found"}), 404)
 
-    projects: list[Project] = api_store.get_user_projects(user_id=user_id)
-    output = [project.to_dict for project in projects]
+    projects: List[Project] = api_store.get_user_projects(user_id=user_id)
+    output: List = [project.to_dict for project in projects]
 
     return make_response(jsonify({"projects": output}), 200)
 

@@ -4,6 +4,7 @@ from project.OrderingPortal.constants import ProjectStatus
 from project.exec import ProjectStatusError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request, jsonify, render_template
+from typing import List
 
 
 import os
@@ -71,12 +72,11 @@ class APIStore(Store):
             os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
             algorithms=["HS256"],
         )
-    
-    def get_user_projects(self, user_id: int) -> list[Project]:
-        """Get all projects for a specific user."""
-        
-        return self.project.query.filter_by(user_id=user_id).all()
 
+    def get_user_projects(self, user_id: int) -> List[Project]:
+        """Get all projects for a specific user."""
+
+        return self.project.query.filter_by(user_id=user_id).all()
 
     def update_project_status(self, project: Project, new_status: str):
         """Update a projects status"""
