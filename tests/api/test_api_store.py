@@ -1,11 +1,12 @@
 """Unit tests for API store."""
 
-from project.OrderingPortal.models import APIUser, Project
+from project.OrderingPortal.models import APIUser, Project, User
 from project.api.api_store import APIStore
 from .mocks import MockAuth
-import pytest
 from project.exec import ProjectStatusError
+from typing import List
 
+import pytest
 import logging
 
 
@@ -86,3 +87,15 @@ def test_update_project_status_fail(
         api_store.update_project_status(
             project=project, new_status=invalid_project_status
         )
+
+def test_get_user_projects(api_store: APIStore):
+    """Test getting all projectes for a specific user."""
+
+    # GIVEN a user
+    user: User = api_store.user.query.filter_by(id=2).first()
+
+    # WHEN getting projects ordered by that user
+    projects: List[Project] = api_store.get_user_projects(user_id=user.id)
+
+    # THEN those projects will be in this list
+    assert projects
