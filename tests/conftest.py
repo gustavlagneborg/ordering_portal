@@ -8,7 +8,7 @@ from project.OrderingPortal.store import Store
 from project.api.api_store import APIStore
 from project import create_app, db
 from project.OrderingPortal.constants import PatientGender, PseudonymisaiontTypes
-from project.OrderingPortal.models import (
+from project.models import (
     User,
     Examination,
     ProjectExaminations,

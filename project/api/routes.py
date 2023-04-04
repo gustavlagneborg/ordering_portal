@@ -1,7 +1,7 @@
 """Ordering Portal REST API"""
 from flask import jsonify, make_response, request, render_template, Response
 from . import api_blueprint
-from ..OrderingPortal.models import Project, APIUser, User
+from ..models import Project, APIUser, User
 from .api_store import APIStore
 from project import db
 from datetime import datetime, timedelta

@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from project import db
 from datetime import datetime
 from typing import List
-from .constants import ProjectStatus
+from .OrderingPortal.constants import ProjectStatus
 from project import login
 
 

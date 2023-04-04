@@ -1,6 +1,6 @@
 """Unit tests for API store."""
 
-from project.OrderingPortal.models import APIUser, Project, User
+from project.models import APIUser, Project, User
 from project.api.api_store import APIStore
 from .mocks import MockAuth
 from project.exec import ProjectStatusError

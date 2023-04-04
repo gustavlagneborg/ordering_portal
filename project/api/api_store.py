@@ -1,4 +1,4 @@
-from project.OrderingPortal.models import (
+from project.models import (
     User,
     Project,
     DataDelivery,

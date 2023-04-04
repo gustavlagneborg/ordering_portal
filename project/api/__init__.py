@@ -2,7 +2,7 @@ from flask import Blueprint
 from project import db
 from click import echo
 from datetime import datetime, date
-from project.OrderingPortal.models import (
+from project.models import (
     User,
     Examination,
     ProjectExaminations,
