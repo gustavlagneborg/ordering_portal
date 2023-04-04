@@ -3,7 +3,7 @@
 import logging
 from flask_wtf import FlaskForm
 from datetime import datetime
-from project.OrderingPortal.models import (
+from project.models import (
     User,
     Project,
     DataDelivery,

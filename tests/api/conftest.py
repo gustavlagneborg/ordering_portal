@@ -1,7 +1,7 @@
 import pytest
 from .mocks import MockAuth
 from project.api.api_store import APIStore
-from project.OrderingPortal.models import APIUser
+from project.models import APIUser
 
 
 @pytest.fixture()

@@ -1,7 +1,7 @@
 """Unit tests for the Ordering Portal Store."""
 
 from project.OrderingPortal.store import Store
-from project.OrderingPortal.models import User, Project
+from project.models import User, Project
 from flask_wtf import FlaskForm
 from tests.ordering_portal.mocks import MockStore
 from project.exec import ExaminationFormError, ProjectFormError

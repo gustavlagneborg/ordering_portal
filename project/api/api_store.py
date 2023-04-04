@@ -1,9 +1,19 @@
-from ..OrderingPortal.store import Store
-from project.OrderingPortal.models import APIUser, Project
+from project.models import (
+    User,
+    Project,
+    DataDelivery,
+    Examination,
+    Modality,
+    Remittent,
+    Laboratory,
+    ProducingDepartment,
+    APIUser,
+)
 from project.OrderingPortal.constants import ProjectStatus
 from project.exec import ProjectStatusError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request, jsonify, render_template
+from typing import List
 
 
 import os
@@ -14,11 +24,19 @@ import logging
 LOG = logging.getLogger(__name__)
 
 
-class APIStore(Store):
+class APIStore:
+    user = User
+    project = Project
+    examination = Examination
+    data_delivery = DataDelivery
+    modality = Modality
+    remittent = Remittent
+    producing_department = ProducingDepartment
+    laboratory = Laboratory
     api_user = APIUser
 
     def __init__(self, db) -> None:
-        super().__init__(db)
+        self.db = db
 
     def add_api_user(self, data) -> APIUser:
         """Add a new API user to the database."""
@@ -71,6 +89,11 @@ class APIStore(Store):
             os.getenv("SECRET_KEY", default="BAD_SECRET_KEY"),
             algorithms=["HS256"],
         )
+
+    def get_user_projects(self, user_id: int) -> List[Project]:
+        """Get all projects for a specific user."""
+
+        return self.project.query.filter_by(user_id=user_id).all()
 
     def update_project_status(self, project: Project, new_status: str):
         """Update a projects status"""
