@@ -7,7 +7,6 @@ from typing import List
 from .OrderingPortal.constants import ProjectStatus
 
 
-
 class APIUser(UserMixin, db.Model):
     """API authenticaed user table."""
 
