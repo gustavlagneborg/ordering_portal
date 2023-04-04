@@ -7,7 +7,7 @@ from project.models import (
     Remittent,
     Laboratory,
     ProducingDepartment,
-    APIUser
+    APIUser,
 )
 from project.OrderingPortal.constants import ProjectStatus
 from project.exec import ProjectStatusError
@@ -24,7 +24,7 @@ import logging
 LOG = logging.getLogger(__name__)
 
 
-class APIStore():
+class APIStore:
     user = User
     project = Project
     examination = Examination
