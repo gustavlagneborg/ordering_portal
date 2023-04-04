@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Welcome back {{current_user.username}}! </h1>
+<h1 id="user-header" value="{{current_user.id}}">Welcome back {{current_user.username}}! </h1>
 
 <!-- Projects section -->
 <div class="user_projects">

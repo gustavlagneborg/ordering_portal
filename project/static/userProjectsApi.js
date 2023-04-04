@@ -207,4 +207,4 @@ function loadUserProjects(userId) {
 
 }
 
-loadUserProjects(1);
+loadUserProjects(document.getElementById("user-header").getAttribute("value"));
